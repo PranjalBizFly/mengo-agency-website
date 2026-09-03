@@ -1,0 +1,1494 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   MENGO FOR AGENCIES — DESIGN SYSTEM
+   ----------------------------------------------------------------------------
+   A separate property from the Mengo end-user site, sharing the brand and
+   nothing else. The identity is fixed — lime on deep forest, Sora for display,
+   Instrument Sans for reading, Instrument Serif for the editorial voice — but
+   the compositional system here is built for a different argument.
+
+   The argument is ownership. Everything an agency already owns stays theirs;
+   Mengo carries the work behind it. So the signature device of this site is
+   not a card grid but a *ledger*: two lanes, side by side, one marked to the
+   agency and one to Mengo. Sections, workflows, comparisons and the growth
+   ladder are all variations on that one idea, which is what keeps sixty pages
+   reading as one publication instead of sixty templates.
+   ========================================================================= */
+
+@theme {
+  /* --- Brand core. Fixed by the Mengo identity. --- */
+  --color-lime: #a3e625;
+  --color-lime-bright: #b9f350;
+  --color-lime-deep: #5f8b14;
+  --color-forest: #022018;
+  --color-forest-900: #01180f;
+  --color-forest-800: #052a1f;
+  --color-forest-700: #0b3325;
+  --color-forest-600: #16402e;
+  --color-forest-500: #1f4c37;
+  --color-sage: #a3b6a9;
+  --color-sage-bright: #c2d0c5;
+
+  /* --- Paper. The reading surface. --- */
+  --color-paper: #f6f7f3;
+  --color-paper-warm: #edefe6;
+  --color-paper-deep: #e3e6da;
+  --color-line: #d5dac9;
+  --color-ink: #131d18;
+  --color-ink-soft: #414e46;
+
+  /* --- Role tokens that never follow the surface --- */
+  --color-on-dark: #ffffff;
+  --color-line-dark: #1d4130;
+  --color-on-accent: #022018;
+  --color-field: #ffffff;
+
+  /* --- Lane colours. The ledger's two sides. -----------------------------
+     The agency lane is the ink of the page — it is the reader's own column.
+     The Mengo lane is the brand accent. They are never the same weight:
+     the agency side always reads first. */
+  --color-lane-agency: #04291d;
+  --color-lane-mengo: #5f8b14;
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  /* Display scale. Fluid clamps from 320px to 1920px with no breakpoint
+     jumps, because this site's headlines are sentences rather than two-word
+     slogans and a stepped scale breaks them at awkward widths. */
+  --text-d1: clamp(2.4rem, 1.45rem + 3.9vw, 4.9rem);
+  --text-d1--line-height: 0.96;
+  --text-d1--letter-spacing: -0.038em;
+  --text-d2: clamp(2rem, 1.3rem + 3.1vw, 3.9rem);
+  --text-d2--line-height: 1;
+  --text-d2--letter-spacing: -0.032em;
+  --text-d3: clamp(1.7rem, 1.1rem + 2.3vw, 2.9rem);
+  --text-d3--line-height: 1.07;
+  --text-d3--letter-spacing: -0.026em;
+  --text-d4: clamp(1.35rem, 1.05rem + 1.2vw, 2rem);
+  --text-d4--line-height: 1.16;
+  --text-d4--letter-spacing: -0.02em;
+
+  --text-lead: clamp(1.0625rem, 0.97rem + 0.5vw, 1.35rem);
+  --text-lead--line-height: 1.55;
+
+  /* Component headings. Deliberately fixed: a row title that grows with the
+     viewport stops reading as a row title. */
+  --text-h5: 1.3125rem;
+  --text-h5--line-height: 1.24;
+  --text-h6: 1.125rem;
+  --text-h6--line-height: 1.3;
+  --text-h7: 1.0625rem;
+  --text-h7--line-height: 1.35;
+
+  --text-prose: 1.0625rem;
+  --text-prose--line-height: 1.72;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.62;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+  --text-fine: 0.8125rem;
+  --text-fine--line-height: 1.5;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.15em;
+
+  --text-statement: clamp(1.4rem, 1.05rem + 1.5vw, 2.3rem);
+  --text-statement--line-height: 1.3;
+
+  /* --- Rhythm ------------------------------------------------------------ */
+  --spacing-gutter: 1.25rem;
+  --spacing-section: clamp(4.75rem, 2.8rem + 7.4vw, 9.75rem);
+  --spacing-section-tight: clamp(3.25rem, 2rem + 4.5vw, 6rem);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+
+  /* --- Form -------------------------------------------------------------- */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+
+  --shadow-sm: 0 2px 10px rgb(2 32 24 / 0.06);
+  --shadow-md: 0 12px 32px -12px rgb(2 32 24 / 0.18);
+  --shadow-lg: 0 28px 64px -20px rgb(2 32 24 / 0.24);
+  --shadow-xl: 0 44px 100px -28px rgb(2 32 24 / 0.34);
+}
+
+/* ============================================================================
+   Dark theme
+   Not an inversion. The light design alternates paper / warm / forest; dark
+   keeps the same three-step rhythm with the inverted band becoming lighter
+   than the ground, so section contrast survives. Lime never flips.
+   ========================================================================= */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #0a1310;
+  --color-paper-warm: #0f1b16;
+  --color-paper-deep: #14231c;
+  --color-line: #23332b;
+  --color-ink: #e9eee9;
+  --color-ink-soft: #a9b6ac;
+  --color-forest: #17241d;
+  --color-forest-900: #101a15;
+  --color-forest-800: #1b2a22;
+  --color-forest-700: #213228;
+  --color-forest-600: #293c31;
+  --color-forest-500: #32483a;
+  --color-sage: #b2c0b4;
+  --color-sage-bright: #ccd8ce;
+  --color-lime-deep: #a3e625;
+  --color-line-dark: #32483a;
+  --color-field: #16221b;
+  --color-lane-agency: #e9eee9;
+  --color-lane-mengo: #a3e625;
+  --shadow-sm: 0 2px 10px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 12px 32px -12px rgb(0 0 0 / 0.62);
+  --shadow-lg: 0 28px 64px -20px rgb(0 0 0 / 0.68);
+  --shadow-xl: 0 44px 100px -28px rgb(0 0 0 / 0.74);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-paper: #0a1310;
+    --color-paper-warm: #0f1b16;
+    --color-paper-deep: #14231c;
+    --color-line: #23332b;
+    --color-ink: #e9eee9;
+    --color-ink-soft: #a9b6ac;
+    --color-forest: #17241d;
+    --color-forest-900: #101a15;
+    --color-forest-800: #1b2a22;
+    --color-forest-700: #213228;
+    --color-forest-600: #293c31;
+    --color-forest-500: #32483a;
+    --color-sage: #b2c0b4;
+    --color-sage-bright: #ccd8ce;
+    --color-lime-deep: #a3e625;
+    --color-line-dark: #32483a;
+    --color-field: #16221b;
+    --color-lane-agency: #e9eee9;
+    --color-lane-mengo: #a3e625;
+    --shadow-sm: 0 2px 10px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 12px 32px -12px rgb(0 0 0 / 0.62);
+    --shadow-lg: 0 28px 64px -20px rgb(0 0 0 / 0.68);
+    --shadow-xl: 0 44px 100px -28px rgb(0 0 0 / 0.74);
+  }
+}
+
+/* ============================================================================
+   Base
+   ========================================================================= */
+
+:root {
+  color-scheme: light;
+  --header-h: 4.25rem;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 5rem;
+  }
+}
+
+/* Every flex and grid child may shrink below its content. This one line is
+   what stops long words, tables and pre blocks pushing the page wider than
+   the viewport at 320px. */
+* {
+  min-width: 0;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Emphasis uses the editorial face rather than a synthesised oblique. */
+em,
+i {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.06em;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-forest);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-lime-deep);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-lime);
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/* ============================================================================
+   Containers
+   ========================================================================= */
+
+@utility wrap {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+  max-width: 85rem;
+}
+
+@utility wrap-prose {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+  max-width: 44rem;
+}
+
+@media (min-width: 768px) {
+  .wrap,
+  .wrap-prose {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrap {
+    padding-inline: 3.5rem;
+  }
+}
+
+/* ============================================================================
+   Rules and labels — the structural primitives
+   ========================================================================= */
+
+@utility rule-t {
+  border-top: 1px solid var(--color-line);
+}
+
+@utility rule-b {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.on-dark .rule-t {
+  border-top-color: var(--color-line-dark);
+}
+
+.on-dark .rule-b {
+  border-bottom-color: var(--color-line-dark);
+}
+
+.photo-band .rule-t {
+  border-top-color: color-mix(in oklab, var(--color-sage) 32%, transparent);
+}
+
+.photo-band .rule-b {
+  border-bottom-color: color-mix(in oklab, var(--color-sage) 32%, transparent);
+}
+
+/* The flat eyebrow: labels a column, a cell, a caption. */
+@utility label {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  line-height: 1.2;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+}
+
+.on-dark .label {
+  color: var(--color-sage-bright);
+}
+
+/* The section-opening eyebrow. A rule with a lime cap rather than a pill:
+   this site's sections open with a line, which is the same gesture the
+   ledger, the spine and the index use, so the whole page reads in one hand. */
+@utility kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  line-height: 1.2;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+}
+
+.kicker::before {
+  content: "";
+  width: 1.75rem;
+  height: 2px;
+  flex: none;
+  background: var(--color-lime-deep);
+}
+
+.on-dark .kicker {
+  color: var(--color-sage-bright);
+}
+
+.on-dark .kicker::before {
+  background: var(--color-lime);
+}
+
+@utility editorial {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------------
+   Index links
+   The dense link lists: the footer, the sitemap page, the glossary index,
+   the FAQ contents rail, the mega panel. Dense is right when the pointer is
+   a cursor — 34px is a comfortable target and these lists are long enough
+   that 44px rows would push the footer's eight columns off the screen.
+
+   A fingertip is not a cursor. Under a coarse pointer the same link grows to
+   the 44px minimum, because the footer is this site's full index and on a
+   phone it is genuinely tapped rather than scrolled past. Density is a
+   pointer-precision question, so it is answered with a pointer query rather
+   than with a breakpoint.
+   ------------------------------------------------------------------ */
+@utility link-index {
+  display: block;
+  padding-block: 0.375rem;
+}
+
+@media (pointer: coarse) {
+  .link-index {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+}
+
+/* --- Type roles: family + weight + tracking, size stays separate ---------- */
+
+@utility type-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.021em;
+}
+
+@utility type-nav {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+@utility type-button {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ============================================================================
+   Inverted grounds: automatic remapping
+   Sections written for paper also run on forest and over photographs. Rather
+   than every template carrying an `on-dark` variant for every colour — a
+   standing trap for whoever adds the next section — the surface remaps its
+   own palette. Explicit variants in components still win: same specificity,
+   declared later.
+   ========================================================================= */
+
+.on-dark .text-ink {
+  color: var(--color-on-dark);
+}
+
+.on-dark .text-ink-soft {
+  color: var(--color-sage-bright);
+}
+
+.on-dark .text-lime-deep {
+  color: var(--color-lime);
+}
+
+.on-dark .border-line {
+  border-color: var(--color-line-dark);
+}
+
+.on-dark .bg-paper,
+.on-dark .bg-paper-warm,
+.on-dark .bg-paper-deep {
+  background-color: color-mix(in oklab, var(--color-sage) 10%, transparent);
+}
+
+.on-dark .decoration-lime-deep {
+  text-decoration-color: var(--color-lime);
+}
+
+.on-dark .bg-lime-deep {
+  background-color: var(--color-lime);
+}
+
+.photo-band .border-line {
+  border-color: color-mix(in oklab, var(--color-sage) 32%, transparent);
+}
+
+.photo-band h1,
+.photo-band h2,
+.photo-band h3,
+.photo-band h4 {
+  color: var(--color-on-dark);
+}
+
+/* ============================================================================
+   THE LEDGER — this site's signature device
+   ----------------------------------------------------------------------------
+   Two lanes with a rule between them. The left lane is what the agency owns;
+   the right is what Mengo carries. The divider is a real line rather than a
+   gap, because the point being made is that there *is* a boundary and it does
+   not move. On a phone the lanes stack and each keeps its own header, so the
+   attribution is never lost.
+   ========================================================================= */
+
+@utility ledger {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.on-dark .ledger {
+  border-top-color: var(--color-line-dark);
+}
+
+.photo-band .ledger {
+  border-top-color: color-mix(in oklab, var(--color-sage) 32%, transparent);
+}
+
+.ledger-lane {
+  padding-block: 2rem;
+}
+
+.ledger-lane + .ledger-lane {
+  border-top: 1px solid var(--color-line);
+}
+
+.on-dark .ledger-lane + .ledger-lane {
+  border-top-color: var(--color-line-dark);
+}
+
+.photo-band .ledger-lane + .ledger-lane {
+  border-top-color: color-mix(in oklab, var(--color-sage) 32%, transparent);
+}
+
+@media (min-width: 900px) {
+  .ledger {
+    grid-template-columns: 1fr 1px 1fr;
+  }
+
+  .ledger-lane {
+    padding-block: 2.5rem;
+  }
+
+  .ledger-lane + .ledger-lane {
+    border-top: 0;
+  }
+
+  .ledger-rule {
+    background: var(--color-line);
+  }
+
+  .on-dark .ledger-rule {
+    background: var(--color-line-dark);
+  }
+
+  .photo-band .ledger-rule {
+    background: color-mix(in oklab, var(--color-sage) 32%, transparent);
+  }
+
+  .ledger-lane:first-child {
+    padding-inline-end: 3rem;
+  }
+
+  .ledger-lane:last-child {
+    padding-inline-start: 3rem;
+  }
+}
+
+/* The lane header: a mark, a name, a one-line statement of what this side is. */
+.lane-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 1.25rem;
+}
+
+.lane-mark {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 999px;
+  transform: translateY(-0.1em);
+}
+
+.lane-mark[data-lane="agency"] {
+  background: var(--color-lane-agency);
+}
+
+.lane-mark[data-lane="mengo"] {
+  background: var(--color-lane-mengo);
+}
+
+.on-dark .lane-mark[data-lane="agency"] {
+  background: var(--color-on-dark);
+}
+
+.on-dark .lane-mark[data-lane="mengo"] {
+  background: var(--color-lime);
+}
+
+/* Entries in a lane. A hairline each, no boxes — these are read, not clicked. */
+.lane-item {
+  position: relative;
+  padding-block: 1rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-line) 70%, transparent);
+}
+
+.lane-item:first-of-type {
+  border-top: 0;
+}
+
+.on-dark .lane-item {
+  border-top-color: color-mix(in oklab, var(--color-line-dark) 90%, transparent);
+}
+
+.photo-band .lane-item {
+  border-top-color: color-mix(in oklab, var(--color-sage) 26%, transparent);
+}
+
+/* ============================================================================
+   THE SPINE — a workflow as one continuous line
+   ----------------------------------------------------------------------------
+   Steps threaded on a vertical rule, each tagged with the lane that owns it.
+   A workflow drawn as a row of cards reads as a feature list; drawn on a line
+   it reads as one process moving in one direction, which is the whole claim.
+   ========================================================================= */
+
+@utility spine {
+  position: relative;
+  display: grid;
+  gap: 0;
+  padding-inline-start: 2.75rem;
+}
+
+/* The thread. Inset to sit under the centre of each node. */
+.spine::before {
+  content: "";
+  position: absolute;
+  inset-block: 1.9rem 1.6rem;
+  inset-inline-start: 0.6875rem;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-line) 0%,
+    var(--color-line) 88%,
+    transparent 100%
+  );
+}
+
+.on-dark .spine::before {
+  background: linear-gradient(
+    to bottom,
+    var(--color-line-dark) 0%,
+    var(--color-line-dark) 88%,
+    transparent 100%
+  );
+}
+
+.photo-band .spine::before {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-sage) 34%, transparent) 0%,
+    color-mix(in oklab, var(--color-sage) 34%, transparent) 88%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .spine {
+    padding-inline-start: 3.5rem;
+  }
+
+  .spine::before {
+    inset-inline-start: 0.8125rem;
+  }
+}
+
+.spine-step {
+  position: relative;
+  padding-block: 1.4rem;
+}
+
+.spine-step + .spine-step {
+  border-top: 1px solid color-mix(in oklab, var(--color-line) 65%, transparent);
+}
+
+.on-dark .spine-step + .spine-step {
+  border-top-color: color-mix(in oklab, var(--color-line-dark) 85%, transparent);
+}
+
+.photo-band .spine-step + .spine-step {
+  border-top-color: color-mix(in oklab, var(--color-sage) 24%, transparent);
+}
+
+/* The node. Filled lime where Mengo carries the step, outlined in the page's
+   own ink where the agency does — so a reader can see, at a glance and
+   without reading a word, that the agency's nodes bracket the process. */
+.spine-node {
+  position: absolute;
+  inset-block-start: 1.7rem;
+  inset-inline-start: -2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-lane-agency);
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-lane-agency);
+}
+
+@media (min-width: 768px) {
+  .spine-node {
+    inset-inline-start: -3.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+.spine-node[data-lane="mengo"] {
+  background: var(--color-lime);
+  border-color: var(--color-lime);
+  color: var(--color-on-accent);
+}
+
+.on-dark .spine-node {
+  background: var(--color-forest);
+  border-color: var(--color-on-dark);
+  color: var(--color-on-dark);
+}
+
+.on-dark .spine-node[data-lane="mengo"] {
+  background: var(--color-lime);
+  border-color: var(--color-lime);
+  color: var(--color-on-accent);
+}
+
+.photo-band .spine-node {
+  background: var(--color-forest);
+}
+
+/* ============================================================================
+   THE LADDER — agency growth stages
+   ----------------------------------------------------------------------------
+   Five stages as a horizontal run on desktop and a stacked run on a phone,
+   each on a rule with a rising tick. It is a navigational device: every stage
+   links to its own page.
+   ========================================================================= */
+
+@utility ladder {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+@media (min-width: 640px) {
+  .ladder {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .ladder {
+    grid-template-columns: repeat(var(--ladder-cols, 5), minmax(0, 1fr));
+    column-gap: 1.75rem;
+  }
+}
+
+.ladder-step {
+  position: relative;
+  display: block;
+  padding-block: 2.25rem 1.75rem;
+  border-top: 1px solid var(--color-line);
+  transition: border-color 0.4s var(--ease-out-expo);
+}
+
+.on-dark .ladder-step {
+  border-top-color: var(--color-line-dark);
+}
+
+.photo-band .ladder-step {
+  border-top-color: color-mix(in oklab, var(--color-sage) 32%, transparent);
+}
+
+/* The rising tick: a lime bar whose height encodes the stage. It is the only
+   quantitative mark on the site and it is honest — it encodes position in the
+   sequence, not a fabricated metric. */
+.ladder-tick {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  width: 2px;
+  height: calc(0.55rem + var(--ladder-i, 0) * 0.42rem);
+  background: var(--color-lime-deep);
+  transform-origin: top;
+  transition: height 0.5s var(--ease-out-expo);
+}
+
+.on-dark .ladder-tick {
+  background: var(--color-lime);
+}
+
+@media (hover: hover) {
+  .ladder-step:hover .ladder-tick {
+    height: 2.35rem;
+  }
+
+  .ladder-step:hover {
+    border-top-color: var(--color-lime-deep);
+  }
+}
+
+.ladder-step:focus-visible .ladder-tick {
+  height: 2.35rem;
+}
+
+/* ============================================================================
+   THE INDEX — ruled entries for content that is read
+   ----------------------------------------------------------------------------
+   The line the whole system is drawn on: content a reader *reads* gets a
+   hairline and the page's own ground; objects a reader *acts on* get a
+   surface. Definitions, outcomes and conclusions are read, so they are set
+   like a printed index rather than boxed into cards.
+   ========================================================================= */
+
+@utility index-rows {
+  display: grid;
+  column-gap: 3rem;
+  row-gap: 0;
+}
+
+.index-rows > * {
+  position: relative;
+  border-top: 1px solid var(--color-line);
+  padding-block: 1.75rem;
+}
+
+/* The tick sits *on* the rule, not under it. Without it a run of entries
+   reads as an undecorated table. */
+.index-rows > *::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -1px;
+  inset-inline-start: 0;
+  width: 1.75rem;
+  height: 1px;
+  background: var(--color-lime-deep);
+}
+
+.index-rows[data-numbered] > * {
+  padding-inline-start: 3.25rem;
+}
+
+.index-rows[data-numbered] > *::before {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .index-rows {
+    column-gap: 4rem;
+  }
+}
+
+.on-dark .index-rows > * {
+  border-top-color: var(--color-line-dark);
+}
+
+.on-dark .index-rows > *::before {
+  background: var(--color-lime);
+}
+
+.photo-band .index-rows > * {
+  border-top-color: color-mix(in oklab, var(--color-sage) 32%, transparent);
+}
+
+/* The numeral for an ordered argument. A real element rather than a CSS
+   counter: anything a reader can see stays in the document, so the content
+   audit and a screen reader's browse mode see the same page. */
+.index-num {
+  position: absolute;
+  inset-block-start: 1.55rem;
+  inset-inline-start: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--color-lime-deep) 35%, transparent);
+  background: color-mix(in oklab, var(--color-lime) 15%, transparent);
+  color: var(--color-lime-deep);
+  font-family: var(--font-display);
+  font-size: var(--text-fine);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.on-dark .index-num {
+  border-color: color-mix(in oklab, var(--color-lime) 45%, transparent);
+  color: var(--color-lime);
+}
+
+/* ============================================================================
+   Surfaces — for objects, not for reading content
+   ========================================================================= */
+
+@utility surface {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    box-shadow 0.45s var(--ease-out-expo),
+    border-color 0.45s var(--ease-out-expo);
+}
+
+@media (hover: hover) {
+  a.surface:hover,
+  .surface-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in oklab, var(--color-lime-deep) 30%, var(--color-line));
+  }
+}
+
+.on-dark .surface {
+  background: var(--color-forest-700);
+  border-color: var(--color-line-dark);
+}
+
+@utility surface-quiet {
+  background: var(--color-paper-warm);
+  border-radius: var(--radius-md);
+}
+
+.on-dark .surface-quiet {
+  background: color-mix(in oklab, var(--color-sage) 9%, transparent);
+}
+
+/* On a photograph a grid of raised cards reads as a template dropped onto a
+   backdrop. The same content keeps only its hairline there. */
+.photo-band .surface {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid color-mix(in oklab, var(--color-sage) 32%, transparent);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ============================================================================
+   Photography
+   ========================================================================= */
+
+@utility frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-forest-800);
+  box-shadow: var(--shadow-lg);
+}
+
+/* The full-bleed photographic band. The ground beneath is a real, opaque
+   forest and the picture layers on top at full strength with a directional
+   wash over it — so a reader sees photography while a contrast checker
+   resolves type against a genuine dark colour. */
+@utility photo-band {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-forest);
+}
+
+.photo-band > .photo-band-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.photo-band > .photo-band-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+}
+
+.photo-band > .photo-band-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Each wash darkens only the region the type actually occupies. */
+.photo-band > .photo-band-media[data-scrim="hero"]::after {
+  background:
+    linear-gradient(
+      100deg,
+      rgb(2 32 24 / 0.94) 0%,
+      rgb(2 32 24 / 0.89) 36%,
+      rgb(2 32 24 / 0.52) 64%,
+      rgb(2 32 24 / 0.2) 100%
+    ),
+    linear-gradient(to top, rgb(2 32 24 / 0.68) 0%, transparent 44%);
+}
+
+.photo-band > .photo-band-media[data-scrim="start"]::after {
+  background:
+    linear-gradient(
+      95deg,
+      rgb(2 32 24 / 0.92) 0%,
+      rgb(2 32 24 / 0.88) 52%,
+      rgb(2 32 24 / 0.77) 77%,
+      rgb(2 32 24 / 0.3) 100%
+    ),
+    linear-gradient(to top, rgb(2 32 24 / 0.52) 0%, transparent 42%);
+}
+
+.photo-band > .photo-band-media[data-scrim="end"]::after {
+  background:
+    linear-gradient(
+      265deg,
+      rgb(2 32 24 / 0.92) 0%,
+      rgb(2 32 24 / 0.88) 52%,
+      rgb(2 32 24 / 0.77) 77%,
+      rgb(2 32 24 / 0.3) 100%
+    ),
+    linear-gradient(to top, rgb(2 32 24 / 0.52) 0%, transparent 42%);
+}
+
+.photo-band > .photo-band-media[data-scrim="even"]::after {
+  background: linear-gradient(
+    155deg,
+    rgb(2 32 24 / 0.86) 0%,
+    rgb(2 32 24 / 0.76) 55%,
+    rgb(2 32 24 / 0.84) 100%
+  );
+}
+
+.photo-band > .photo-band-media[data-scrim="panel"]::after {
+  background: linear-gradient(
+    120deg,
+    rgb(2 32 24 / 0.55) 0%,
+    rgb(2 32 24 / 0.34) 60%,
+    rgb(2 32 24 / 0.48) 100%
+  );
+}
+
+/* A directional wash needs horizontal room. On a phone the type spans the
+   whole frame, so there is no clear side to leave for the picture and every
+   variant falls back to an even vertical wash. */
+@media (max-width: 900px) {
+  .photo-band > .photo-band-media[data-scrim="hero"]::after,
+  .photo-band > .photo-band-media[data-scrim="start"]::after,
+  .photo-band > .photo-band-media[data-scrim="end"]::after {
+    background: linear-gradient(
+      180deg,
+      rgb(2 32 24 / 0.88) 0%,
+      rgb(2 32 24 / 0.82) 50%,
+      rgb(2 32 24 / 0.91) 100%
+    );
+  }
+
+  .photo-band > .photo-band-media[data-scrim="panel"]::after {
+    background: linear-gradient(180deg, rgb(2 32 24 / 0.66) 0%, rgb(2 32 24 / 0.56) 100%);
+  }
+}
+
+/* A content panel over photography. Deliberately translucent: the picture has
+   to read through it, which is what keeps the composition one image rather
+   than a card sitting on a backdrop. */
+@utility photo-panel {
+  background: color-mix(in oklab, var(--color-forest-900) 82%, transparent);
+  backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid color-mix(in oklab, var(--color-sage) 26%, transparent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ============================================================================
+   Comparison table
+   Genuinely tabular content, set as a table. It scrolls inside its own
+   container rather than widening the page.
+   ========================================================================= */
+
+@utility compare-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.compare-table {
+  width: 100%;
+  min-width: 44rem;
+  text-align: left;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 1.15rem 1.25rem;
+  border-top: 1px solid var(--color-line);
+  vertical-align: top;
+}
+
+.on-dark .compare-table th,
+.on-dark .compare-table td {
+  border-top-color: var(--color-line-dark);
+}
+
+.compare-table thead th {
+  border-top: 0;
+  padding-block: 0 1rem;
+}
+
+.compare-table th:first-child,
+.compare-table td:first-child {
+  padding-inline-start: 0;
+  width: 26%;
+}
+
+.compare-table td:last-child,
+.compare-table th:last-child {
+  padding-inline-end: 0;
+}
+
+/* The Mengo column carries a faint lime ground so the eye can find it without
+   the table shouting. */
+.compare-table [data-col="mengo"] {
+  background: color-mix(in oklab, var(--color-lime) 10%, transparent);
+}
+
+/* ============================================================================
+   Story rows — the linked index
+   A column of links with an arrow that travels and a rule that fills. All
+   transform and opacity, so a section of twenty rows costs nothing to hover.
+   ========================================================================= */
+
+.story-rows {
+  display: grid;
+}
+
+@media (min-width: 700px) {
+  .story-rows[data-cols="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem;
+  }
+}
+
+.story-row {
+  position: relative;
+  display: block;
+  padding-block: 1.55rem;
+}
+
+.story-row-rule {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: var(--color-line);
+}
+
+.on-dark .story-row-rule {
+  background: var(--color-line-dark);
+}
+
+.photo-band .story-row-rule {
+  background: color-mix(in oklab, var(--color-sage) 30%, transparent);
+}
+
+.story-row-rule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-lime-deep);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-out-expo);
+}
+
+.on-dark .story-row-rule::after {
+  background: var(--color-lime);
+}
+
+.story-row:hover .story-row-rule::after,
+.story-row:focus-visible .story-row-rule::after {
+  transform: scaleX(1);
+}
+
+.story-row-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 1.25rem;
+  align-items: start;
+}
+
+.story-row-arrow {
+  display: flex;
+  align-items: center;
+  padding-top: 0.3rem;
+  color: var(--color-lime-deep);
+  opacity: 0;
+  transform: translateX(-0.4rem);
+  transition:
+    opacity 0.4s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+}
+
+.on-dark .story-row-arrow {
+  color: var(--color-lime);
+}
+
+.story-row:hover .story-row-arrow,
+.story-row:focus-visible .story-row-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* A touch reader has no hover, so anything gated behind it is simply on. */
+@media (hover: none) {
+  .story-row-arrow {
+    opacity: 0.6;
+    transform: none;
+  }
+}
+
+/* ============================================================================
+   Long-form reading
+   ========================================================================= */
+
+.prose-mengo {
+  font-size: var(--text-prose);
+  line-height: 1.72;
+  color: var(--color-ink-soft);
+}
+
+.prose-mengo > * + * {
+  margin-top: 1.3em;
+}
+
+.prose-mengo h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-d4);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin-top: 2.3em;
+  scroll-margin-top: calc(var(--header-h) + 2rem);
+}
+
+.prose-mengo h3 {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-top: 1.8em;
+}
+
+.prose-mengo strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.prose-mengo ul,
+.prose-mengo ol {
+  padding-left: 1.15em;
+}
+
+.prose-mengo li + li {
+  margin-top: 0.5em;
+}
+
+.prose-mengo ul > li {
+  list-style: none;
+  position: relative;
+}
+
+.prose-mengo ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1em;
+  top: 0.72em;
+  width: 0.4em;
+  height: 1px;
+  background: var(--color-lime-deep);
+}
+
+.prose-mengo ol {
+  list-style: decimal;
+}
+
+.prose-mengo a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-lime-deep);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+
+.prose-mengo a:hover {
+  color: var(--color-lime-deep);
+}
+
+.prose-mengo blockquote {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  color: var(--color-ink);
+  border-left: 2px solid var(--color-lime);
+  padding-left: 1.25rem;
+}
+
+/* ============================================================================
+   Motion
+   Content ships visible. The hidden state exists only under `html.js-reveal`,
+   which the head script arms before first paint and only when JavaScript ran,
+   IntersectionObserver exists and reduced motion was not requested — so a
+   crawler, a no-JS reader and a reduced-motion reader always get the full
+   page and never a blank one.
+   ========================================================================= */
+
+html.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.15rem);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.js-reveal [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* A photograph that slides up reads as a slide deck; one that settles out of
+   a slight scale reads as a photograph arriving. */
+html.js-reveal [data-reveal="media"] {
+  opacity: 0;
+  transform: scale(1.035);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 1.1s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.js-reveal [data-reveal="media"].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Line-level reveal for display type. The geometry is identical before and
+   after the class lands — the inner element is block in both states — because
+   switching it after hydration drops the parent's inline strut and shortens
+   the heading by a line, which is a layout shift on every page. */
+[data-reveal-lines] > * {
+  display: block;
+}
+
+[data-reveal-lines] {
+  overflow: hidden;
+}
+
+html.js-reveal [data-reveal-lines]:not(.is-revealed) > * {
+  opacity: 0;
+  transform: translateY(0.68em);
+}
+
+html.js-reveal [data-reveal-lines] > * {
+  transition:
+    opacity 0.85s var(--ease-out-expo),
+    transform 0.85s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Reading progress, painted by the same rAF loop as the drift. */
+.scroll-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 60;
+  height: 2px;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+  background: linear-gradient(90deg, var(--color-lime-deep), var(--color-lime));
+  pointer-events: none;
+}
+
+/* Drift, not movement. */
+[data-drift] img {
+  transform: translate3d(0, var(--drift, 0px), 0) scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
+  html.js-reveal [data-reveal],
+  html.js-reveal [data-reveal].is-revealed,
+  html.js-reveal [data-reveal="media"],
+  html.js-reveal [data-reveal="media"].is-revealed,
+  html.js-reveal [data-reveal-lines]:not(.is-revealed) > *,
+  html.js-reveal [data-reveal-lines] > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  [data-drift] img {
+    transform: none;
+  }
+
+  .scroll-progress {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   Navigation
+   The mega panel mounts on open, so its entrance is an animation rather than
+   a transition. Columns resolve a beat behind the panel edge: the surface
+   arrives, then the content settles into it — which is the difference between
+   a menu that opens and a menu that appears.
+   ========================================================================= */
+
+@keyframes mega-panel {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    clip-path: inset(0 0 44% 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes mega-column {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.mega-panel {
+  animation: mega-panel 0.36s var(--ease-out-expo) both;
+}
+
+.mega-panel [data-mega-col] {
+  animation: mega-column 0.5s var(--ease-out-expo) both;
+  animation-delay: calc(60ms + var(--mega-index, 0) * 45ms);
+}
+
+/* The underline that grows from the left on a nav item. */
+.nav-item {
+  position: relative;
+}
+
+.nav-item::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0.625rem;
+  bottom: 0.375rem;
+  height: 1px;
+  background: var(--color-lime-deep);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out-expo);
+}
+
+.nav-item:hover::after,
+.nav-item[data-open="true"]::after {
+  transform: scaleX(1);
+}

@@ -1,0 +1,592 @@
+{
+  "home:index:hero": {
+    "key": "home:index:hero",
+    "src": "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A team working through a plan together, one person standing at a flip chart while colleagues sit with laptops",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Austin Distel",
+    "sourceUrl": "https://unsplash.com/photos/1557804506-669a67965ba0",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "home:index:reality": {
+    "key": "home:index:reality",
+    "src": "https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A marketer working alone at a desk in front of two monitors",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Campaign Creators",
+    "sourceUrl": "https://unsplash.com/photos/1542744094-3a31f272c490",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "home:index:together": {
+    "key": "home:index:together",
+    "src": "https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Two colleagues in conversation across a small table beside a window",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1573497491208-6b1acb260507",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "home:index:workflow": {
+    "key": "home:index:workflow",
+    "src": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A team meeting in front of a wall covered in coloured sticky notes",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Jason Goodman",
+    "sourceUrl": "https://unsplash.com/photos/1552664730-d307ca884978",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "home:index:scale": {
+    "key": "home:index:scale",
+    "src": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A large open-plan office with rows of people working at long desks",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1504384308090-c894fdcc538d",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "home:index:close": {
+    "key": "home:index:close",
+    "src": "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Four colleagues talking around a table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1543269865-cbf427effbad",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "page:why-mengo:hero": {
+    "key": "page:why-mengo:hero",
+    "src": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A speaker presenting to a seated audience in a brick-walled room",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Austin Distel",
+    "sourceUrl": "https://unsplash.com/photos/1556761175-5973dc0f32e7",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "page:why-mengo:control": {
+    "key": "page:why-mengo:control",
+    "src": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2000&q=84",
+    "alt": "One person pointing at a laptop screen while another types",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "John Schnobrich",
+    "sourceUrl": "https://unsplash.com/photos/1516321318423-f06f85e504b3",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "page:why-mengo:structure": {
+    "key": "page:why-mengo:structure",
+    "src": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Overhead view of a shared desk covered with laptops, notebooks and devices",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Marvin Meyer",
+    "sourceUrl": "https://unsplash.com/photos/1519389950473-47ba0277781c",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "page:how-it-works:hero": {
+    "key": "page:how-it-works:hero",
+    "src": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=2000&q=84",
+    "alt": "People working at laptops around a long boardroom table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Campaign Creators",
+    "sourceUrl": "https://unsplash.com/photos/1542744173-8e7e53415bb0",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "page:how-it-works:brief": {
+    "key": "page:how-it-works:brief",
+    "src": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Hands writing on a printed plan between two open laptops",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Scott Graham",
+    "sourceUrl": "https://unsplash.com/photos/1454165804606-c3d57bc86b40",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "page:how-it-works:review": {
+    "key": "page:how-it-works:review",
+    "src": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Two colleagues reviewing something together on a monitor",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1531482615713-2afd69097998",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stages:index:hero": {
+    "key": "stages:index:hero",
+    "src": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=2000&q=84",
+    "alt": "People working at tables in a café-style shared workspace",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Lycs Architecture",
+    "sourceUrl": "https://unsplash.com/photos/1568992687947-868a62a9f521",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:start-an-agency:hero": {
+    "key": "stage:start-an-agency:hero",
+    "src": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A hand writing in a notebook beside a cup of coffee",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Green Chameleon",
+    "sourceUrl": "https://unsplash.com/photos/1434030216411-0b793f4b4173",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:start-an-agency:week": {
+    "key": "stage:start-an-agency:week",
+    "src": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Hands typing on a laptop keyboard",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1486312338219-ce68d2c6f44d",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:solo-agency:hero": {
+    "key": "stage:solo-agency:hero",
+    "src": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A single desk by a tall window, with plants and a laptop",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:solo-agency:week": {
+    "key": "stage:solo-agency:week",
+    "src": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A laptop, pen and coffee cup on a white desk",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1501504905252-473c47e087f8",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:small-agency:hero": {
+    "key": "stage:small-agency:hero",
+    "src": "https://images.unsplash.com/photo-1522071901873-411886a10004?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Four colleagues working at laptops around a table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Campaign Creators",
+    "sourceUrl": "https://unsplash.com/photos/1522071901873-411886a10004",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:small-agency:week": {
+    "key": "stage:small-agency:week",
+    "src": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A small team working on laptops around a shared table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Annie Spratt",
+    "sourceUrl": "https://unsplash.com/photos/1522071820081-009f0129c71c",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:growing-agency:hero": {
+    "key": "stage:growing-agency:hero",
+    "src": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A long table of people working in a dimly lit room",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Priscilla Du Preez",
+    "sourceUrl": "https://unsplash.com/photos/1521737604893-d14cc237f11d",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:growing-agency:week": {
+    "key": "stage:growing-agency:week",
+    "src": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Several people working at laptops around a table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1521737711867-e3b97375f902",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:large-agency:hero": {
+    "key": "stage:large-agency:hero",
+    "src": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A large seated audience facing a presenter in a panelled room",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1524178232363-1fb2b075b655",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "stage:large-agency:week": {
+    "key": "stage:large-agency:week",
+    "src": "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A modern open-plan office with workstations and breakout seating",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1556761175-4b46a572b786",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "capabilities:index:hero": {
+    "key": "capabilities:index:hero",
+    "src": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Several people writing and annotating documents at a wooden table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Dylan Gillis",
+    "sourceUrl": "https://unsplash.com/photos/1517048676732-d65bc937f952",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "capability:strategy:hero": {
+    "key": "capability:strategy:hero",
+    "src": "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A woman standing in front of a whiteboard covered in notes",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1573496799652-408c2ac9fe98",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "capability:content:hero": {
+    "key": "capability:content:hero",
+    "src": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Hands working across printed charts, sketches and a phone",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1432888498266-38ffec3eaf0a",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "capability:campaigns:hero": {
+    "key": "capability:campaigns:hero",
+    "src": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A hand pinning printed layouts onto a planning wall",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Danial Igdery",
+    "sourceUrl": "https://unsplash.com/photos/1531403009284-440f080d1e12",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "capability:lead-nurturing:hero": {
+    "key": "capability:lead-nurturing:hero",
+    "src": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A person using a phone beside an open laptop",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1563986768609-322da13575f3",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "capability:research:hero": {
+    "key": "capability:research:hero",
+    "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A laptop displaying an analytics dashboard on a desk",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Carlos Muza",
+    "sourceUrl": "https://unsplash.com/photos/1460925895917-afdab827c52f",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "capability:marketing-systems:hero": {
+    "key": "capability:marketing-systems:hero",
+    "src": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=2000&q=84",
+    "alt": "An overhead desk with a journal, glasses, coffee and a tablet",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Kelly Sikkema",
+    "sourceUrl": "https://unsplash.com/photos/1488190211105-8b0e65b80b4e",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "workflows:index:hero": {
+    "key": "workflows:index:hero",
+    "src": "https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=2000&q=84",
+    "alt": "An open-plan office with people working at desks",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1531497865144-0464ef8fb9a9",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "workflow:client-onboarding:hero": {
+    "key": "workflow:client-onboarding:hero",
+    "src": "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Four colleagues gathered around a laptop in conversation",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1531545514256-b1400bc00f31",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "workflow:strategy-and-planning:hero": {
+    "key": "workflow:strategy-and-planning:hero",
+    "src": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Hands gesturing across a meeting table beside an open laptop",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Headway",
+    "sourceUrl": "https://unsplash.com/photos/1517245386807-bb43f82c33c4",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "workflow:content-production:hero": {
+    "key": "workflow:content-production:hero",
+    "src": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Several people's hands around a laptop on a table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1516321497487-e288fb19713f",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "workflow:campaign-planning:hero": {
+    "key": "workflow:campaign-planning:hero",
+    "src": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Two colleagues discussing work at a table with a laptop",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Amy Hirschi",
+    "sourceUrl": "https://unsplash.com/photos/1551836022-d5d88e9218df",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "workflow:lead-nurturing-flows:hero": {
+    "key": "workflow:lead-nurturing-flows:hero",
+    "src": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A person working on a phone above printed documents",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Kelly Sikkema",
+    "sourceUrl": "https://unsplash.com/photos/1554224155-8d04cb21cd6c",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "workflow:scale-client-delivery:hero": {
+    "key": "workflow:scale-client-delivery:hero",
+    "src": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A screen filled with analytics charts",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Luke Chesser",
+    "sourceUrl": "https://unsplash.com/photos/1551288049-bebda4e38f71",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "industry:saas-software:hero": {
+    "key": "industry:saas-software:hero",
+    "src": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A laptop showing lines of code on a white desk",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1498050108023-c5249f4df085",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "industry:professional-services:hero": {
+    "key": "industry:professional-services:hero",
+    "src": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A person in a suit fastening their jacket in an office atrium",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Hunters Race",
+    "sourceUrl": "https://unsplash.com/photos/1507679799987-c73779587ccf",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "industry:ecommerce-d2c:hero": {
+    "key": "industry:ecommerce-d2c:hero",
+    "src": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A distribution warehouse stacked with palletised goods",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1586528116311-ad8dd3c8310d",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "industry:healthcare:hero": {
+    "key": "industry:healthcare:hero",
+    "src": "https://images.unsplash.com/photo-1583912267670-6575ad472688?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A researcher working at a microscope in a laboratory",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "CDC",
+    "sourceUrl": "https://unsplash.com/photos/1583912267670-6575ad472688",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "industry:real-estate:hero": {
+    "key": "industry:real-estate:hero",
+    "src": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2000&q=84",
+    "alt": "The living room of a newly finished property",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Spacejoy",
+    "sourceUrl": "https://unsplash.com/photos/1618221195710-dd6b41faaea6",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "industry:local-multi-location:hero": {
+    "key": "industry:local-multi-location:hero",
+    "src": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2000&q=84",
+    "alt": "The interior of a café with customers at tables",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Petr Sevcik",
+    "sourceUrl": "https://unsplash.com/photos/1555396273-367ea4eb4db5",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "usecase:start-an-agency:hero": {
+    "key": "usecase:start-an-agency:hero",
+    "src": "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?auto=format&fit=crop&w=2000&q=84",
+    "alt": "An open notebook and fountain pen on a wooden desk",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1471107340929-a87cd0f5b5f3",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "usecase:handle-more-clients:hero": {
+    "key": "usecase:handle-more-clients:hero",
+    "src": "https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A professional standing in a glass-walled office",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1573497019236-17f8177b81e8",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "usecase:deliver-faster:hero": {
+    "key": "usecase:deliver-faster:hero",
+    "src": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Two colleagues high-fiving across a desk of laptops and papers",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Nastuh Abootalebi",
+    "sourceUrl": "https://unsplash.com/photos/1600880292203-757bb62b4baf",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "usecase:reduce-repetitive-work:hero": {
+    "key": "usecase:reduce-repetitive-work:hero",
+    "src": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Three colleagues working at laptops around a table",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Brooke Cagle",
+    "sourceUrl": "https://unsplash.com/photos/1522202176988-66273c2fd55f",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "usecase:standardize-delivery:hero": {
+    "key": "usecase:standardize-delivery:hero",
+    "src": "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A tidy desk with a laptop, a phone and a small plant",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1512486130939-2c4f79935e4f",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "usecase:scale-without-hiring:hero": {
+    "key": "usecase:scale-without-hiring:hero",
+    "src": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A portrait of a professional in an office",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1573497019418-b400bb3ab074",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "resources:index:hero": {
+    "key": "resources:index:hero",
+    "src": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2000&q=84",
+    "alt": "Three people looking through books in a library",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1523240795612-9a054b0db644",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "resources:playbooks:hero": {
+    "key": "resources:playbooks:hero",
+    "src": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A person drafting by hand on a large sheet of paper",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Daniel McCullough",
+    "sourceUrl": "https://unsplash.com/photos/1503387762-592deb58ef4e",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "resources:guides:hero": {
+    "key": "resources:guides:hero",
+    "src": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A laptop, notebook and coffee cup on a wooden desk",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Glenn Carstens-Peters",
+    "sourceUrl": "https://unsplash.com/photos/1499750310107-5fef28a66643",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "resources:blog:hero": {
+    "key": "resources:blog:hero",
+    "src": "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A business newspaper open at the market listings",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "MayoFi",
+    "sourceUrl": "https://unsplash.com/photos/1579532537598-459ecdaf39cc",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "company:index:hero": {
+    "key": "company:index:hero",
+    "src": "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=2000&q=84",
+    "alt": "An open-plan office with a few people meeting at a table in the distance",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Campaign Creators",
+    "sourceUrl": "https://unsplash.com/photos/1531973576160-7125cd663d86",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "company:about:hero": {
+    "key": "company:about:hero",
+    "src": "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A team gathered around a laptop, reacting to what is on the screen",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Campaign Creators",
+    "sourceUrl": "https://unsplash.com/photos/1576267423445-b2e0074d68a4",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "company:founder:hero": {
+    "key": "company:founder:hero",
+    "src": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A speaker addressing a standing audience at an event",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1515187029135-18ee286d815b",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "company:responsible-ai:hero": {
+    "key": "company:responsible-ai:hero",
+    "src": "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A laptop on a table showing a data dashboard",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Campaign Creators",
+    "sourceUrl": "https://unsplash.com/photos/1504868584819-f8e8b4b6d7e3",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "company:contact:hero": {
+    "key": "company:contact:hero",
+    "src": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A person in a grey jacket, smiling, in a bright room",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Christina @ wocintechchat.com",
+    "sourceUrl": "https://unsplash.com/photos/1573496359142-b8d87734a5a2",
+    "license": "Unsplash License — free for commercial and editorial use"
+  },
+  "page:get-started:hero": {
+    "key": "page:get-started:hero",
+    "src": "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=2000&q=84",
+    "alt": "A person holding a mug, standing beside a brick wall",
+    "width": 2000,
+    "height": 1125,
+    "photographer": "Unsplash Verified Contributor",
+    "sourceUrl": "https://unsplash.com/photos/1551836022-deb4988cc6c0",
+    "license": "Unsplash License — free for commercial and editorial use"
+  }
+}

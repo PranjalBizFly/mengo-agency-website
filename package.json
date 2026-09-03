@@ -1,0 +1,33 @@
+{
+  "name": "mengo-agency-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mengo for Agencies — the agency-facing website. Independent of the Mengo end-user site.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "photos:build": "node scripts/build-photo-registry.mjs",
+    "audit:images": "node scripts/audit-images.mjs",
+    "audit:links": "node scripts/audit-links.mjs",
+    "audit:a11y": "node scripts/audit-a11y.mjs",
+    "audit:routes": "node scripts/audit-routes.mjs",
+    "audit:responsive": "node scripts/audit-responsive.mjs",
+    "qa": "npm run typecheck && npm run build && npm run audit:images && npm run audit:links && npm run audit:a11y && npm run audit:routes"
+  },
+  "dependencies": {
+    "next": "^15.5.4",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "playwright-core": "^1.62.1",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.7.0"
+  }
+}
