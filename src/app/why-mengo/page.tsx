@@ -251,7 +251,15 @@ export default function WhyMengoPage() {
               ]}
             />
           </div>
-          {controlPhoto ? <Figure photo={controlPhoto} aspect="4/3" drift /> : null}
+          {controlPhoto ? (
+            <Figure
+              photo={controlPhoto}
+              aspect="4/3"
+              drift
+              context="The limit"
+              caption="More output than you can review is unedited work across a larger portfolio, which costs more than being at capacity."
+            />
+          ) : null}
         </div>
       </Section>
 
@@ -299,7 +307,7 @@ export default function WhyMengoPage() {
         />
         <div className="mt-14 flex flex-wrap gap-3" data-reveal>
           <ButtonLink href={routes.howItWorks()}>How it works</ButtonLink>
-          <ButtonLink href={routes.forAgencies()} variant="secondary">
+          <ButtonLink href={routes.stages()} variant="secondary">
             Find your stage
           </ButtonLink>
         </div>

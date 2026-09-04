@@ -17,6 +17,9 @@ import { readdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+/** QA can build into a directory of its own; see distDir in next.config.ts. */
+const DIST = process.env.NEXT_DIST_DIR || ".next";
+
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const registry = JSON.parse(readFileSync(join(root, "src/lib/photo-registry.json"), "utf8"));
 
@@ -61,7 +64,7 @@ notes.push(`Registry: ${entries.length} sections, ${bySource.size} distinct phot
 
 /* --- 2. Rendered output ------------------------------------------------- */
 
-const appDir = join(root, ".next/server/app");
+const appDir = join(root, DIST, "server/app");
 
 async function htmlFiles(dir) {
   const out = [];

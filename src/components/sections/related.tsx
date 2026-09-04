@@ -1,11 +1,13 @@
 import { Section, Heading } from "@/components/ui/primitives";
 import { StoryRows, type StoryRowItem } from "@/components/ui/editorial";
 import { routes } from "@/lib/site";
+import { capabilityUrl } from "@/lib/registry";
 import { capabilityBySlug } from "@/data/capabilities";
 import { workflowBySlug } from "@/data/workflows";
 import { stageBySlug } from "@/data/stages";
 import { useCaseBySlug } from "@/data/use-cases";
 import { playbookBySlug } from "@/data/playbooks";
+import { groupBySlug } from "@/data/capability-groups";
 
 /**
  * Internal linking, resolved from slugs.
@@ -13,14 +15,20 @@ import { playbookBySlug } from "@/data/playbooks";
  * Every entity references related content by slug rather than by URL, so this
  * is the one place that turns a slug into a row. Two consequences worth
  * having: a rename is one edit, and a reference to something that does not
- * exist disappears rather than shipping a broken link.
+ * exist disappears rather than shipping a broken link — which matters more at
+ * five hundred pages than it did at ninety.
  */
 
 export function relatedCapabilities(slugs: string[]): StoryRowItem[] {
   return slugs
     .map((slug) => capabilityBySlug.get(slug))
     .filter((c) => c !== undefined)
-    .map((c) => ({ kicker: "Capability", title: c.title, body: c.job, href: routes.capability(c.slug) }));
+    .map((c) => ({
+      kicker: groupBySlug.get(c.group)?.title ?? "Capability",
+      title: c.title,
+      body: c.job,
+      href: capabilityUrl(c.slug) ?? routes.capabilities(),
+    }));
 }
 
 export function relatedWorkflows(slugs: string[]): StoryRowItem[] {
@@ -30,9 +38,9 @@ export function relatedWorkflows(slugs: string[]): StoryRowItem[] {
     .map((w) => ({ kicker: "Workflow", title: w.title, body: w.trigger, href: routes.workflow(w.slug) }));
 }
 
-export function relatedStages(slugs: string[]): StoryRowItem[] {
+export function relatedStages(slugs: readonly string[]): StoryRowItem[] {
   return slugs
-    .map((slug) => stageBySlug.get(slug))
+    .map((slug) => stageBySlug.get(slug as never))
     .filter((s) => s !== undefined)
     .map((s) => ({ kicker: "Agency stage", title: s.title, body: s.shape, href: routes.stage(s.slug) }));
 }

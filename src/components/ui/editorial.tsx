@@ -143,7 +143,7 @@ export function Ladder({
 }) {
   return (
     <nav
-      aria-label="Agency stages"
+      aria-label="Stages"
       className={`ladder ${className}`}
       style={{ "--ladder-cols": String(steps.length) } as CSSProperties}
       data-reveal-stagger
@@ -412,5 +412,50 @@ export function FactStrip({
         </div>
       ))}
     </dl>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Prose rows — a heading that stays with its argument                       */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Named sections as heading-beside-prose, with the heading sticky.
+ *
+ * The difference between this and `IndexRows` is what the reader is doing. An
+ * index is scanned: short label, short body, several at once. This is read —
+ * one section at a time, at the full measure — and the heading stays in the
+ * margin while its own paragraph scrolls, so a reader three hundred words in
+ * still knows which question they are inside.
+ *
+ * It is the composition to reach for when a section has four things to say and
+ * each of them needs a paragraph rather than a line. Using an index there is
+ * what turns a page into an information dump.
+ */
+export function ProseRows({
+  items,
+  className = "",
+  as: Tag = "h3",
+}: {
+  items: Term[];
+  className?: string;
+  /** `h3` under a section heading, `h2` when these are the section's own. */
+  as?: "h2" | "h3";
+}) {
+  return (
+    <div className={className} data-reveal-stagger>
+      {items.map((item) => (
+        <div
+          key={item.label}
+          className="rule-t grid gap-x-14 gap-y-3 py-9 lg:grid-cols-[minmax(0,20rem)_minmax(0,44rem)]"
+          data-reveal
+        >
+          <Tag className="type-title text-h5 text-balance lg:sticky lg:top-[calc(var(--header-h)+2.5rem)] lg:self-start">
+            {item.label}
+          </Tag>
+          <p className="text-prose text-ink-soft">{item.body}</p>
+        </div>
+      ))}
+    </div>
   );
 }

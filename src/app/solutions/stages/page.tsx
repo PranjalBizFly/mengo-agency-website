@@ -13,26 +13,27 @@ import { useCases } from "@/data/use-cases";
 
 const TRAIL = [
   { label: "Home", href: routes.home() },
-  { label: "For Agencies", href: routes.forAgencies() },
+  { label: "Solutions", href: routes.solutions() },
+  { label: "By stage", href: routes.stages() },
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "For Agencies — from your first client to a multi-team practice",
+  title: "By stage — from a first client to a multi-team practice",
   description:
-    "Five agency stages, from starting out to running multiple client teams. Find the one that describes your week, and what changes on the way to the next.",
-  path: routes.forAgencies(),
-  kicker: "For agencies",
+    "Five stages, from starting out to running multiple client teams. Find the one that describes your week, and what changes on the way to the next.",
+  path: routes.stages(),
+  kicker: "By stage",
 });
 
 /**
- * The audience hub.
+ * The stage hub.
  *
  * A reader arrives here not knowing which page is theirs, so the ladder is the
  * page's centre of gravity rather than an ornament — it is the navigation. The
  * comparison beneath it exists for the reader who is between two stages, which
  * is most of them.
  */
-export default function ForAgenciesPage() {
+export default function StagesPage() {
   const heroPhoto = photo("stages:index:hero");
 
   return (
@@ -41,9 +42,9 @@ export default function ForAgenciesPage() {
         data={[
           breadcrumbSchema(TRAIL),
           collectionSchema(
-            "For Agencies",
-            "The five agency stages, from starting out to a multi-team practice.",
-            routes.forAgencies(),
+            "By stage",
+            "Five stages, from starting out to a multi-team practice.",
+            routes.stages(),
           ),
         ]}
       />
@@ -51,8 +52,8 @@ export default function ForAgenciesPage() {
       <IndexHero
         trail={TRAIL}
         kicker="By stage"
-        title="Find the agency that sounds like yours"
-        lead="An agency at each of these points has a different constraint, a different week and a different set of things that break. The positioning does not change with size — what changes is the language for it."
+        title="Find the week that sounds like yours"
+        lead="Each of these points has a different constraint, a different week and a different set of things that break. The boundary does not change with size — what changes is the language for it."
         count={stages.length}
         countLabel="stages"
         note="If you are between two, read the earlier one. The problems described there are usually the ones still unresolved."
@@ -72,7 +73,7 @@ export default function ForAgenciesPage() {
       <Section tone="warm">
         <Heading
           kicker="What changes"
-          title="The constraint moves as an agency grows"
+          title="The constraint moves as the practice grows"
           lead="Each stage is defined by what runs out first. Recognising which one you are in matters more than the headcount, because it determines what is worth fixing."
           size="d3"
         />
@@ -90,8 +91,8 @@ export default function ForAgenciesPage() {
       {heroPhoto ? (
         <PhotoSection photo={heroPhoto} scrim="start" align="start">
           <Statement>
-            Whatever size the agency is, the client relationship, the strategy and the final call
-            stay with the people whose name is on the door.
+            Whatever the size, the client relationship, the strategy and the final call stay with
+            the people whose name is on the door.
           </Statement>
           <p className="mt-10 max-w-[46rem] text-lead text-sage-bright">
             That is the one thing every page in this section says the same way. What differs is the

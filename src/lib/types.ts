@@ -2,20 +2,25 @@
  * Content types.
  *
  * The site has one shape per *archetype* rather than one shape for everything.
- * A stage page and a comparison page genuinely have different anatomy — a
- * stage has a day-in-the-life and a growth boundary, a comparison has a table
- * and an honest "when the other option is right" section — and flattening them
- * into a single `sections: Block[]` bag is what turns a site into a template.
+ * A stage page and a comparison page genuinely have different anatomy, and
+ * flattening them into a single `sections: Block[]` bag is what turns a site
+ * into a template.
  *
- * The shared parts are collected in `Meta`, which is what the SEO builder, the
- * registry and the sitemap all read.
+ * The central relationship is capability × agency stage. A capability means
+ * something different to a one-person studio and to a forty-person agency —
+ * different problem, different priority, sometimes "not yet, and here is what
+ * to do first". That difference is data, not prose, so it can be rendered as a
+ * section on the capability page and as a page of its own.
  */
 
 export type Kind =
   | "stage"
   | "capability"
+  | "capability-stage"
+  | "capability-group"
   | "workflow"
   | "industry"
+  | "industry-capability"
   | "use-case"
   | "comparison"
   | "playbook"
@@ -26,12 +31,39 @@ export type Kind =
   | "company"
   | "legal";
 
+/** The five points on the agency growth path. Union rather than string so a
+    capability cannot claim a stage that does not exist. */
+export type StageSlug =
+  | "starting"
+  | "solo"
+  | "small-team"
+  | "growing"
+  | "established";
+
+export const STAGE_SLUGS: StageSlug[] = [
+  "starting",
+  "solo",
+  "small-team",
+  "growing",
+  "established",
+];
+
+/** The eight groups the capability taxonomy divides into. */
+export type GroupSlug =
+  | "foundation"
+  | "brand"
+  | "marketing"
+  | "sales"
+  | "content"
+  | "programs"
+  | "organization"
+  | "system";
+
 /** Everything every routable entity carries. */
 export interface Meta {
   kind: Kind;
   slug: string;
   title: string;
-  /** Shorter label for navigation, where the full title is too long. */
   navLabel?: string;
   /** One sentence. Used as the meta description and as list-row copy. */
   summary: string;
@@ -43,26 +75,20 @@ export interface Meta {
 
 /* ---------------------------------------------------------------- Shared */
 
-/** A label and its explanation. The workhorse for read content. */
 export interface Term {
   label: string;
   body: string;
 }
 
+export type Lane = "agency" | "mengo";
+
 /** A step in a sequence, attributed to the side that owns it. */
 export interface Step {
   title: string;
   body: string;
-  /**
-   * Who does this step. The attribution is the argument, so it is required:
-   * a step with no owner is exactly the ambiguity this site exists to remove.
-   */
   lane: Lane;
 }
 
-export type Lane = "agency" | "mengo";
-
-/** The two sides of the ownership ledger. */
 export interface Ledger {
   agency: { heading: string; note: string; items: Term[] };
   mengo: { heading: string; note: string; items: Term[] };
@@ -75,31 +101,22 @@ export interface Faq {
 
 /* -------------------------------------------------------- Stage archetype */
 
-/**
- * An agency at one point on the growth path: starting, solo, small, growing,
- * large. This is the site's primary audience axis.
- */
 export interface Stage extends Meta {
   kind: "stage";
+  slug: StageSlug;
   /** Position in the ladder, 0-indexed. Drives the rising tick. */
   order: number;
   /** The shorthand a reader recognises themselves in. */
   shape: string;
-  /** Headline for the page. Longer and more specific than the title. */
   headline: string;
   lead: string;
-  /** Where this stage actually spends its week. */
   situation: Term[];
-  /** What breaks, in this stage's own words. */
   problems: Term[];
-  /** What changes on the way to the next stage. */
   transition: { to: string; body: string };
   ledger: Ledger;
   /** The working week, as a sequence. */
   week: Step[];
-  /** Capability slugs that matter most here. */
   capabilities: string[];
-  /** Workflow slugs that matter most here. */
   workflows: string[];
   faqs: Faq[];
   cta: { label: string; href: string; note: string };
@@ -107,89 +124,177 @@ export interface Stage extends Meta {
 
 /* --------------------------------------------------- Capability archetype */
 
-/** An area of marketing work Mengo carries behind the agency. */
+/**
+ * How much of a capability's meaning actually changes with agency size.
+ *
+ * `staged` capabilities get a page per stage, because the problem genuinely
+ * differs. `flat` ones — a settings screen, an audit log — do not, and giving
+ * them five near-identical pages would be exactly the thin-SEO padding this
+ * site is supposed to avoid.
+ */
+export type CapabilityDepth = "staged" | "flat";
+
+/**
+ * How much a capability matters at a given stage.
+ *
+ * `later` is the useful one and the reason this field exists: an honest
+ * capability page tells a one-person studio which things to leave alone, and
+ * what to do instead.
+ */
+export type Relevance = "core" | "useful" | "later";
+
+/** A capability seen from one agency stage. */
+export interface CapabilityStage {
+  stage: StageSlug;
+  relevance: Relevance;
+  /** Stage-specific headline. Never the capability's own headline repeated. */
+  headline: string;
+  /** What this looks like at this stage, in that reader's language. */
+  situation: string;
+  /** The specific thing that goes wrong here. */
+  problem: string;
+  /** What Mengo structures at this stage. */
+  mengo: string[];
+  /** What stays with the agency. Always present; the boundary never moves. */
+  agency: string[];
+  /** What is different afterwards. No numbers — we have none. */
+  outcome: string;
+  /** For `later`: what to do first instead. Required when relevance is later. */
+  insteadDoThis?: string;
+}
+
 export interface Capability extends Meta {
   kind: "capability";
+  group: GroupSlug;
+  depth: CapabilityDepth;
   headline: string;
   lead: string;
+  /** What the capability actually is. Plain definition, no selling. */
+  meaning: string;
+  /** Why an agency should care. */
+  whyAgencies: Term[];
   /** The one-line job. */
   job: string;
-  /** What the agency hands over. */
   inputs: string[];
-  /** What comes back. Concrete artefacts, not outcomes. */
   outputs: string[];
-  /** How the work runs, as an attributed sequence. */
   sequence: Step[];
   /** Where the agency's judgement is required and cannot be delegated. */
   judgement: Term[];
   /** Deliberate limits. What this does not do. */
   limits: string[];
-  related: { capabilities: string[]; workflows: string[] };
+  /** One entry per stage, in ladder order. Empty when depth is "flat". */
+  stages: CapabilityStage[];
+  related: { capabilities: string[]; workflows: string[]; useCases: string[] };
+  faqs: Faq[];
+}
+
+/** A capability group — Foundation, Brand, Marketing and so on. */
+export interface CapabilityGroup extends Meta {
+  kind: "capability-group";
+  slug: GroupSlug;
+  headline: string;
+  lead: string;
+  /** What this group of capabilities has in common. Used on the hubs. */
+  character: string;
+  /**
+   * A short line for navigation. Separate from `character` because the mega
+   * panel needs one comparable length across eight columns, and a first
+   * sentence trimmed from prose is not that.
+   */
+  tagline: string;
+  /** Why an agency reaches for this group. */
+  whyGroup: Term[];
+  /** The order the group's capabilities are usually adopted in. */
+  adoptionOrder: Term[];
   faqs: Faq[];
 }
 
 /* ----------------------------------------------------- Workflow archetype */
 
-/** A repeatable piece of client delivery, drawn end to end. */
 export interface Workflow extends Meta {
   kind: "workflow";
+  /** Which part of delivery this belongs to. Groups the workflows index. */
+  phase: "onboarding" | "planning" | "production" | "conversion" | "operations";
   headline: string;
   lead: string;
-  /** What triggers this workflow. */
   trigger: string;
-  /** What the client actually receives at the end. */
   outcome: string;
-  /** The spine. Every step attributed. */
   spine: Step[];
-  /** What this replaces, honestly described. */
   before: Term[];
-  /** What is different afterwards. */
   after: Term[];
-  /** Checkpoints where the agency signs off. */
   checkpoints: string[];
-  related: { capabilities: string[]; stages: string[] };
+  /** Which stages this workflow is most relevant to. */
+  stages: StageSlug[];
+  related: { capabilities: string[]; workflows: string[]; useCases: string[] };
   faqs: Faq[];
 }
 
 /* ----------------------------------------------------- Industry archetype */
 
-/** A client sector an agency sells into. */
+/**
+ * How client sectors group.
+ *
+ * Ten sectors in one alphabetical list is a dump; grouped by what the marketing
+ * actually has to contend with, it is a map. The axis is the constraint, not
+ * the industry classification: healthcare, financial services and education sit
+ * together because in all three what may be said is decided outside the agency.
+ */
+export type Sector = "technical" | "considered" | "commerce" | "built";
+
 export interface Industry extends Meta {
   kind: "industry";
+  sector: Sector;
   headline: string;
   lead: string;
-  /** What is distinctive about marketing in this sector. */
   character: Term[];
-  /** The specific delivery pressures an agency feels here. */
   pressures: Term[];
-  /** Where the agency's own sector expertise is irreplaceable. */
   expertise: string[];
-  /** Where Mengo carries the load. */
   support: Term[];
-  /** Constraints that must be respected. Regulatory, factual, or contractual. */
   care: string[];
-  related: { capabilities: string[]; workflows: string[] };
+  /** Capability slugs that get their own industry page. Curated, not crossed. */
+  capabilities: string[];
+  related: { workflows: string[]; useCases: string[] };
   faqs: Faq[];
+}
+
+/**
+ * One capability, in one client sector.
+ *
+ * These exist only where the combination genuinely changes the work — a
+ * content system for a regulated healthcare client is a different job from one
+ * for a D2C brand. The pairs are listed on the industry, never crossed
+ * automatically, so an empty combination cannot be generated.
+ */
+export interface IndustryCapability {
+  kind: "industry-capability";
+  industry: string;
+  capability: string;
+  headline: string;
+  lead: string;
+  /** What is different about this capability in this sector. */
+  difference: Term[];
+  /** Sector constraints that bear on this capability specifically. */
+  care: string[];
+  /** What the agency contributes that no system can. */
+  expertise: string[];
+  updated: string;
 }
 
 /* ----------------------------------------------------- Use case archetype */
 
-/** A goal an agency comes to the site holding. */
 export interface UseCase extends Meta {
   kind: "use-case";
+  /** Groups the use-case index: getting going, delivering, scaling. */
+  phase: "start" | "deliver" | "scale";
   headline: string;
   lead: string;
-  /** The situation, stated as the reader would state it. */
   situation: string;
-  /** Why the obvious answer does not work. */
   obstacle: Term[];
-  /** The approach, as an ordered argument. */
   approach: Term[];
-  /** What to expect, described without fabricated numbers. */
   expectations: string[];
-  /** Who this is not for. */
   notFor: string[];
-  related: { stages: string[]; workflows: string[] };
+  stages: StageSlug[];
+  related: { workflows: string[]; capabilities: string[] };
   faqs: Faq[];
 }
 
@@ -201,28 +306,21 @@ export interface ComparisonRow {
   mengo: string;
 }
 
-/** An honest comparison against the alternative an agency is actually weighing. */
 export interface Comparison extends Meta {
   kind: "comparison";
-  /** What Mengo is being compared with. */
   other: string;
   headline: string;
   lead: string;
-  /** The question the reader is really asking. */
   question: string;
   rows: ComparisonRow[];
-  /** When the other option is the right answer. Required — a comparison
-      without this section is marketing, not a comparison. */
   chooseOther: Term[];
   chooseMengo: Term[];
-  /** They are not always alternatives. Where they combine. */
   together: string;
   faqs: Faq[];
 }
 
 /* ------------------------------------------------------ Resource archetypes */
 
-/** A block of long-form content. */
 export type Block =
   | { type: "text"; text: string }
   | { type: "heading"; text: string }
@@ -233,20 +331,16 @@ export type Block =
   | { type: "ledger"; ledger: Ledger }
   | { type: "note"; text: string };
 
-/** A step-by-step operational document. */
 export interface Playbook extends Meta {
   kind: "playbook";
   headline: string;
   lead: string;
-  /** Who this is written for. */
   audience: string;
-  /** How long it takes to work through. */
   effort: string;
   blocks: Block[];
   related: { workflows: string[]; capabilities: string[] };
 }
 
-/** A long-form explanatory article. */
 export interface Guide extends Meta {
   kind: "guide";
   headline: string;
@@ -256,20 +350,16 @@ export interface Guide extends Meta {
   related: { stages: string[]; useCases: string[] };
 }
 
-/** A named, reusable structure an agency can adopt. */
 export interface Framework extends Meta {
   kind: "framework";
   headline: string;
   lead: string;
-  /** The problem the framework resolves. */
   problem: string;
-  /** The parts of the framework. */
   parts: Term[];
   blocks: Block[];
   related: { workflows: string[]; playbooks: string[] };
 }
 
-/** An editorial post. */
 export interface Article extends Meta {
   kind: "article";
   headline: string;
@@ -280,14 +370,10 @@ export interface Article extends Meta {
   blocks: Block[];
 }
 
-/** A defined term. */
 export interface GlossaryTerm extends Meta {
   kind: "glossary";
-  /** The definition, in one paragraph. */
   definition: string;
-  /** Why an agency should care. */
   why: string;
-  /** Common confusion worth clearing up. */
   confusion?: string;
   seeAlso: string[];
 }
@@ -311,6 +397,7 @@ export interface LegalPage extends Meta {
 export type Entity =
   | Stage
   | Capability
+  | CapabilityGroup
   | Workflow
   | Industry
   | UseCase

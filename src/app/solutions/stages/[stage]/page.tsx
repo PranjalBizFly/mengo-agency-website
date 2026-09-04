@@ -12,6 +12,7 @@ import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/seo/schema";
 import { stages, stageBySlug } from "@/data/stages";
+import type { StageSlug } from "@/lib/types";
 
 export function generateStaticParams() {
   return stages.map((stage) => ({ stage: stage.slug }));
@@ -23,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ stage: string }>;
 }): Promise<Metadata> {
   const { stage: slug } = await params;
-  const stage = stageBySlug.get(slug);
+  const stage = stageBySlug.get(slug as StageSlug);
   if (!stage) return {};
   return entityMetadata(stage);
 }
@@ -43,7 +44,7 @@ export async function generateMetadata({
  */
 export default async function StagePage({ params }: { params: Promise<{ stage: string }> }) {
   const { stage: slug } = await params;
-  const stage = stageBySlug.get(slug);
+  const stage = stageBySlug.get(slug as StageSlug);
   if (!stage) notFound();
 
   const heroPhoto = photo(`stage:${stage.slug}:hero`);
@@ -51,7 +52,8 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
 
   const trail = [
     { label: "Home", href: routes.home() },
-    { label: "For Agencies", href: routes.forAgencies() },
+    { label: "Solutions", href: routes.solutions() },
+    { label: "By stage", href: routes.stages() },
     { label: stage.title, href: routes.stage(stage.slug) },
   ];
 
@@ -70,7 +72,7 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
         actions={
           <>
             <ButtonLink href={stage.cta.href}>{stage.cta.label}</ButtonLink>
-            <ButtonLink href={routes.forAgencies()} variant="secondary">
+            <ButtonLink href={routes.stages()} variant="secondary">
               Compare all five stages
             </ButtonLink>
           </>
@@ -81,7 +83,14 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
               <p className="label">This stage looks like</p>
               <p className="mt-3 max-w-[36ch] text-lead text-ink">{stage.shape}</p>
             </div>
-            {heroPhoto ? <Figure photo={heroPhoto} aspect="21/9" /> : null}
+            {heroPhoto ? (
+              <Figure
+                photo={heroPhoto}
+                aspect="21/9"
+                context={`Stage ${stage.order + 1} of ${stages.length}`}
+                caption={stage.shape}
+              />
+            ) : null}
           </div>
         }
       />

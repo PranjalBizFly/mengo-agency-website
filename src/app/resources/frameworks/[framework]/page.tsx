@@ -85,7 +85,13 @@ export default async function FrameworkPage({
 
       {cover ? (
         <Section tone="paper" tight>
-          <Figure photo={cover} aspect="21/9" drift />
+          <Figure
+            photo={cover}
+            aspect="21/9"
+            drift
+            context="The problem it addresses"
+            caption={framework.problem}
+          />
         </Section>
       ) : null}
 

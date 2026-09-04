@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Section, Heading, Kicker, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
@@ -6,6 +7,7 @@ import { IndexRows, MarkerList, Spine, SpineKey, StoryRows, FactStrip } from "@/
 import { RuleHero } from "@/components/sections/heroes";
 import { Figure } from "@/components/ui/Photo";
 import { Related, relatedCapabilities, relatedStages } from "@/components/sections/related";
+import { industriesForWorkflow, useCasesForWorkflow } from "@/lib/relations";
 import { photo } from "@/lib/images";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
@@ -45,6 +47,8 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
   if (!workflow) notFound();
 
   const heroPhoto = photo(`workflow:${workflow.slug}:hero`);
+  const sectors = industriesForWorkflow(workflow.slug);
+  const servingUseCases = useCasesForWorkflow(workflow.slug);
 
   const trail = [
     { label: "Home", href: routes.home() },
@@ -126,7 +130,13 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
       {/* Illustration ---------------------------------------------------- */}
       {heroPhoto ? (
         <Section tone="warm" tight>
-          <Figure photo={heroPhoto} aspect="21/9" drift />
+          <Figure
+            photo={heroPhoto}
+            aspect="21/9"
+            drift
+            context="Trigger"
+            caption={workflow.trigger}
+          />
         </Section>
       ) : null}
 
@@ -150,10 +160,53 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
             />
           </div>
           <div>
-            <Heading kicker="Most useful at" title="These agency stages" size="d4" width="full" />
-            <StoryRows className="mt-9" columns={1} items={relatedStages(workflow.related.stages)} />
+            <Heading kicker="Most useful at" title="These stages" size="d4" width="full" />
+            <StoryRows className="mt-9" columns={1} items={relatedStages(workflow.stages)} />
           </div>
         </div>
+        {/* The jobs this sequence serves, and the sectors that reach for it.
+            Both inverted from relations authored on those pages. */}
+        {(servingUseCases.length > 0 || sectors.length > 0) ? (
+          <div className="mt-14 rule-t pt-9">
+            <div className="grid gap-x-14 gap-y-10 lg:grid-cols-2">
+              {servingUseCases.length > 0 ? (
+                <div>
+                  <p className="label">Run for these jobs</p>
+                  <ul className="mt-4">
+                    {servingUseCases.map((useCase) => (
+                      <li key={useCase.slug}>
+                        <Link
+                          href={routes.useCase(useCase.slug)}
+                          className="link-index text-small text-ink transition-colors hover:text-lime-deep"
+                        >
+                          {useCase.navLabel ?? useCase.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {sectors.length > 0 ? (
+                <div>
+                  <p className="label">Recommended in these sectors</p>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {sectors.map((industry) => (
+                      <li key={industry.slug}>
+                        <Link
+                          href={routes.industry(industry.slug)}
+                          className="inline-flex min-h-11 items-center rounded-full border border-line px-4 text-small text-ink-soft transition-colors hover:border-lime-deep hover:text-lime-deep"
+                        >
+                          {industry.navLabel ?? industry.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+
         <div className="mt-14 flex flex-wrap gap-3" data-reveal>
           <ButtonLink href={routes.workflows()} variant="secondary">
             All workflows

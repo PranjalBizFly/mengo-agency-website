@@ -31,9 +31,21 @@ export type Aspect = keyof typeof ASPECT;
  * A rounded plate with a dark caption bar rather than a bare image: the frame
  * is what lets a photograph sit inside an editorial column without reading as
  * a screenshot.
+ *
+ * The caption bar carries three things, and the split is deliberate. `context`
+ * names what the reader is looking at *in this page's argument* — the stage,
+ * the workflow phase, the sector — so a picture can never sit beside text it
+ * has no stated relationship to. The description says what is actually in the
+ * frame. The credit travels with both, so attribution cannot drift away from
+ * the image it belongs to.
+ *
+ * Passing `context` is the rule rather than the exception: an image with no
+ * stated relationship to its section is the decoration this site does not
+ * publish.
  */
 export function Figure({
   photo,
+  context,
   caption,
   aspect = "16/9",
   priority = false,
@@ -42,7 +54,9 @@ export function Figure({
   className = "",
 }: {
   photo: Photo;
-  /** Overrides the credit line's left half. The photographer is always kept. */
+  /** What this picture stands for here. Shown as a label before the caption. */
+  context?: ReactNode;
+  /** Overrides the description. The photographer is always kept. */
   caption?: ReactNode;
   aspect?: Aspect;
   priority?: boolean;
@@ -68,9 +82,16 @@ export function Figure({
           className="h-full w-full object-cover transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
         />
       </div>
-      <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-sage/20 bg-forest px-5 py-3 text-fine text-on-dark">
-        <span className="min-w-0">{caption ?? photo.alt}</span>
-        <span className="shrink-0 text-sage-bright">Photo: {photo.photographer}</span>
+      <figcaption className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-sage/20 bg-forest px-5 py-3 text-fine text-on-dark">
+        <span className="min-w-0">
+          {context ? (
+            <span className="mr-2.5 inline-block border-r border-sage/30 pr-2.5 align-baseline text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-lime">
+              {context}
+            </span>
+          ) : null}
+          <span className="text-sage-bright">{caption ?? photo.alt}</span>
+        </span>
+        <span className="shrink-0 text-sage">Photo: {photo.photographer}</span>
       </figcaption>
     </figure>
   );

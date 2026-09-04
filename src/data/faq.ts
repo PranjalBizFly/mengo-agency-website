@@ -1,6 +1,8 @@
 import type { Faq } from "@/lib/types";
+import { routes } from "@/lib/site";
 import { stages } from "./stages";
 import { capabilities } from "./capabilities";
+import { capabilityGroups } from "./capability-groups";
 import { workflows } from "./workflows";
 import { industries } from "./industries";
 import { useCases } from "./use-cases";
@@ -21,7 +23,15 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: "How is this different from the Mengo product site?",
-    a: "mengoengine.com sells to a business owner who is their own marketing function, where the positioning is an AI co-founder that runs your marketing. That positioning is wrong for an agency, because an agency already is the thing it replaces. Same underlying product, different argument, separate site.",
+    a: "Same product, same idea, different reader. On mengoengine.com the co-founder is the marketing function a business owner does not have. Here you already are that function, so the co-founder is for the structural half of the work behind it — research, planning, drafts, sequences — while the clients, the strategy and the final call stay yours. Same brand, different argument, separate site.",
+  },
+  {
+    q: "There are sixty-four capabilities. Do we need all of them?",
+    a: "No, and an agency that tried would be doing work its clients did not ask for. Each group hub carries an adoption order, and every capability's stage pages say plainly where the honest answer is 'not yet' — with what to do first instead. Most client engagements use six or seven capabilities and never touch the rest.",
+  },
+  {
+    q: "Why does each capability have a page per agency stage?",
+    a: "Because the same capability genuinely means a different thing to a one-person studio and a forty-person agency — a different problem, a different priority, and sometimes a recommendation to wait. Twelve of the sixty-four do not vary that way, and those have no stage pages rather than five near-identical ones.",
   },
   {
     q: "Will my clients know?",
@@ -72,21 +82,97 @@ export interface FaqGroup {
   faqs: Faq[];
 }
 
+/** A section of the FAQ index — a family of pages that carry questions. */
+export interface FaqSection {
+  heading: string;
+  note: string;
+  href: string;
+  groups: FaqGroup[];
+}
+
 /**
- * Every question on the site, grouped by where it came from.
+ * Every question on the site, indexed by where it came from.
  *
  * Built from the entity data rather than maintained separately, so a question
- * added to a workflow page appears in the hub without anyone remembering to
- * copy it across.
+ * added to a workflow page appears in this index without anyone remembering to
+ * copy it across — and so it cannot drift out of agreement with the pages it
+ * collects from.
+ *
+ * The hub renders the general questions in full and this as an *index* rather
+ * than expanding all of it. Rendering 369 questions in one document produced a
+ * 44,000-pixel page with a 140-item contents rail, which is not a reference —
+ * it is a wall. The index says where each answer lives and how many are there.
  */
-export function groupedFaqs(): FaqGroup[] {
-  return [
-    { heading: "General", faqs: generalFaqs },
-    ...stages.map((s) => ({ heading: s.title, href: `/for-agencies/${s.slug}/`, faqs: s.faqs })),
-    ...capabilities.map((c) => ({ heading: c.title, href: `/capabilities/${c.slug}/`, faqs: c.faqs })),
-    ...workflows.map((w) => ({ heading: w.title, href: `/workflows/${w.slug}/`, faqs: w.faqs })),
-    ...industries.map((i) => ({ heading: i.title, href: `/industries/${i.slug}/`, faqs: i.faqs })),
-    ...useCases.map((u) => ({ heading: u.title, href: `/use-cases/${u.slug}/`, faqs: u.faqs })),
-    ...comparisons.map((c) => ({ heading: c.title, href: `/compare/${c.slug}/`, faqs: c.faqs })),
-  ].filter((group) => group.faqs.length > 0);
+export function faqSections(): FaqSection[] {
+  const sections: FaqSection[] = [
+    {
+      heading: "By agency stage",
+      note: "Questions asked by agencies at each point on the growth path.",
+      href: routes.stages(),
+      groups: stages.map((s) => ({ heading: s.title, href: routes.stage(s.slug), faqs: s.faqs })),
+    },
+    {
+      heading: "Capability groups",
+      note: "Questions about each of the eight groups in the taxonomy.",
+      href: routes.capabilities(),
+      groups: capabilityGroups.map((g) => ({
+        heading: g.title,
+        href: routes.capabilityGroup(g.slug),
+        faqs: g.faqs,
+      })),
+    },
+    {
+      heading: "Capabilities",
+      note: "Questions about individual capabilities, on their own pages.",
+      href: routes.capabilities(),
+      groups: capabilities.map((c) => ({
+        heading: c.title,
+        href: routes.capability(c.group, c.slug),
+        faqs: c.faqs,
+      })),
+    },
+    {
+      heading: "Workflows",
+      note: "Questions about how each delivery workflow runs.",
+      href: routes.workflows(),
+      groups: workflows.map((w) => ({ heading: w.title, href: routes.workflow(w.slug), faqs: w.faqs })),
+    },
+    {
+      heading: "Industries",
+      note: "Questions asked by agencies serving each client sector.",
+      href: routes.industries(),
+      groups: industries.map((i) => ({ heading: i.title, href: routes.industry(i.slug), faqs: i.faqs })),
+    },
+    {
+      heading: "Use cases",
+      note: "Questions about each goal an agency might be pursuing.",
+      href: routes.useCases(),
+      groups: useCases.map((u) => ({ heading: u.title, href: routes.useCase(u.slug), faqs: u.faqs })),
+    },
+    {
+      heading: "Comparisons",
+      note: "Questions asked when weighing Mengo against an alternative.",
+      href: routes.compare(),
+      groups: comparisons.map((c) => ({
+        heading: c.title,
+        href: routes.comparison(c.slug),
+        faqs: c.faqs,
+      })),
+    },
+  ];
+
+  return sections
+    .map((section) => ({ ...section, groups: section.groups.filter((g) => g.faqs.length > 0) }))
+    .filter((section) => section.groups.length > 0);
+}
+
+/** Total questions across the whole site. */
+export function totalFaqCount(): number {
+  return (
+    generalFaqs.length +
+    faqSections().reduce(
+      (sum, section) => sum + section.groups.reduce((n, group) => n + group.faqs.length, 0),
+      0,
+    )
+  );
 }

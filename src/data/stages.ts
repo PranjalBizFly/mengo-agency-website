@@ -1,3 +1,4 @@
+import { routes } from "@/lib/site";
 import type { Stage } from "@/lib/types";
 
 /**
@@ -16,9 +17,9 @@ import type { Stage } from "@/lib/types";
 export const stages: Stage[] = [
   {
     kind: "stage",
-    slug: "start-an-agency",
-    title: "Start an Agency",
-    navLabel: "Start an Agency",
+    slug: "starting",
+    title: "Starting Out",
+    navLabel: "Starting Out",
     order: 0,
     shape: "You have skill and maybe a first client. You do not yet have a way of working.",
     headline: "Start with a process, not just a portfolio",
@@ -102,8 +103,8 @@ export const stages: Stage[] = [
       { title: "Your review and edit", body: "You read everything, fix voice, cut what is wrong and add what only you would have thought of.", lane: "agency" },
       { title: "You present and deliver", body: "The client hears it from you, in your words, with your reasoning behind it.", lane: "agency" },
     ],
-    capabilities: ["research", "strategy", "content", "marketing-systems"],
-    workflows: ["client-onboarding", "strategy-and-planning", "content-production"],
+    capabilities: ["business-profile", "icps-and-personas", "sops", "landing-page"],
+    workflows: ["client-onboarding", "client-discovery", "agency-sop-creation"],
     faqs: [
       {
         q: "Do I need clients before this is useful?",
@@ -131,9 +132,9 @@ export const stages: Stage[] = [
 
   {
     kind: "stage",
-    slug: "solo-agency",
-    title: "Solo Agency",
-    navLabel: "Solo Agency",
+    slug: "solo",
+    title: "Solo Practice",
+    navLabel: "Solo Practice",
     order: 1,
     shape: "One person, several clients, and a calendar with no slack in it.",
     headline: "One person, delivering like a team that does not exist",
@@ -217,8 +218,8 @@ export const stages: Stage[] = [
       { title: "Client sends and calls", body: "You present, you explain, you handle the questions. The client is talking to you, not to a system.", lane: "agency" },
       { title: "Friday: new business", body: "The gap that used to be filled by unfinished delivery is where pipeline work goes.", lane: "agency" },
     ],
-    capabilities: ["strategy", "content", "lead-nurturing", "marketing-systems"],
-    workflows: ["content-production", "lead-nurturing-flows", "scale-client-delivery"],
+    capabilities: ["marketing-calendar", "social-media", "whatsapp-nurturing", "business-profile"],
+    workflows: ["content-production", "lead-nurturing-flows", "multi-client-delivery"],
     faqs: [
       {
         q: "How many clients can one person actually run this way?",
@@ -246,9 +247,9 @@ export const stages: Stage[] = [
 
   {
     kind: "stage",
-    slug: "small-agency",
-    title: "Small Agency",
-    navLabel: "Small Agency",
+    slug: "small-team",
+    title: "Small Team",
+    navLabel: "Small Team",
     order: 2,
     shape: "Two to about eight people. Everyone still does a bit of everything.",
     headline: "Small enough to be personal, big enough to need a standard",
@@ -332,8 +333,8 @@ export const stages: Stage[] = [
       { title: "Client delivery by the account owner", body: "The client hears from the person they know, with the agency's reasoning.", lane: "agency" },
       { title: "The standard gets updated", body: "What was learned this week is written into the standard, so it reaches every account next week.", lane: "agency" },
     ],
-    capabilities: ["marketing-systems", "strategy", "content", "campaigns"],
-    workflows: ["strategy-and-planning", "campaign-planning", "scale-client-delivery"],
+    capabilities: ["sops", "brand", "blog-content", "ads-management"],
+    workflows: ["marketing-planning", "campaign-planning", "team-handoffs"],
     faqs: [
       {
         q: "Will standardising make our work feel corporate?",
@@ -354,16 +355,16 @@ export const stages: Stage[] = [
     ],
     cta: {
       label: "See how delivery standardises",
-      href: "/use-cases/standardize-delivery/",
+      href: routes.useCase("standardize-delivery"),
       note: "What to make identical across accounts, and what to leave alone.",
     },
   },
 
   {
     kind: "stage",
-    slug: "growing-agency",
-    title: "Growing Agency",
-    navLabel: "Growing Agency",
+    slug: "growing",
+    title: "Growing Team",
+    navLabel: "Growing Team",
     order: 3,
     shape: "Roles are real, accounts are layered, and the process is being outrun.",
     headline: "Growth exposes whatever the process was hiding",
@@ -447,8 +448,8 @@ export const stages: Stage[] = [
       { title: "Exceptions escalated", body: "Anything outside the standard goes to a person with the authority to decide.", lane: "agency" },
       { title: "Client delivery and reporting", body: "Account owners present, explain and take the follow-up questions.", lane: "agency" },
     ],
-    capabilities: ["marketing-systems", "campaigns", "research", "lead-nurturing"],
-    workflows: ["scale-client-delivery", "campaign-planning", "strategy-and-planning"],
+    capabilities: ["sops", "roles-and-permissions", "brand-strategy", "sales-performance"],
+    workflows: ["scale-client-delivery", "agency-scaling", "client-review"],
     faqs: [
       {
         q: "Does this reduce how many people we need to hire?",
@@ -476,9 +477,9 @@ export const stages: Stage[] = [
 
   {
     kind: "stage",
-    slug: "large-agency",
-    title: "Large Agency",
-    navLabel: "Large Agency",
+    slug: "established",
+    title: "Established Firm",
+    navLabel: "Established Firm",
     order: 4,
     shape: "Multiple teams, formal governance, and a standard that has to hold across all of it.",
     headline: "At scale, the standard is the product",
@@ -562,8 +563,8 @@ export const stages: Stage[] = [
       { title: "Review against the standard", body: "Structured review with named reviewers and a recorded decision.", lane: "agency" },
       { title: "Client-facing delivery", body: "Presented by the account's people, under the agency's accountability.", lane: "agency" },
     ],
-    capabilities: ["marketing-systems", "research", "strategy", "campaigns"],
-    workflows: ["scale-client-delivery", "client-onboarding", "strategy-and-planning"],
+    capabilities: ["sops", "audit-log", "ai-processing", "brand-manual"],
+    workflows: ["scale-client-delivery", "team-handoffs", "client-reporting"],
     faqs: [
       {
         q: "What are the data handling implications?",

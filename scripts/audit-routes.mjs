@@ -17,8 +17,11 @@ import { readdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+/** QA can build into a directory of its own; see distDir in next.config.ts. */
+const DIST = process.env.NEXT_DIST_DIR || ".next";
+
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const appDir = join(root, ".next/server/app");
+const appDir = join(root, DIST, "server/app");
 
 if (!existsSync(appDir)) {
   console.error("No build output. Run `next build` first.");
@@ -68,6 +71,25 @@ if (!sitemapFile) {
   }
 
   console.log(`  ${built.size} routes built, ${listed.size} routes in the registry.`);
+}
+
+/* The search index is generated from the same registry, but through a
+   different code path, so it can drift. It is the only way most readers will
+   reach most of these pages, and a page missing from it is effectively
+   unpublished. The 404 is the one deliberate omission. */
+const indexFile = join(appDir, "api/search-index.body");
+if (!existsSync(indexFile)) {
+  problems.push("No search index was prerendered at /api/search-index/");
+} else {
+  // The index carries canonical hrefs, which end in a slash; routeOf does not.
+  const indexed = new Set(
+    JSON.parse(readFileSync(indexFile, "utf8")).map((record) => record.u.replace(/\/$/, "") || "/"),
+  );
+  const missing = [...built].filter((path) => !indexed.has(path));
+  const phantom = [...indexed].filter((path) => !built.has(path));
+  for (const path of missing) problems.push(`${path} is published but missing from the search index`);
+  for (const path of phantom) problems.push(`The search index lists ${path}, which is not published`);
+  console.log(`  ${indexed.size} pages in the search index.`);
 }
 
 const groups = new Map();

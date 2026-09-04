@@ -56,7 +56,7 @@ export default function GlossaryPage() {
       <IndexHero
         trail={TRAIL}
         kicker="Reference"
-        title="Terms as an agency uses them"
+        title="Terms as this trade uses them"
         lead="Each entry carries why it matters to an agency, not only what it means. Definitions that only define are the reason most glossaries go unread."
         count={glossaryTerms.length}
         countLabel="terms"

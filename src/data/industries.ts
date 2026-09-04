@@ -1,4 +1,5 @@
-import type { Industry } from "@/lib/types";
+import type { Industry, Sector } from "@/lib/types";
+import { extendedIndustries } from "./industries-extended";
 
 /**
  * Client sectors an agency sells into.
@@ -13,10 +14,11 @@ import type { Industry } from "@/lib/types";
  * `care` carries the constraints that must not be got wrong. In regulated
  * sectors that is the most important field on the page.
  */
-export const industries: Industry[] = [
+const coreIndustries: Industry[] = [
   {
     kind: "industry",
     slug: "saas-software",
+    sector: "technical",
     title: "SaaS & Software",
     navLabel: "SaaS / Software",
     headline: "Long cycles, technical buyers, and a product that keeps moving",
@@ -58,7 +60,11 @@ export const industries: Industry[] = [
       "Competitor comparisons in software attract legal attention. Treat any comparison as requiring explicit client approval.",
       "Roadmap language is dangerous. Marketing something unreleased creates obligations the client may not want.",
     ],
-    related: { capabilities: ["strategy", "content", "lead-nurturing"], workflows: ["strategy-and-planning", "lead-nurturing-flows"] },
+    capabilities: ["brand-strategy", "blog-content", "seo", "whatsapp-nurturing", "icps-and-personas", "sales-collateral"],
+    related: {
+      workflows: ["brand-strategy-workflow", "lead-nurturing-flows", "seo-workflow"],
+      useCases: ["standardize-client-strategy", "build-a-content-engine"],
+    },
     faqs: [
       {
         q: "Can it keep up with a fast release cycle?",
@@ -78,6 +84,7 @@ export const industries: Industry[] = [
   {
     kind: "industry",
     slug: "professional-services",
+    sector: "considered",
     title: "Professional Services",
     navLabel: "Professional Services",
     headline: "The expertise is the product, and it is inside people's heads",
@@ -119,7 +126,11 @@ export const industries: Industry[] = [
       "Client confidentiality is absolute. Anonymised examples still need explicit permission.",
       "Outcome claims — cases won, savings achieved — need evidence the firm holds and is willing to stand behind.",
     ],
-    related: { capabilities: ["content", "strategy", "research"], workflows: ["content-production", "client-onboarding"] },
+    capabilities: ["founders", "employees", "blog-content", "case-studies", "speaking-engagements", "sales-script"],
+    related: {
+      workflows: ["content-production", "pr-and-media-workflow", "sales-enablement"],
+      useCases: ["expand-service-offerings", "improve-client-retention"],
+    },
     faqs: [
       {
         q: "How do we get material out of partners who have no time?",
@@ -139,6 +150,7 @@ export const industries: Industry[] = [
   {
     kind: "industry",
     slug: "ecommerce-d2c",
+    sector: "commerce",
     title: "Ecommerce & D2C",
     navLabel: "Ecommerce / D2C",
     headline: "High volume, short cycles, and a calendar that never stops",
@@ -180,7 +192,11 @@ export const industries: Industry[] = [
       "Advertising standards apply to comparative and superlative claims. 'Best' is a claim, not a flourish.",
       "Consumer data and consent for retention messaging live in the client's own platform and obligations.",
     ],
-    related: { capabilities: ["campaigns", "content", "lead-nurturing"], workflows: ["campaign-planning", "content-production"] },
+    capabilities: ["ads-management", "marketing-calendar", "email-templates", "loyalty-programme", "social-media", "landing-page"],
+    related: {
+      workflows: ["campaign-planning", "seasonal-campaign", "ads-workflow"],
+      useCases: ["deliver-campaigns-faster", "improve-client-retention"],
+    },
     faqs: [
       {
         q: "Can it produce the creative volume a paid programme needs?",
@@ -200,6 +216,7 @@ export const industries: Industry[] = [
   {
     kind: "industry",
     slug: "healthcare",
+    sector: "considered",
     title: "Healthcare",
     navLabel: "Healthcare",
     headline: "Where being careful matters more than being fast",
@@ -242,7 +259,11 @@ export const industries: Industry[] = [
       "Generated text can be confidently wrong about medicine. Treat every clinical statement as unverified until a clinician has verified it.",
       "Do not use marketing persuasion techniques on treatment decisions. Urgency and scarcity framing are inappropriate here.",
     ],
-    related: { capabilities: ["content", "research", "marketing-systems"], workflows: ["content-production", "client-onboarding"] },
+    capabilities: ["google-business-profile", "website-planner", "faq-bank", "testimonials", "blog-content", "email-templates"],
+    related: {
+      workflows: ["local-business-marketing", "content-production", "client-onboarding"],
+      useCases: ["improve-client-onboarding", "standardize-delivery"],
+    },
     faqs: [
       {
         q: "Is it safe to use generated content in healthcare marketing at all?",
@@ -262,6 +283,7 @@ export const industries: Industry[] = [
   {
     kind: "industry",
     slug: "real-estate",
+    sector: "built",
     title: "Real Estate",
     navLabel: "Real Estate",
     headline: "A pipeline of listings and a long, emotional decision",
@@ -303,7 +325,11 @@ export const industries: Industry[] = [
       "Fair housing and anti-discrimination rules constrain how a property or an area may be characterised. This is a serious legal exposure.",
       "Market predictions and value claims should be attributed and evidenced, not asserted.",
     ],
-    related: { capabilities: ["lead-nurturing", "content", "campaigns"], workflows: ["lead-nurturing-flows", "content-production"] },
+    capabilities: ["google-business-profile", "whatsapp-nurturing", "social-media", "landing-page", "testimonials", "email-templates"],
+    related: {
+      workflows: ["lead-nurturing-flows", "local-business-marketing", "product-launch"],
+      useCases: ["improve-sales-enablement", "improve-client-retention"],
+    },
     faqs: [
       {
         q: "Can it write listing descriptions?",
@@ -323,6 +349,7 @@ export const industries: Industry[] = [
   {
     kind: "industry",
     slug: "local-multi-location",
+    sector: "commerce",
     title: "Local & Multi-Location",
     navLabel: "Local & Multi-Location",
     headline: "One brand, many places, and a very uneven distribution of attention",
@@ -364,7 +391,11 @@ export const industries: Industry[] = [
       "Location data consistency affects local search. Errors propagate and are slow to correct.",
       "Where locations are independently owned, responsibility for published claims may sit with the franchisee rather than the brand.",
     ],
-    related: { capabilities: ["marketing-systems", "content", "campaigns"], workflows: ["scale-client-delivery", "content-production"] },
+    capabilities: ["google-business-profile", "social-media", "testimonials", "referral-programme", "email-templates", "seo"],
+    related: {
+      workflows: ["local-business-marketing", "multi-client-delivery", "referral-programme-workflow"],
+      useCases: ["manage-multiple-client-brands", "standardize-delivery"],
+    },
     faqs: [
       {
         q: "How much can genuinely differ per location?",
@@ -382,4 +413,17 @@ export const industries: Industry[] = [
   },
 ];
 
+/**
+ * The ten client sectors, in the order they appear everywhere.
+ *
+ * Split across two files by length rather than by importance — the four in
+ * industries-extended.ts are not a second tier, they are the ones written last.
+ */
+export const industries: Industry[] = [...coreIndustries, ...extendedIndustries];
+
 export const industryBySlug = new Map(industries.map((i) => [i.slug, i]));
+
+/** Sectors in one group, in the order they appear everywhere else. */
+export function industriesInSector(sector: Sector): Industry[] {
+  return industries.filter((i) => i.sector === sector);
+}

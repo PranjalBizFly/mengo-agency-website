@@ -93,7 +93,13 @@ export default function PlaybooksPage() {
 
       {heroPhoto ? (
         <Section tone="warm" tight>
-          <Figure photo={heroPhoto} aspect="21/9" drift />
+          <Figure
+            photo={heroPhoto}
+            aspect="21/9"
+            drift
+            context="Playbooks"
+            caption="Operational documents to work through on a Monday, not to admire in a tab."
+          />
         </Section>
       ) : null}
     </>

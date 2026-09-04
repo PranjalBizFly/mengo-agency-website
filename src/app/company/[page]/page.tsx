@@ -57,7 +57,13 @@ export default async function CompanyPage({ params }: { params: Promise<{ page: 
 
       {cover ? (
         <Section tone="paper" tight>
-          <Figure photo={cover} aspect="21/9" drift />
+          <Figure
+            photo={cover}
+            aspect="21/9"
+            drift
+            context={page.navLabel ?? page.title}
+            caption={page.summary}
+          />
         </Section>
       ) : null}
 
@@ -69,7 +75,13 @@ export default async function CompanyPage({ params }: { params: Promise<{ page: 
 
       {second ? (
         <Section tone="warm" tight>
-          <Figure photo={second} aspect="21/9" drift />
+          <Figure
+            photo={second}
+            aspect="21/9"
+            drift
+            context="How this is meant to be used"
+            caption={page.lead}
+          />
         </Section>
       ) : null}
 

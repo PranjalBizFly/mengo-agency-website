@@ -60,7 +60,13 @@ export default function GuidesPage() {
 
       {heroPhoto ? (
         <Section tone="warm" tight>
-          <Figure photo={heroPhoto} aspect="21/9" drift />
+          <Figure
+            photo={heroPhoto}
+            aspect="21/9"
+            drift
+            context="Guides"
+            caption="Longer arguments about how this work is run, written to be disagreed with rather than skimmed."
+          />
         </Section>
       ) : null}
     </>

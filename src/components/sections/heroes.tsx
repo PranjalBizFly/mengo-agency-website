@@ -31,6 +31,7 @@ export function PhotoHero({
   photo,
   kicker,
   title,
+  subtitle,
   lead,
   actions,
   aside,
@@ -39,6 +40,14 @@ export function PhotoHero({
   photo: Photo;
   kicker: string;
   title: ReactNode;
+  /**
+   * The promise line that belongs to the headline.
+   *
+   * Set as display type rather than as the first sentence of the lead, because
+   * it is part of the brand statement rather than part of the explanation —
+   * the same relationship the product site gives it.
+   */
+  subtitle?: ReactNode;
   lead: ReactNode;
   actions?: ReactNode;
   /** A strip along the foot of the frame. Facts, a key, a short ledger. */
@@ -56,10 +65,19 @@ export function PhotoHero({
           <h1 className="text-d1 text-on-dark" data-reveal style={{ "--reveal-delay": "90ms" } as React.CSSProperties}>
             {title}
           </h1>
+          {subtitle ? (
+            <p
+              className="mt-5 max-w-[34ch] text-d4 text-sage-bright"
+              data-reveal
+              style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
+            >
+              {subtitle}
+            </p>
+          ) : null}
           <p
-            className="mt-7 max-w-[46rem] text-lead text-sage-bright"
+            className={`${subtitle ? "mt-8" : "mt-7"} max-w-[46rem] text-lead text-sage-bright`}
             data-reveal
-            style={{ "--reveal-delay": "180ms" } as React.CSSProperties}
+            style={{ "--reveal-delay": "210ms" } as React.CSSProperties}
           >
             {lead}
           </p>

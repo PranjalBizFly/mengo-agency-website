@@ -24,7 +24,7 @@ export const companyPages: CompanyPage[] = [
       "Mengo is a marketing system that turns a business brief into strategy, planning, content and follow-up. This site is about one specific use of it: agencies running that work on behalf of their clients.",
     summary:
       "Mengo builds the structural layer beneath marketing delivery. What we make, why the agency version exists, and what we deliberately do not do.",
-    seoTitle: "About Mengo for Agencies",
+    seoTitle: "About Mengo — who builds it and why",
     seoDescription:
       "Mengo builds the structural layer beneath marketing delivery. What the product does, why the agency version exists, and the boundaries we hold deliberately.",
     updated: "2026-08-31",
@@ -32,7 +32,7 @@ export const companyPages: CompanyPage[] = [
       { type: "heading", text: "What Mengo is" },
       { type: "text", text: "Mengo turns a short business brief into a marketing system: positioning and segments, a themed calendar, the content that fills it, and the follow-up sequences behind it. It was built first for business owners who were the entire marketing function of their own company." },
       { type: "heading", text: "Why an agency version" },
-      { type: "text", text: "Agencies started using it, and the fit was obvious in one direction and awkward in another. The structural work an agency repeats on every client is exactly what the product produces. But the end-user positioning — an AI co-founder that runs your marketing — is wrong for an agency, because an agency already has the thing that positioning replaces." },
+      { type: "text", text: "Agencies started using it, and the fit was obvious in one direction and needed re-explaining in another. The structural work an agency repeats on every client is exactly what the product produces. What needed restating was the co-founder itself: for a business owner it is the marketing function they do not have, and for an agency it is the layer beneath the one they already are." },
       { type: "text", text: "So this is a separate property with a separate argument. The agency keeps the clients, the strategy and the final call. Mengo carries the structural layer underneath. The end-user product and its site continue unchanged at mengoengine.com; they are not the same proposition and we do not pretend they are." },
       { type: "heading", text: "The position, stated once" },
       { type: "ledger", ledger: {
@@ -163,7 +163,7 @@ export const companyPages: CompanyPage[] = [
     lead:
       "Whether you are evaluating this for a single account or for a delivery team, the useful first conversation is about what is actually breaking in your delivery rather than about features.",
     summary: "How to reach the Mengo team about agency use, evaluation, pilots or speaking enquiries.",
-    seoTitle: "Contact Mengo for Agencies",
+    seoTitle: "Contact Mengo",
     seoDescription:
       "Contact the Mengo team about agency use, scoped pilots, procurement questions or speaking enquiries.",
     updated: "2026-08-31",
@@ -203,7 +203,7 @@ export const legalPages: LegalPage[] = [
     title: "Privacy",
     headline: "Privacy",
     lead: "How this site handles the information you give it.",
-    summary: "Privacy information for the Mengo for Agencies site.",
+    summary: "Privacy information for this site.",
     updated: "2026-08-31",
     blocks: [
       { type: "note", text: "This page is a structural placeholder pending review by Mengo's counsel. It must be replaced with the approved policy before launch, and nothing on it should be relied upon in the meantime." },
@@ -226,7 +226,7 @@ export const legalPages: LegalPage[] = [
     title: "Terms",
     headline: "Terms",
     lead: "The terms on which this site is published.",
-    summary: "Terms of use for the Mengo for Agencies site.",
+    summary: "Terms of use for this site.",
     updated: "2026-08-31",
     blocks: [
       { type: "note", text: "This page is a structural placeholder pending review by Mengo's counsel. It must be replaced with approved terms before launch." },

@@ -10,7 +10,7 @@ import type { Comparison } from "@/lib/types";
  * alternative is genuinely the better answer, because a reader who finds one
  * honest section is more likely to believe the rest.
  */
-export const comparisons: Comparison[] = [
+const coreComparisons: Comparison[] = [
   {
     kind: "comparison",
     slug: "mengo-vs-hiring",
@@ -236,5 +236,13 @@ export const comparisons: Comparison[] = [
     ],
   },
 ];
+
+import { additionalComparisons } from "./comparisons/additional";
+
+/**
+ * Comparisons against everything an agency actually weighs — other people,
+ * other tools, building it yourself, and doing nothing.
+ */
+export const comparisons: Comparison[] = [...coreComparisons, ...additionalComparisons];
 
 export const comparisonBySlug = new Map(comparisons.map((c) => [c.slug, c]));

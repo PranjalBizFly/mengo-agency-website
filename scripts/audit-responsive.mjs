@@ -37,18 +37,31 @@ const PAGES = [
   "/",
   "/why-mengo/",
   "/how-it-works/",
-  "/for-agencies/",
-  "/for-agencies/solo-agency/",
+  "/solutions/",
+  "/solutions/stages/",
+  "/solutions/stages/solo/",
   "/capabilities/",
-  "/capabilities/lead-nurturing/",
+  "/capabilities/marketing/",
+  "/capabilities/system/",
+  "/capabilities/sales/whatsapp-nurturing/",
+  "/capabilities/system/ai-chat/",
+  "/capabilities/sales/whatsapp-nurturing/for/solo/",
+  "/capabilities/marketing/wikipedia-profile/for/starting/",
+  "/capabilities/foundation/business-profile/for/established/",
   "/workflows/",
   "/workflows/client-onboarding/",
   "/industries/",
   "/industries/healthcare/",
-  "/use-cases/",
-  "/use-cases/handle-more-clients/",
+  "/industries/healthcare/blog-content/",
+  "/industries/ecommerce-d2c/ads-management/",
+  "/industries/home-services/",
+  "/industries/financial-services/faq-bank/",
+  "/solutions/goals/",
+  "/solutions/goals/handle-more-clients/",
+  "/explore/",
+  "/search/?q=content",
   "/compare/",
-  "/compare/mengo-vs-hiring/",
+  "/compare/solo-vs-growing-agencies/",
   "/resources/",
   "/resources/frameworks/the-ownership-ledger/",
   "/resources/blog/the-agency-bottleneck-is-not-talent/",
@@ -72,6 +85,44 @@ const browser = await chromium.launch({ executablePath });
 const problems = [];
 let checks = 0;
 
+/**
+ * Refuse to audit an unstyled page.
+ *
+ * If the stylesheet did not load, every check below fails for one reason and
+ * the report becomes two thousand phantom defects. `--color-paper` is defined
+ * in the theme block and inherited by nothing else, so resolving it is a direct
+ * test of whether the site's CSS is present.
+ *
+ * The usual cause is a `next dev` sharing `.next` with the production build it
+ * is serving: dev rewrites that directory continuously, so the stylesheet can
+ * vanish part-way through a twenty-minute run. That is why the responsive audit
+ * re-checks at every width rather than once — a run that began styled can stop
+ * being so, and the failure has to be named rather than measured.
+ */
+async function assertStyled(page, where) {
+  const styled = await page.evaluate(() => {
+    if (document.styleSheets.length === 0) return false;
+    const paper = getComputedStyle(document.documentElement)
+      .getPropertyValue("--color-paper")
+      .trim();
+    return paper.length > 0;
+  });
+  if (!styled) {
+    console.error(
+      `\nThe page at ${where} rendered without its stylesheet.\n\n` +
+        `Every layout check below would fail for that one reason, so the audit\n` +
+        `stops here rather than reporting it as hundreds of defects.\n\n` +
+        `The usual cause is a \`next dev\` sharing the .next directory with the\n` +
+        `production server. Stop it, then:\n\n` +
+        `  rm -rf .next && npm run build && npx next start -p 4123\n`,
+    );
+    await browser.close();
+    process.exit(1);
+  }
+}
+
+let guardedWidth = null;
+
 for (const width of WIDTHS) {
   const context = await browser.newContext({
     viewport: { width, height: 900 },
@@ -86,6 +137,11 @@ for (const width of WIDTHS) {
     if (!response || response.status() >= 400) {
       problems.push(`${path} @ ${width}: HTTP ${response?.status() ?? "no response"}`);
       continue;
+    }
+
+    if (guardedWidth !== width) {
+      await assertStyled(page, `${BASE}${path}`);
+      guardedWidth = width;
     }
 
     /* Scroll the whole page so every reveal target gets its chance, then come

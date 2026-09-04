@@ -19,7 +19,7 @@ export const runtime = "edge";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const title = (searchParams.get("t") ?? site.name).slice(0, 120);
-  const kicker = (searchParams.get("k") ?? "For agencies").slice(0, 40);
+  const kicker = (searchParams.get("k") ?? "Mengo").slice(0, 40);
 
   // Long titles need to step down or they overflow the card.
   const fontSize = title.length > 78 ? 52 : title.length > 46 ? 62 : 74;

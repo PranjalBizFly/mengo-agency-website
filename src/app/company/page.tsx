@@ -111,8 +111,8 @@ export default function CompanyIndexPage() {
         <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
           <Heading kicker="Two properties" title="This site, and the product site" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
-            {site.name} is the agency-facing property. The Mengo product site for business owners —
-            where the positioning is an AI co-founder that runs your marketing — is a separate site
+            This site is written for the people running the agency. The Mengo product site for business owners —
+            where the co-founder is the marketing function they do not have — is a separate site
             with a separate argument, and the two are never merged. Same underlying product,
             different reader.
           </p>

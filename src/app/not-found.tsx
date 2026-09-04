@@ -27,7 +27,7 @@ export default function NotFound() {
           columns={2}
           items={[
             { title: "Home", body: "The argument, in short.", href: routes.home() },
-            { title: "For Agencies", body: "Five stages. Find the one that describes your week.", href: routes.forAgencies() },
+            { title: "Solutions", body: "Five stages, twenty-one goals. Find the one that describes your week.", href: routes.solutions() },
             { title: "How it works", body: "One client, followed all the way through.", href: routes.howItWorks() },
             { title: "Capabilities", body: "What Mengo helps with, and what it does not.", href: routes.capabilities() },
             { title: "Resources", body: "Frameworks and playbooks you can use on Monday.", href: routes.resources() },

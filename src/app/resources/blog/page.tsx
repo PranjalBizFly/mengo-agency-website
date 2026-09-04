@@ -90,7 +90,13 @@ export default function BlogPage() {
 
       {heroPhoto ? (
         <Section tone="warm" tight>
-          <Figure photo={heroPhoto} aspect="21/9" drift />
+          <Figure
+            photo={heroPhoto}
+            aspect="21/9"
+            drift
+            context="The journal"
+            caption="Arguments about delivery, capacity and the economics of the work — each one with a conclusion."
+          />
         </Section>
       ) : null}
     </>

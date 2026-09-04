@@ -61,7 +61,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
 
       {cover ? (
         <Section tone="paper" tight>
-          <Figure photo={cover} aspect="21/9" drift />
+          <Figure
+            photo={cover}
+            aspect="21/9"
+            drift
+            context={article.topic}
+            caption={article.summary}
+          />
         </Section>
       ) : null}
 

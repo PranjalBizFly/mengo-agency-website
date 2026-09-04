@@ -5,8 +5,9 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/layout/Logo";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { SearchTrigger } from "@/components/search/Search";
 import { buttonClass } from "@/components/ui/primitives";
-import { primaryNav, type NavGroup } from "@/lib/nav";
+import { primaryNav, type NavColumn, type NavGroup } from "@/lib/nav";
 import { routes } from "@/lib/site";
 
 /**
@@ -17,7 +18,13 @@ import { routes } from "@/lib/site";
  * Mobile: a full-height drawer built from native disclosures, which gets the
  * interaction accessible without hand-rolling a focus trap.
  *
- * The panel mounts on open rather than living hidden in the DOM. That costs a
+ * The bar reads Home, then the five sections, then a quieter utility cluster:
+ * how it works, search, theme, and the one action. Home is a real item rather
+ * than only the wordmark — on a five-hundred-page site the reader four
+ * cross-links deep needs an unambiguous way back that is not a logo they have
+ * to guess is clickable.
+ *
+ * Panels mount on open rather than living hidden in the DOM. That costs a
  * render and buys two things: the entrance can be an animation rather than a
  * transition, and five panels' worth of links are not sitting in the tab order
  * of every page.
@@ -79,6 +86,7 @@ export function Header() {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
   }, []);
 
+  const isHome = pathname === routes.home();
   const isCurrent = (href: string) => pathname === href || pathname.startsWith(href);
 
   return (
@@ -99,11 +107,23 @@ export function Header() {
           Skip to content
         </a>
 
-        <div className="wrap flex h-(--header-h) flex-nowrap items-center justify-between gap-3">
+        <div className="wrap flex h-(--header-h) flex-nowrap items-center justify-between gap-2 xl:gap-4">
           <Logo />
 
           <nav aria-label="Primary" className="hidden min-w-0 lg:block">
             <ul className="flex flex-nowrap items-center">
+              <li>
+                <Link
+                  href={routes.home()}
+                  aria-current={isHome ? "page" : undefined}
+                  className={`nav-item type-nav inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-2.5 transition-colors xl:px-3 ${
+                    isHome ? "text-lime-deep" : "text-ink hover:text-lime-deep"
+                  }`}
+                >
+                  Home
+                </Link>
+              </li>
+
               {primaryNav.map((group, index) => (
                 <li key={group.label}>
                   {group.columns ? (
@@ -151,13 +171,12 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="hidden shrink-0 items-center gap-1.5 lg:flex">
-            <Link
-              href={routes.howItWorks()}
-              className="nav-item type-nav hidden whitespace-nowrap rounded-full px-3 py-2.5 text-ink transition-colors hover:text-lime-deep xl:inline-flex xl:items-center"
-            >
-              How it works
-            </Link>
+          {/* The utility cluster: the two controls and the one action.
+              "How it works" is deliberately not here. It is a supporting
+              destination reached from the Workflows panel and from the footer,
+              and a slot in this row would give it the weight of a section. */}
+          <div className="hidden shrink-0 items-center gap-2 lg:flex">
+            <SearchTrigger className="w-10 justify-center xl:w-44 xl:justify-start" />
             <ThemeToggle />
             <Link
               href={routes.getStarted()}
@@ -168,6 +187,7 @@ export function Header() {
           </div>
 
           <div className="flex shrink-0 items-center gap-1 lg:hidden">
+            <SearchTrigger variant="icon" />
             <ThemeToggle />
             <button
               type="button"
@@ -215,6 +235,14 @@ export function Header() {
         className="fixed inset-x-0 bottom-0 top-(--header-h) z-40 overflow-y-auto overscroll-contain border-t border-line bg-paper lg:hidden"
       >
         <nav aria-label="Primary mobile" className="wrap pb-12 pt-2">
+          <Link
+            href={routes.home()}
+            aria-current={isHome ? "page" : undefined}
+            className="rule-b flex min-h-14 items-center py-4 type-title text-h7"
+          >
+            Home
+          </Link>
+
           {primaryNav.map((group) => (
             <details key={group.label} className="group rule-b">
               <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between py-4 type-title text-h7 [&::-webkit-details-marker]:hidden">
@@ -233,8 +261,13 @@ export function Header() {
                 </svg>
               </summary>
               <div className="pb-5">
-                {group.columns?.map((column) => (
-                  <div key={column.heading} className="mb-5 last:mb-0">
+                {/* The desktop panel splits a long group across columns, and a
+                    continuation column carries a blank heading. In a single
+                    stacked drawer those splits are meaningless, so consecutive
+                    columns are merged back into one run — otherwise the taxonomy
+                    reads as three arbitrary clusters separated by gaps. */}
+                {mergeColumns(group.columns ?? []).map((column, index) => (
+                  <div key={index} className="mb-5 last:mb-0">
                     {column.heading.trim() ? <p className="label mb-2">{column.heading}</p> : null}
                     <ul>
                       {column.links.map((link) => (
@@ -264,11 +297,12 @@ export function Header() {
             </details>
           ))}
 
-          <Link href={routes.howItWorks()} className="rule-b flex min-h-14 items-center py-4 type-title text-h7">
-            How it works
-          </Link>
-          <Link href={routes.why()} className="rule-b flex min-h-14 items-center py-4 type-title text-h7">
-            Why Mengo
+          <Link
+            href={routes.explore()}
+            className="rule-b flex min-h-14 items-center justify-between py-4 type-title text-h7"
+          >
+            Explore all pages
+            <span className="text-small font-normal text-ink-soft">Directory</span>
           </Link>
 
           <div className="mt-8 grid gap-3">
@@ -276,7 +310,7 @@ export function Header() {
               Get started
             </Link>
             <Link href={routes.contact()} className={buttonClass("secondary", "w-full")}>
-              Contact us
+              Talk to us
             </Link>
           </div>
         </nav>
@@ -285,19 +319,51 @@ export function Header() {
   );
 }
 
+/**
+ * Fold continuation columns back into the column they continue.
+ *
+ * A `NavColumn` with a blank heading exists purely so the desktop mega panel
+ * can break a long group across three columns. The mobile drawer stacks
+ * everything anyway, so those breaks become unexplained gaps in the list.
+ */
+function mergeColumns(columns: NavColumn[]): NavColumn[] {
+  const merged: NavColumn[] = [];
+  for (const column of columns) {
+    const previous = merged[merged.length - 1];
+    if (previous && !column.heading.trim()) {
+      previous.links = [...previous.links, ...column.links];
+      previous.seeAll = column.seeAll ?? previous.seeAll;
+      continue;
+    }
+    merged.push({ ...column, links: [...column.links] });
+  }
+  return merged;
+}
+
 function MegaPanel({ group }: { group: NavGroup }) {
   const columns = group.columns ?? [];
   return (
     <div
+      /* Three columns and a feature panel, or four plain columns when a
+         section's own grouping needs the fourth — the industries panel, whose
+         point is the four sector groups. */
       className={`wrap grid gap-x-8 gap-y-9 py-9 xl:gap-x-10 ${
         group.feature
           ? "lg:grid-cols-[1fr_1fr_1fr_minmax(0,16rem)] xl:grid-cols-[1fr_1fr_1fr_minmax(0,18rem)]"
-          : "lg:grid-cols-3"
+          : columns.length === 4
+            ? "lg:grid-cols-4"
+            : "lg:grid-cols-3"
       }`}
     >
+      {/* Keyed by position, not by heading. A continuation column deliberately
+          has no heading of its own, so headings are not identities here — and a
+          group with two of them collides, which React resolves by dropping a
+          column rather than by complaining in production. The list is static
+          per group and the panel remounts when the open group changes, so the
+          index is the honest identity. */}
       {columns.map((column, index) => (
         <div
-          key={column.heading}
+          key={index}
           data-mega-col
           className="min-w-0"
           style={{ "--mega-index": String(index) } as React.CSSProperties}

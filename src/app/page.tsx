@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Section, Heading, Kicker, Statement, ButtonLink, JsonLd } from "@/components/ui/primitives";
+import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
 import {
   IndexRows,
   NumberedRows,
@@ -13,39 +13,51 @@ import {
   MarkerList,
 } from "@/components/ui/editorial";
 import { PhotoHero } from "@/components/sections/heroes";
+import { SystemLayers } from "@/components/sections/system";
 import { Figure, PhotoSection, Credit } from "@/components/ui/Photo";
 import { photo } from "@/lib/images";
 import { routes, site } from "@/lib/site";
 import { pageMetadata } from "@/seo/metadata";
 import { stages } from "@/data/stages";
-import { capabilities } from "@/data/capabilities";
+import { capabilities, capabilitiesInGroup, stagedCapabilities } from "@/data/capabilities";
+import { capabilityGroups } from "@/data/capability-groups";
+import { comparisons } from "@/data/comparisons";
 import { workflows } from "@/data/workflows";
 import { industries } from "@/data/industries";
 import { useCases } from "@/data/use-cases";
 import { articles } from "@/data/articles";
 import { frameworks } from "@/data/frameworks";
 import { playbooks } from "@/data/playbooks";
+import { generalFaqs, totalFaqCount } from "@/data/faq";
 
 export const metadata: Metadata = pageMetadata({
-  title: `${site.name} — ${site.tagline}`,
+  /* The brand line, plus the one clause that stops this competing with the
+     product site for an identical result. The headline on the page itself is
+     Mengo's own and is not qualified. */
+  title: `${site.name} — ${site.tagline}, alongside your agency`,
   description: site.description,
   path: routes.home(),
-  kicker: "For agencies",
+  kicker: "Mengo",
 });
 
 /**
  * The homepage.
  *
- * One continuous argument rather than a stack of unrelated sections: the
- * reality of running an agency, what breaks, where the boundary sits, how the
- * work actually runs, who it is for at each size, and what to read next.
+ * One continuous argument in four movements: the problem, what it costs, the
+ * shift that answers it, and then the whole system drawn as connected layers
+ * so a reader can see how sixty-four separate capabilities amount to one
+ * thing. Everything after that is the argument made concrete — the stages, a
+ * real workflow, the sectors, and an honest account of the evidence.
  *
  * Every section uses a different device — an index, a numbered argument, the
- * ledger, a spine on a photograph, the ladder, linked rows — so the page has a
- * rhythm rather than a repeated shape. The one section that would normally be
- * a wall of logos and statistics is instead an honest account of what we do
- * not have, which is the most defensible thing this site can put there.
+ * ledger, the layer stack, a spine on a photograph, the ladder, linked rows —
+ * so the page has a rhythm rather than a repeated shape. The one section that
+ * would normally be a wall of logos and statistics is instead an honest
+ * account of what we do not have, which is the most defensible thing this site
+ * can put there.
  */
+const stagedCount = stagedCapabilities.length;
+
 export default function HomePage() {
   const heroPhoto = photo("home:index:hero");
   const realityPhoto = photo("home:index:reality");
@@ -65,7 +77,7 @@ export default function HomePage() {
           name: site.name,
           description: site.description,
           url: site.url,
-          about: { "@type": "Thing", name: "Marketing delivery for agencies" },
+          about: { "@type": "Thing", name: "Marketing delivery infrastructure" },
         }}
       />
 
@@ -73,18 +85,22 @@ export default function HomePage() {
       {heroPhoto ? (
         <PhotoHero
           photo={heroPhoto}
-          kicker="Mengo for agencies"
+          /* Mengo's own headline, unchanged from the product site — this is
+             the same product and the same brand, read from a different chair.
+             The agency context is carried by the eyebrow above it and the
+             paragraph below it, which is where the argument belongs. */
+          kicker={site.promise}
           title={
             <>
-              Build a better agency.{" "}
-              <span className="text-lime">Not a bigger overhead.</span>
+              Your AI <span className="editorial text-lime">Co-founder</span>
             </>
           }
-          lead="Your agency keeps the clients, the strategy and the final call. Mengo carries the research, planning, content systems and nurturing workflows behind them — so a small team can deliver like a larger one."
+          subtitle="The co-founder that never sleeps."
+          lead="For an agency that means a co-founder for the structural half of the work. You keep the clients, the strategy and the final call; Mengo carries the research, planning, content systems and nurturing workflows behind them — so a small team delivers like a larger one."
           actions={
             <>
               <ButtonLink href={routes.howItWorks()}>See how it works</ButtonLink>
-              <ButtonLink href={routes.forAgencies()} variant="secondary">
+              <ButtonLink href={routes.stages()} variant="secondary">
                 Find your stage
               </ButtonLink>
             </>
@@ -95,7 +111,7 @@ export default function HomePage() {
                 { label: "You own", value: "Clients, strategy, final approval" },
                 { label: "Mengo carries", value: "Research, planning, drafts, sequences" },
                 { label: "Never", value: "Sending, publishing, ad spend, client contact" },
-                { label: "Built for", value: "Solo through to multi-team agencies" },
+                { label: "Built for", value: "One person through to multiple teams" },
               ].map((fact) => (
                 <div key={fact.label}>
                   <dt className="label">{fact.label}</dt>
@@ -107,13 +123,13 @@ export default function HomePage() {
         />
       ) : null}
 
-      {/* 2 — The reality ----------------------------------------------- */}
+      {/* 2 — The problem ------------------------------------------------ */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
           <div className="lg:sticky lg:top-32">
             <Heading
-              kicker="The reality"
-              title="Agencies do not run out of ideas. They run out of Thursday."
+              kicker="The problem"
+              title="Nobody runs out of ideas. They run out of Thursday."
               size="d2"
               width="full"
             />
@@ -122,7 +138,16 @@ export default function HomePage() {
               good marketing — the research, the planning, the system that makes the next piece
               faster than the last — has neither, so it loses to whatever is urgent.
             </p>
-            {realityPhoto ? <Figure photo={realityPhoto} aspect="4/3" drift className="mt-12" /> : null}
+            {realityPhoto ? (
+              <Figure
+                photo={realityPhoto}
+                aspect="4/3"
+                drift
+                className="mt-12"
+                context="The problem"
+                caption="The structural work behind good marketing has no deadline of its own, so it loses to whatever is urgent."
+              />
+            ) : null}
           </div>
 
           <div>
@@ -197,18 +222,18 @@ export default function HomePage() {
         </p>
       </Section>
 
-      {/* 4 — The boundary. The site's central claim. -------------------- */}
-      <Section tone="forest" id="the-boundary">
+      {/* 4 — The shift. The site's central claim. ----------------------- */}
+      <Section tone="forest" id="the-shift">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
           <Heading
-            kicker="Mengo's role"
-            title="Mengo works alongside the agency. It does not replace it."
+            kicker="The shift"
+            title="The work does not move. The layer underneath it does."
             size="d2"
             width="full"
           />
           <Statement>
-            Your agency stays the agency. What changes is how much of the work behind it has to be
-            built by hand, every time, from nothing.
+            You stay the agency. What changes is how much of the structure behind the work has to
+            be built by hand, every time, from nothing.
           </Statement>
         </div>
 
@@ -270,18 +295,91 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 5 — Agency and Mengo together --------------------------------- */}
+      {/* 5 — The whole system, as connected layers ---------------------- */}
+      <Section tone="paper" id="the-system">
+        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+          <Heading
+            kicker="The full system"
+            title={`${capabilities.length} capabilities. One stack.`}
+            size="d2"
+            width="full"
+          />
+          <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
+            A list of features is not a system. These are layers: each one sits on the one below it
+            and is referenced by the one above, which is why the strategic layer only has to be set
+            once and why the next piece of work is cheaper than the last. The stack opens and closes
+            with a person, and that is the part that never moves.
+          </p>
+        </div>
+
+        <SystemLayers className="mt-14" />
+
+        <div className="mt-14 flex flex-wrap gap-3" data-reveal>
+          <ButtonLink href={routes.capabilities()}>Browse all {capabilities.length}</ButtonLink>
+          <ButtonLink href={`${routes.capabilities()}#explorer`} variant="secondary">
+            Narrow it to your stage
+          </ButtonLink>
+          <ButtonLink href={routes.workflows()} variant="secondary">
+            See the {workflows.length} workflows
+          </ButtonLink>
+        </div>
+
+        <p className="mt-10 max-w-[46rem] text-body leading-relaxed text-ink-soft" data-reveal>
+          {stagedCount} of these capabilities mean something different at a different size, so each
+          has a page written from every one of the {stages.length} stages — including the ones whose
+          honest answer at your size is <em>not yet</em>, with what to do first instead.
+        </p>
+      </Section>
+
+      {/* 6 — The catalogue behind the stack ------------------------------
+          The stack says how the layers relate. This says what is in them: the
+          count, the character and a way in. Two different questions about the
+          same sixty-four things, and a reader arriving with either one should
+          not have to read the other's answer first. */}
+      <Section tone="warm" id="capabilities">
+        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+          <Heading
+            kicker="The catalogue"
+            title={`Eight groups, ${capabilities.length} capabilities`}
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
+            Each one has a page saying what goes in, what comes back, where your judgement is
+            required and — the section most product pages leave out — what it deliberately does not
+            do. Nothing here is a feature list with a marketing sentence attached.
+          </p>
+        </div>
+
+        <IndexRows
+          className="mt-14"
+          columns={2}
+          items={capabilityGroups.map((group) => ({
+            label: `${group.title} · ${capabilitiesInGroup(group.slug).length}`,
+            body: group.character,
+          }))}
+        />
+
+        <div className="mt-12 flex flex-wrap gap-3" data-reveal>
+          <ButtonLink href={routes.capabilities()}>Browse all {capabilities.length}</ButtonLink>
+          <ButtonLink href={`${routes.capabilities()}#explorer`} variant="secondary">
+            Narrow it to your stage
+          </ButtonLink>
+        </div>
+      </Section>
+
+      {/* 7 — Where the judgement stays ---------------------------------- */}
       {togetherPhoto ? (
         <PhotoSection photo={togetherPhoto} scrim="start" align="start">
-          <Kicker className="mb-7">Working together</Kicker>
+          <Kicker className="mb-7">Working alongside</Kicker>
           <h2 className="max-w-[18ch] text-d2 text-on-dark">
             The parts a client is paying for stay in human hands.
           </h2>
           <div className="mt-10 grid gap-x-12 gap-y-8 md:grid-cols-2">
             <p className="text-lead text-sage-bright">
-              A client hires an agency for judgement: someone who understands their business well
-              enough to tell them something true, occasionally something they did not want to hear.
-              Nothing about that changes here.
+              A client is buying judgement: someone who understands their business well enough to
+              tell them something true, occasionally something they did not want to hear. Nothing
+              about that changes here.
             </p>
             <MarkerList
               items={[
@@ -296,12 +394,12 @@ export default function HomePage() {
         </PhotoSection>
       ) : null}
 
-      {/* 6 — Growth stages --------------------------------------------- */}
+      {/* 8 — Five stages --------------------------------------------- */}
       <Section tone="paper" id="stages">
         <Heading
           kicker="Whatever size you are"
           title="Five stages, one path"
-          lead="An agency at each of these points has a different constraint, a different week and a different set of things that break. Start with the one that describes your Thursday."
+          lead="Each of these points has a different constraint, a different week and a different set of things that break. Start with the one that describes your Thursday."
           size="d3"
         />
         <Ladder
@@ -314,33 +412,7 @@ export default function HomePage() {
         />
       </Section>
 
-      {/* 7 — What Mengo helps with ------------------------------------- */}
-      <Section tone="warm">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
-          <Heading
-            kicker="What Mengo helps with"
-            title="Six areas of the work behind the recommendation"
-            size="d3"
-            width="full"
-          />
-          <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
-            Each of these has a page stating what goes in, what comes back, where your judgement is
-            required and — the section most product pages leave out — what it deliberately does not
-            do.
-          </p>
-        </div>
-        <StoryRows
-          className="mt-12"
-          columns={2}
-          items={capabilities.map((capability) => ({
-            title: capability.title,
-            body: capability.job,
-            href: routes.capability(capability.slug),
-          }))}
-        />
-      </Section>
-
-      {/* 8 — The client workflow, on a photograph ----------------------- */}
+      {/* 9 — The client workflow, on a photograph ----------------------- */}
       {workflowPhoto && onboarding ? (
         <PhotoSection photo={workflowPhoto} scrim="even" align="full" id="workflow">
           <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
@@ -366,7 +438,7 @@ export default function HomePage() {
         </PhotoSection>
       ) : null}
 
-      {/* 9 — Scaling delivery ------------------------------------------ */}
+      {/* 10 — Scaling delivery ------------------------------------------ */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center">
           <div>
@@ -401,11 +473,19 @@ export default function HomePage() {
             </div>
           </div>
 
-          {scalePhoto ? <Figure photo={scalePhoto} aspect="4/3" drift /> : null}
+          {scalePhoto ? (
+            <Figure
+              photo={scalePhoto}
+              aspect="4/3"
+              drift
+              context="What changes"
+              caption="Senior hours shift from assembly toward review and client contact — and review becomes the binding constraint."
+            />
+          ) : null}
         </div>
       </Section>
 
-      {/* 10 — Use cases and industries, as two indexes ------------------ */}
+      {/* 11 — Solutions and sectors, as two indexes ------------------------- */}
       <Section tone="deep">
         <div className="grid gap-x-16 gap-y-14 lg:grid-cols-2">
           <div>
@@ -433,7 +513,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 11 — Evidence. The honest version. ----------------------------- */}
+      {/* 12 — Evidence. The honest version. ----------------------------- */}
       <Section tone="paper" id="evidence">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <Heading
@@ -445,7 +525,7 @@ export default function HomePage() {
           <div>
             <p className="max-w-[44rem] text-lead text-ink-soft" data-reveal>
               There are no client logos on this site, no testimonials, no case studies and no
-              percentages. Mengo is early and we do not have agency outcome data we could stand
+              percentages. Mengo is early and we do not have outcome data we could stand
               behind. Publishing invented figures would be the fastest way to lose the readers we
               most want.
             </p>
@@ -479,12 +559,35 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 12 — Resources ------------------------------------------------- */}
+      {/* 13 — The awkward questions --------------------------------------
+          Before the resources rather than after them: a reader who has got
+          this far is evaluating, and the questions they are holding are the
+          ones about the boundary. Answering them here rather than burying
+          them on a FAQ page is the point. */}
+      <Section tone="paper" id="questions">
+        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Heading kicker="Questions" title="The ones worth asking first" size="d3" width="full" />
+            <p className="mt-7 max-w-[34rem] text-body leading-relaxed text-ink-soft" data-reveal>
+              These are the five asked before anybody has picked a section. Every other question on
+              the site is gathered on one page, in context, with the section it came from.
+            </p>
+            <div className="mt-9" data-reveal>
+              <ButtonLink href={routes.faq()} variant="secondary">
+                All {totalFaqCount()} questions
+              </ButtonLink>
+            </div>
+          </div>
+          <FaqList faqs={generalFaqs.slice(0, 5)} />
+        </div>
+      </Section>
+
+      {/* 14 — Resources ------------------------------------------------- */}
       <Section tone="warm">
         <Heading
           kicker="Resources"
           title="Things you can use whether or not you ever use Mengo"
-          lead="Frameworks to adopt under your own name, playbooks to work through on Monday, and writing about agency operations."
+          lead="Frameworks to adopt under your own name, playbooks to work through on Monday, and writing about how this work is run."
           size="d3"
         />
         <div className="mt-14 grid gap-x-14 gap-y-12 lg:grid-cols-3">
@@ -524,7 +627,36 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 13 — Close ------------------------------------------------------ */}
+      {/* 15 — Compare approaches -----------------------------------------
+          The alternatives, named rather than avoided. Every one of these pages
+          leads with when the other option wins, which is the only way a
+          comparison published by one side of it is worth reading. */}
+      <Section tone="deep">
+        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end">
+          <Heading
+            kicker="Weighing it up"
+            title="The alternatives, and when they win"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
+            Hiring, freelancers, doing it by hand, buying more tools. Each of these is the right
+            answer to some situation, and each comparison says which — before it says anything
+            about Mengo. A comparison that never concedes is an advertisement.
+          </p>
+        </div>
+        <StoryRows
+          className="mt-12"
+          columns={2}
+          items={comparisons.map((comparison) => ({
+            title: comparison.navLabel ?? comparison.title,
+            body: comparison.question,
+            href: routes.comparison(comparison.slug),
+          }))}
+        />
+      </Section>
+
+      {/* 16 — Close ------------------------------------------------------ */}
       {closePhoto ? (
         <PhotoSection photo={closePhoto} scrim="panel" align="panel">
           <Kicker className="mb-7">Where to start</Kicker>

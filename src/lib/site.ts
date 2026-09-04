@@ -1,15 +1,20 @@
 /**
  * Site constants and the canonical URL builder.
  *
- * This is the Mengo *agency* property. It is a separate site from the Mengo
- * end-user product site at mengoengine.com, with its own positioning, its own
- * routes and its own content. The two are never merged: the end-user site sells
- * an AI co-founder to a business owner, and this one explains to an agency how
- * Mengo carries marketing work behind the agency's own client relationships.
+ * This property is written from an agency's point of view. It is a separate
+ * site from the Mengo end-user product site at mengoengine.com, with its own
+ * positioning, routes and content. The two are never merged: the end-user site
+ * sells an AI co-founder to a business owner who is their own marketing
+ * function, and this one explains what the same co-founder is for a firm that
+ * already has one: the structural half of the work, behind their own client
+ * relationships.
+ *
+ * The name is "Mengo" and nothing longer. The audience is the perspective the
+ * site is written from, not a phrase repeated into every title and nav label.
  */
 
 export const site = {
-  name: "Mengo for Agencies",
+  name: "Mengo",
   shortName: "Mengo",
   legalName: "Mengo Engine",
   /**
@@ -18,8 +23,8 @@ export const site = {
    * one value that has to be right at cutover.
    */
   url: "https://agencies.mengoengine.com",
-  tagline: "Build a better agency",
-  promise: "Your agency stays the agency.",
+  tagline: "Your AI Co-founder",
+  promise: "You stay the agency.",
   description:
     "Mengo works alongside your agency, not in place of it. You keep the clients, the strategy and the final call. Mengo carries the research, planning, content systems and nurturing workflows behind them, so a small team can deliver like a larger one.",
   locale: "en",
@@ -53,20 +58,46 @@ export const routes = {
   why: () => "/why-mengo/",
   howItWorks: () => "/how-it-works/",
 
-  forAgencies: () => "/for-agencies/",
-  stage: (slug: string) => `/for-agencies/${slug}/`,
+  /**
+   * Solutions is the reader-facing entry point: the same body of content
+   * organised by who you are (stage) and by what you are trying to do (goal).
+   * Both live under one segment because a reader arrives with one of those two
+   * questions and should not have to know which section answers it.
+   */
+  solutions: () => "/solutions/",
+  stages: () => "/solutions/stages/",
+  stage: (slug: string) => `/solutions/stages/${slug}/`,
+  useCases: () => "/solutions/use-cases/",
+  useCase: (slug: string) => `/solutions/use-cases/${slug}/`,
 
+  /**
+   * Capabilities are nested under their group.
+   *
+   * Two reasons. The taxonomy has eight groups and sixty-four capabilities, and
+   * a flat namespace makes that structure invisible in the URL. And two group
+   * names — `brand` and `organization` — are also capability names, so a flat
+   * namespace would collide outright.
+   */
   capabilities: () => "/capabilities/",
-  capability: (slug: string) => `/capabilities/${slug}/`,
+  capabilityGroup: (group: string) => `/capabilities/${group}/`,
+  capability: (group: string, slug: string) => `/capabilities/${group}/${slug}/`,
+  /**
+   * A capability seen from one stage.
+   *
+   * Nested under the capability because the capability is the subject and the
+   * stage is the lens. It also keeps 260 pages out of /solutions/stages/,
+   * where they would bury the five pages that matter most.
+   */
+  capabilityStage: (group: string, slug: string, stage: string) =>
+    `/capabilities/${group}/${slug}/for/${stage}/`,
 
   workflows: () => "/workflows/",
   workflow: (slug: string) => `/workflows/${slug}/`,
 
   industries: () => "/industries/",
   industry: (slug: string) => `/industries/${slug}/`,
-
-  useCases: () => "/use-cases/",
-  useCase: (slug: string) => `/use-cases/${slug}/`,
+  /** One capability in one client sector. Curated pairs only, never crossed. */
+  industryCapability: (industry: string, capability: string) => `/industries/${industry}/${capability}/`,
 
   compare: () => "/compare/",
   comparison: (slug: string) => `/compare/${slug}/`,
@@ -94,6 +125,10 @@ export const routes = {
   legal: (slug: string) => `/legal/${slug}/`,
 
   getStarted: () => "/get-started/",
+  explore: () => "/explore/",
+  search: () => "/search/",
+  /** A pre-filled results URL, for the dialog's hand-off to the full page. */
+  searchFor: (query: string) => `/search/?q=${encodeURIComponent(query)}`,
   sitemapPage: () => "/sitemap/",
 } as const;
 

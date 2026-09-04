@@ -16,8 +16,11 @@ import { readdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+/** QA can build into a directory of its own; see distDir in next.config.ts. */
+const DIST = process.env.NEXT_DIST_DIR || ".next";
+
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const appDir = join(root, ".next/server/app");
+const appDir = join(root, DIST, "server/app");
 
 if (!existsSync(appDir)) {
   console.error("No build output. Run `next build` first.");

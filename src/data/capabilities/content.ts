@@ -1,0 +1,1096 @@
+import type { Capability } from "@/lib/types";
+
+/**
+ * Content capabilities.
+ *
+ * The only group with a weekly cadence. Everything else can slip a fortnight
+ * without a client noticing; this cannot, which is why it is the group that
+ * decides how many accounts an agency can actually hold.
+ */
+export const contentCapabilities: Capability[] = [
+  {
+    kind: "capability",
+    slug: "website-planner",
+    title: "Website Planner",
+    navLabel: "Website Planner",
+    group: "content",
+    depth: "staged",
+    headline: "The one asset the client actually controls",
+    lead:
+      "Site structure, page inventory and what each page is for. The client's own site is the only channel they fully own, and it is usually the least maintained thing they have.",
+    summary:
+      "Site structure and page inventory with a defined job per page — the client's owned channel, planned rather than accumulated.",
+    seoTitle: "Website Planner — structuring a client's owned channel",
+    seoDescription:
+      "Site structure, page inventory and a defined purpose per page for the one channel a client fully controls.",
+    updated: "2026-09-02",
+    meaning:
+      "A plan for the client's site: what pages exist, what each is for, who it addresses, and how someone moves between them.",
+    job: "Make every page on the client's site exist for a reason.",
+    whyAgencies: [
+      {
+        label: "Sites accumulate rather than get planned",
+        body: "Pages are added for reasons that made sense at the time. After three years the structure reflects the history of requests rather than any user's journey.",
+      },
+      {
+        label: "It is the only channel that is genuinely theirs",
+        body: "Every other channel is rented. The site is the asset that survives a platform changing its algorithm or its terms.",
+      },
+      {
+        label: "Structure is a prerequisite for everything else",
+        body: "SEO, campaigns and conversion work all assume a coherent site. Doing them on an incoherent one produces limited results and confusing data.",
+      },
+    ],
+    inputs: [
+      "Every page that currently exists, including the forgotten ones",
+      "What each page is actually for, if anything",
+      "The segments and their different journeys",
+      "What the client's team can realistically maintain",
+    ],
+    outputs: [
+      "A page inventory with a stated purpose per page",
+      "A structure derived from journeys rather than from the org chart",
+      "A list of pages that should be removed or merged",
+      "A maintenance plan proportionate to the client's capacity",
+    ],
+    sequence: [
+      { title: "The agency inventories what exists", body: "Usually more pages than anyone expects, several of which nobody knew were live.", lane: "agency" },
+      { title: "Purpose is assigned per page", body: "Pages without a purpose are candidates for removal, which is the most useful output.", lane: "mengo" },
+      { title: "Structure is drafted from journeys", body: "How each segment moves through, rather than how the business is organised internally.", lane: "mengo" },
+      { title: "The agency decides what goes", body: "Removal is the hardest recommendation to make and usually the right one.", lane: "agency" },
+      { title: "The client approves the structure", body: "Site structure has internal political implications. It needs agreement, not assumption.", lane: "agency" },
+    ],
+    judgement: [
+      { label: "What to remove", body: "Every page has an internal advocate. Deciding what goes is political as much as analytical." },
+      { label: "How deep the structure should be", body: "Too flat and nothing is findable; too deep and nothing is reached. This is a judgement about the content volume." },
+      { label: "What the client can maintain", body: "A structure that assumes more upkeep than the client can provide degrades within a year." },
+    ],
+    limits: [
+      "It does not build, design or host sites.",
+      "It has no access to the client's analytics, so page value assessments depend on what you supply.",
+      "It cannot audit technical performance or accessibility.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "core",
+        headline: "Understand the site before you add to it",
+        situation: "Your first client wants more content and their site already has forty pages nobody has looked at.",
+        problem: "Adding content to an incoherent structure makes it less coherent, and the client will eventually attribute the mess to you.",
+        mengo: ["A full page inventory with purpose assigned", "A list of pages that should go", "A structure derived from the segments"],
+        agency: ["Deciding what to remove", "The conversation about structure before volume"],
+        outcome: "You start by making the site coherent rather than by making it larger.",
+      },
+      {
+        stage: "solo",
+        relevance: "core",
+        headline: "One structure to work against, per client",
+        situation: "You produce content for several clients and decide where each piece lives as you go.",
+        problem: "Ad hoc placement produces sites that grow without shape, and the shapelessness compounds.",
+        mengo: ["A planned structure per client that new content slots into", "Purpose per page, so placement is decided rather than improvised", "A maintenance plan proportionate to reality"],
+        agency: ["Structural decisions", "Judging what the client can maintain"],
+        outcome: "New content has a defined place rather than being appended.",
+      },
+      {
+        stage: "small-team",
+        relevance: "core",
+        headline: "Everyone adds pages to the same plan",
+        situation: "Several people add content to a client's site with different ideas about where things belong.",
+        problem: "Distributed page creation without a shared plan produces duplicate and competing pages, which harms search and confuses buyers.",
+        mengo: ["A shared structure everyone works to", "Purpose per page, visible before a new one is created", "Duplicate detection"],
+        agency: ["Approving structural changes", "Deciding when a new page is warranted"],
+        outcome: "The site's structure survives multiple contributors.",
+      },
+      {
+        stage: "growing",
+        relevance: "core",
+        headline: "Site governance across a portfolio",
+        situation: "Many client sites, each accumulating pages from several contributors.",
+        problem: "Nobody can hold the state of a dozen client sites, and structural drift is discovered during a redesign rather than prevented.",
+        mengo: ["Page inventories maintained per client", "Visibility of which sites have structural problems", "Consistent structure so review is fast"],
+        agency: ["Governance over site structure per account", "Removal decisions"],
+        outcome: "Site structure becomes something the agency manages rather than something it discovers.",
+      },
+      {
+        stage: "established",
+        relevance: "core",
+        headline: "Structure across large sites and multiple teams",
+        situation: "Client sites with hundreds of pages, edited by multiple agency teams and the client's own staff.",
+        problem: "At this scale, duplicate and orphaned pages are certain, and they damage both search performance and user experience.",
+        mengo: ["Canonical page inventories with purpose per page", "Orphan and duplicate detection", "Uniform structure across teams"],
+        agency: ["Governance over who may create pages", "Removal and consolidation decisions"],
+        outcome: "Large sites stay navigable rather than accumulating indefinitely.",
+      },
+    ],
+    related: {
+      capabilities: ["seo", "landing-page", "blog-content", "ai-discoverability"],
+      workflows: ["seo-workflow", "new-client-launch", "content-planning"],
+      useCases: ["build-a-content-engine", "improve-client-onboarding"],
+    },
+    faqs: [
+      {
+        q: "Does this build the website?",
+        a: "No. Structure, page inventory and purpose only. Design, build and hosting stay with you and the client.",
+      },
+      {
+        q: "How do we decide what to remove?",
+        a: "Pages with no defined purpose and no meaningful traffic are the obvious candidates. The harder cases are pages with an internal advocate and no external audience, and those are a conversation rather than an analysis.",
+      },
+      {
+        q: "How often should the structure be reviewed?",
+        a: "Annually, and whenever the client's offer structure changes. Sites drift quietly, and a review usually finds pages nobody remembered publishing.",
+      },
+    ],
+  },
+
+  {
+    kind: "capability",
+    slug: "social-media",
+    title: "Social Media",
+    navLabel: "Social Media",
+    group: "content",
+    depth: "staged",
+    headline: "The recurring commitment that sets your capacity",
+    lead:
+      "Posts written to the format each platform actually takes, from a plan rather than from a weekly decision. The most visible commitment an agency makes and the one that most reliably determines how many clients it can carry.",
+    summary:
+      "Platform-native posts produced against an approved plan, so the weekly commitment stops being a weekly decision.",
+    seoTitle: "Social Media — recurring client content production",
+    seoDescription:
+      "Social posts written to each platform's actual format from an approved plan, with agency review as a required step before publishing.",
+    updated: "2026-09-02",
+    meaning:
+      "Recurring social content produced against a themed plan, written for the shape each platform takes rather than reformatted from one generic draft.",
+    job: "Make the weekly social commitment producible without a weekly decision.",
+    whyAgencies: [
+      {
+        label: "It is the most visible thing an agency delivers",
+        body: "A client checks their feed. A gap is noticed immediately and read as the agency losing interest.",
+      },
+      {
+        label: "Reformatting is not adapting",
+        body: "One draft pushed to four platforms reads correctly on one of them, and the audience on the other three notices.",
+      },
+      {
+        label: "It is where capacity is actually spent",
+        body: "Ask an agency why it cannot take another client and the answer, eventually, is the weekly production commitment.",
+      },
+    ],
+    inputs: [
+      "The approved calendar and its themes",
+      "The client's voice profile and editorial guardrails",
+      "Which platforms, at what cadence, honestly assessed",
+      "What proof and facts the client has actually supplied",
+    ],
+    outputs: [
+      "Posts written to each platform's native shape",
+      "Variants where a platform genuinely needs a different treatment",
+      "A review queue an editor can work through in one pass",
+      "Flags where a post needed a fact nobody supplied",
+    ],
+    sequence: [
+      { title: "The agency commits the week", body: "A plan is a proposal until someone commits what is actually going out.", lane: "agency" },
+      { title: "Briefs are generated per slot", body: "Audience, angle, format and the job each post is doing.", lane: "mengo" },
+      { title: "Posts are drafted to format", body: "Written for the platform's real shape, inheriting the stored voice.", lane: "mengo" },
+      { title: "Gaps are flagged", body: "Where a post needed a number or a fact, it says so rather than inventing one.", lane: "mengo" },
+      { title: "The agency edits", body: "Required. Voice, accuracy, cuts, and the line only someone who knows the client would add.", lane: "agency" },
+      { title: "The agency publishes", body: "In the client's own scheduling tools, under their accounts.", lane: "agency" },
+    ],
+    judgement: [
+      { label: "Whether it sounds like the client", body: "A voice profile gets close. The last stretch is an editor's job and it is what stops the output reading as generated." },
+      { label: "What to cut", body: "The most common improvement to a draft post is deletion, and it is a craft skill." },
+      { label: "When not to post", body: "Context matters. Publishing a scheduled promotional post during a bad news cycle is a reputational error a calendar cannot prevent." },
+    ],
+    limits: [
+      "It does not publish or schedule. That stays in the client's own tools with their access.",
+      "It does not produce images, video or design.",
+      "It does not monitor or respond to comments, and community management is a different, human job.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "core",
+        headline: "Commit to what you can actually sustain",
+        situation: "Your first client wants daily posts on four platforms and you agreed before thinking about it.",
+        problem: "Over-committed social scope is the most common way a first engagement becomes unprofitable and stressful simultaneously.",
+        mengo: ["Drafts produced from the plan rather than from a blank page", "Platform-native formats rather than one draft reformatted", "A review queue you can work through in one pass"],
+        agency: ["Editing every post, which is not optional", "Renegotiating scope where it is undeliverable"],
+        outcome: "The commitment becomes deliverable, and you learn what a sustainable scope looks like.",
+      },
+      {
+        stage: "solo",
+        relevance: "core",
+        headline: "Several clients' weeks in one production pass",
+        situation: "You produce social content for four clients and switch between them constantly.",
+        problem: "Context switching per client per post is the largest hidden cost in a solo week.",
+        mengo: ["The week's slots across all clients from stored context", "Voice held per client rather than recalled", "Formats correct without reformatting"],
+        agency: ["Editing, which is where your voice enters the work", "Publishing and any response"],
+        outcome: "One production pass instead of four context reloads.",
+      },
+      {
+        stage: "small-team",
+        relevance: "core",
+        headline: "Consistent voice across several writers",
+        situation: "Two or three people write social content for the same clients.",
+        problem: "Each writer's interpretation of the client's voice differs, and the client reads the variation as inconsistency.",
+        mengo: ["One stored voice profile per client that all writers inherit", "Consistent format handling", "Briefs that carry the angle rather than leaving it to the writer"],
+        agency: ["Review against the voice profile rather than personal taste", "Deciding what good looks like"],
+        outcome: "Posts from different writers sound like the same client.",
+      },
+      {
+        stage: "growing",
+        relevance: "core",
+        headline: "Volume that does not dictate headcount",
+        situation: "Social production across many accounts is the main driver of your hiring plan.",
+        problem: "When production capacity is people, every new account implies a hire, which caps growth at recruitment speed.",
+        mengo: ["Draft volume produced from approved plans across the portfolio", "Consistent structure so review scales", "Gap flags so accuracy does not degrade with volume"],
+        agency: ["Review capacity, which becomes the binding constraint", "Publishing and community response"],
+        outcome: "Social volume stops determining when you hire.",
+      },
+      {
+        stage: "established",
+        relevance: "core",
+        headline: "Brand consistency across teams and markets",
+        situation: "Multiple teams producing social content for the same brands, sometimes in several languages.",
+        problem: "Distributed production without shared voice records produces drift that is visible to the client's own audience.",
+        mengo: ["Canonical voice profiles referenced across teams", "Uniform brief and draft structure", "Auditable record of what was produced from which brief"],
+        agency: ["Governance over the voice and the standard", "Review before publication, always"],
+        outcome: "Output from any team is recognisably the same brand.",
+      },
+    ],
+    related: {
+      capabilities: ["marketing-calendar", "blog-content", "video-content", "brand"],
+      workflows: ["social-media-production", "content-production", "content-planning"],
+      useCases: ["build-a-content-engine", "create-repeatable-delivery"],
+    },
+    faqs: [
+      {
+        q: "Will the posts read as AI-written?",
+        a: "Unedited, often yes. Editing is a required step in the workflow for exactly that reason. What changes is that your editors start from a briefed draft in the right format rather than from a blank page — which is faster and, done properly, produces better work than writing tired.",
+      },
+      {
+        q: "Does this publish to the accounts?",
+        a: "No. Publishing and scheduling stay in the client's own tools, under their access. That boundary is deliberate: account access carries obligations that should sit with the account owner.",
+      },
+      {
+        q: "What about comments and community management?",
+        a: "Not covered, and it should not be. Responding to a customer in public is a judgement call under time pressure, and it needs a person with the client's context.",
+      },
+    ],
+  },
+
+  {
+    kind: "capability",
+    slug: "blog-content",
+    title: "Blog Content",
+    navLabel: "Blog Content",
+    group: "content",
+    depth: "staged",
+    headline: "Long-form that answers something",
+    lead:
+      "Articles written against a brief with a defined reader and question. Most client blogs are a series of topics rather than a series of answers, which is why they attract traffic that does not convert.",
+    summary:
+      "Long-form articles briefed around a reader's actual question rather than around a topic.",
+    seoTitle: "Blog Content — long-form articles for client sites",
+    seoDescription:
+      "Long-form client articles briefed around a specific reader and question, produced against an approved plan with required agency review.",
+    updated: "2026-09-02",
+    meaning:
+      "Long-form written content for the client's own site: briefed around a specific reader and a specific question, structured to answer it.",
+    job: "Produce articles that answer a question a buyer actually has.",
+    whyAgencies: [
+      {
+        label: "Topics are not questions",
+        body: "An article about a topic wanders. An article answering a question has a shape, and the reader knows when it is finished.",
+      },
+      {
+        label: "It compounds where social does not",
+        body: "A good article keeps working for years. It is the closest thing to an appreciating marketing asset a client owns.",
+      },
+      {
+        label: "It is the input to almost everything else",
+        body: "Articles become social posts, newsletter sections, sales collateral and answers. Producing them well makes everything downstream cheaper.",
+      },
+    ],
+    inputs: [
+      "The question the article answers and who is asking it",
+      "The client's expertise and any proof they can supply",
+      "The approved plan and where this fits in it",
+      "Editorial guardrails and what may not be claimed",
+    ],
+    outputs: [
+      "A brief per article: reader, question, angle, what it must achieve",
+      "A draft structured to answer rather than to cover",
+      "Internal links to the client's other relevant material",
+      "Flags where the article needed evidence nobody supplied",
+    ],
+    sequence: [
+      { title: "The agency approves the question", body: "Not the topic. A question has an answer and a topic does not.", lane: "agency" },
+      { title: "The brief is generated", body: "Reader, question, angle and the job the piece is doing.", lane: "mengo" },
+      { title: "The draft is produced", body: "Structured to answer, in the client's stored voice.", lane: "mengo" },
+      { title: "Gaps and claims are flagged", body: "Anything needing the client's evidence is marked rather than asserted.", lane: "mengo" },
+      { title: "The agency edits", body: "Required. Long-form unedited is where generated writing is most obvious.", lane: "agency" },
+      { title: "The agency publishes", body: "To the client's site, in the planned structure.", lane: "agency" },
+    ],
+    judgement: [
+      { label: "Whether the question is worth answering", body: "A well-written answer to a question nobody asks is the most common way content budgets are wasted." },
+      { label: "Whether the client's expertise is genuinely in it", body: "An article that could have been written about any company in the sector adds nothing." },
+      { label: "What to cut", body: "Long-form drafts are almost always improved by removing a third, and knowing which third is editorial skill." },
+    ],
+    limits: [
+      "It does not verify facts about the client's business or their sector.",
+      "It does not publish, and it has no access to the client's CMS.",
+      "It cannot supply expertise the client has not provided, and an article written without it reads generically.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "core",
+        headline: "Answer questions rather than covering topics",
+        situation: "Your first content plan is a list of topics you think are relevant.",
+        problem: "Topic-led content wanders and does not convert, and the client concludes that content does not work for them.",
+        mengo: ["Briefs built around a reader and a question", "Structure that answers rather than surveys", "Gaps flagged where the client's input is needed"],
+        agency: ["Deciding which questions are worth answering", "Editing every piece"],
+        outcome: "Content that has a point, which is a lower bar than it sounds and one most client blogs miss.",
+      },
+      {
+        stage: "solo",
+        relevance: "core",
+        headline: "Long-form without losing a day per article",
+        situation: "Articles take you most of a day each and you have several clients wanting them.",
+        problem: "Long-form is where a solo agency's week disappears, and it is also the highest-compounding content type.",
+        mengo: ["Briefed drafts rather than blank pages", "Client voice and context inherited", "Internal linking to existing material"],
+        agency: ["Editing, which is faster than writing", "The expertise the client supplied"],
+        outcome: "Articles become an editing job rather than a writing day.",
+      },
+      {
+        stage: "small-team",
+        relevance: "core",
+        headline: "Consistent article quality across writers",
+        situation: "Several people write long-form for the same clients with different structures and depths.",
+        problem: "Inconsistent article quality is visible on a client's blog, where the pieces sit next to each other permanently.",
+        mengo: ["A consistent brief structure across writers", "Stored voice and guardrails inherited by every draft", "Comparable structure so review is fast"],
+        agency: ["Editorial standard", "Review against it"],
+        outcome: "A client's blog reads as one publication.",
+      },
+      {
+        stage: "growing",
+        relevance: "core",
+        headline: "Article volume across a portfolio",
+        situation: "Long-form commitments across many accounts, with senior editors as the constraint.",
+        problem: "Long-form needs experienced editing, and editors do not scale by hiring juniors.",
+        mengo: ["Draft volume from approved briefs", "Consistent structure so editing is faster", "Internal linking maintained automatically"],
+        agency: ["Editorial capacity, which is the real constraint", "Deciding which pieces need senior attention"],
+        outcome: "Long-form volume rises without a proportional increase in senior editorial hours.",
+      },
+      {
+        stage: "established",
+        relevance: "core",
+        headline: "Editorial standards across teams",
+        situation: "Multiple teams producing long-form for the same client brands.",
+        problem: "Editorial inconsistency across teams accumulates on the client's site permanently, where it is visible to everyone.",
+        mengo: ["Uniform brief and draft structure across teams", "Canonical voice and guardrails", "Auditable record from brief to published article"],
+        agency: ["Governance over editorial standards", "Senior review on anything making claims"],
+        outcome: "A client's content library reads as one publication regardless of which team produced each piece.",
+      },
+    ],
+    related: {
+      capabilities: ["seo", "website-planner", "newsletter", "social-media"],
+      workflows: ["content-production", "content-planning", "seo-workflow"],
+      useCases: ["build-a-content-engine", "create-repeatable-delivery"],
+    },
+    faqs: [
+      {
+        q: "How long should an article be?",
+        a: "As long as answering the question takes. Length targets produce padding, and padding is the most obvious sign of content written to a word count rather than to a reader.",
+      },
+      {
+        q: "How do we stop articles reading generically?",
+        a: "Supply the client's actual expertise. An article written without any input from the client could have been written about any company in the sector, and readers can tell. The gap-flagging exists to make that visible before publication.",
+      },
+      {
+        q: "How much editing does a draft need?",
+        a: "More than proofreading. The most common improvement is cutting a third, and that is an editorial judgement rather than a correction pass.",
+      },
+    ],
+  },
+
+  {
+    kind: "capability",
+    slug: "seo",
+    title: "SEO",
+    navLabel: "SEO",
+    group: "content",
+    depth: "staged",
+    headline: "The content side of search, honestly scoped",
+    lead:
+      "Keyword and question research, content structure and internal linking. The technical side — crawling, speed, indexation — is a separate discipline and this does not pretend to cover it.",
+    summary:
+      "Search research, content structure and internal linking. Technical SEO is a separate discipline and is not covered here.",
+    seoTitle: "SEO — the content side of search for client sites",
+    seoDescription:
+      "Keyword and question research, content structure and internal linking for client sites, with technical SEO remaining a separate specialism.",
+    updated: "2026-09-02",
+    meaning:
+      "The content half of search: what people actually search for, how content should be structured to answer it, and how a site's pages link to one another.",
+    job: "Make the client's content findable by the people looking for it.",
+    whyAgencies: [
+      {
+        label: "It is the highest-intent traffic a client gets",
+        body: "Someone searching has a question. Meeting them there converts better than interrupting someone who was not asking.",
+      },
+      {
+        label: "Content and search work are the same work",
+        body: "Doing them separately produces content nobody finds and search pages nobody wants to read.",
+      },
+      {
+        label: "Internal linking is neglected and free",
+        body: "Most client sites have relevant pages that do not link to one another, which is the cheapest improvement available.",
+      },
+    ],
+    inputs: [
+      "What the client's buyers actually search for",
+      "Existing content and how it currently performs, where the client shares it",
+      "The site structure and page inventory",
+      "The segments and the questions each holds",
+    ],
+    outputs: [
+      "Question and search research mapped to segments",
+      "Content structure recommendations per piece",
+      "An internal linking plan across existing pages",
+      "A prioritised list of what is worth producing and what is not",
+    ],
+    sequence: [
+      { title: "The agency defines the commercial goal", body: "Ranking is not an objective. What should the traffic do?", lane: "agency" },
+      { title: "Questions are researched", body: "What buyers actually ask, mapped to the segments who ask it.", lane: "mengo" },
+      { title: "Opportunities are prioritised", body: "Including recommending against pursuing terms that will not convert.", lane: "mengo" },
+      { title: "The agency selects", body: "Which opportunities are worth the production effort, given the client's capacity.", lane: "agency" },
+      { title: "Content is structured and produced", body: "Written to answer, with internal linking planned.", lane: "mengo" },
+      { title: "The agency reviews and publishes", body: "Editorial review first, then publication in the client's own site.", lane: "agency" },
+    ],
+    judgement: [
+      { label: "Which terms are worth pursuing", body: "High-volume terms with no commercial intent absorb budget and produce traffic that does nothing." },
+      { label: "When SEO is the wrong channel", body: "For some clients, in some categories, the honest answer is that search will not deliver and the budget belongs elsewhere." },
+      { label: "How to set expectations", body: "Search compounds slowly. A client expecting results in six weeks will cancel before it works." },
+    ],
+    limits: [
+      "It does not do technical SEO. Crawling, indexation, site speed and structured data implementation are a separate discipline.",
+      "It has no access to the client's search console or analytics.",
+      "It does not build links, and nobody controls how search engines rank anything.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "useful",
+        headline: "Be honest about what you cover",
+        situation: "A client asks whether you do SEO and you can do content but not technical work.",
+        problem: "SEO is a broad label and clients assume it includes everything. Ambiguity here produces a dispute in month four.",
+        mengo: ["Question research and content structure", "Internal linking recommendations", "A prioritised opportunity list"],
+        agency: ["Scoping explicitly, in writing", "Setting timeline expectations"],
+        outcome: "A clear scope that avoids the argument about what SEO included.",
+      },
+      {
+        stage: "solo",
+        relevance: "useful",
+        headline: "Search research without losing a week to it",
+        situation: "Keyword research is time-consuming and you skip it, producing content on instinct.",
+        problem: "Content produced without research sometimes works and nobody knows why, which means it cannot be repeated.",
+        mengo: ["Question research mapped to the client's segments", "A prioritised list rather than an undifferentiated spreadsheet", "Internal linking across existing content"],
+        agency: ["Selecting what is worth producing", "Managing client expectations on timeline"],
+        outcome: "Content decisions informed by research rather than by instinct.",
+      },
+      {
+        stage: "small-team",
+        relevance: "core",
+        headline: "One method across the team",
+        situation: "Different people do search research differently and reach different conclusions.",
+        problem: "Inconsistent method means the agency cannot learn from its own results across accounts.",
+        mengo: ["A consistent research and prioritisation method", "Recorded reasoning per opportunity", "Comparable structure across accounts"],
+        agency: ["Setting the method", "Selection decisions"],
+        outcome: "Search work that can be compared and improved across the book.",
+      },
+      {
+        stage: "growing",
+        relevance: "core",
+        headline: "Search programmes at portfolio scale",
+        situation: "Search work across many accounts with internal linking and content structure to maintain on each.",
+        problem: "Site structure and linking degrade as content accumulates, and nobody has capacity to audit a dozen sites.",
+        mengo: ["Maintained page inventories with linking visibility", "Consistent structure so audits are fast", "Opportunity tracking per account"],
+        agency: ["Prioritisation and selection", "Client expectation management"],
+        outcome: "Search programmes that do not degrade as the content library grows.",
+      },
+      {
+        stage: "established",
+        relevance: "core",
+        headline: "Search methodology across teams and markets",
+        situation: "Large client sites across markets and languages, with multiple teams producing content.",
+        problem: "At this scale, duplicate targeting between teams is common and actively harmful.",
+        mengo: ["Canonical opportunity records to prevent duplicate targeting", "Uniform structure across teams and markets", "Linking plans maintained across the site"],
+        agency: ["Governance over targeting", "Coordination with technical SEO specialists"],
+        outcome: "Teams stop competing with one another for the same terms.",
+      },
+    ],
+    related: {
+      capabilities: ["blog-content", "website-planner", "ai-discoverability", "faq-bank"],
+      workflows: ["seo-workflow", "content-planning", "content-production"],
+      useCases: ["build-a-content-engine"],
+    },
+    faqs: [
+      {
+        q: "Does this cover technical SEO?",
+        a: "No. Crawling, indexation, page speed, structured data implementation and migrations are a separate discipline with its own specialists. Being clear about that boundary in your scope prevents an expensive misunderstanding.",
+      },
+      {
+        q: "Can you guarantee rankings?",
+        a: "No, and neither can anyone else. Search engines do not publish their ranking behaviour and it changes. What is controllable is producing genuinely useful content, structured well, linked properly — which is what this covers.",
+      },
+      {
+        q: "How long before a client sees results?",
+        a: "Longer than they expect. Search compounds slowly, and a client expecting movement in six weeks will cancel before it works. Setting that expectation early is more important than the research.",
+      },
+    ],
+  },
+
+  {
+    kind: "capability",
+    slug: "newsletter",
+    title: "Newsletter",
+    navLabel: "Newsletter",
+    group: "content",
+    depth: "staged",
+    headline: "The audience the client actually owns",
+    lead:
+      "A recurring email with a reason to exist. The only audience a client owns outright, and the one most often started with enthusiasm and abandoned by issue nine.",
+    summary:
+      "A recurring email with a defined reason to exist, produced from the content plan rather than assembled each time.",
+    seoTitle: "Newsletter — the audience a client actually owns",
+    seoDescription:
+      "A recurring client newsletter with a defined purpose, produced from the content plan rather than assembled from whatever is available.",
+    updated: "2026-09-02",
+    meaning:
+      "A recurring email publication: what it is for, who it is for, what each issue contains, and why someone would keep opening it.",
+    job: "Give a newsletter a reason to exist beyond the client wanting one.",
+    whyAgencies: [
+      {
+        label: "It is the only owned audience",
+        body: "Every other channel is rented from a platform that can change its terms. A list is an asset that survives that.",
+      },
+      {
+        label: "Most newsletters have no reason to exist",
+        body: "A round-up of the client's own recent posts is not a reason to open an email. That is why open rates decline from issue three.",
+      },
+      {
+        label: "Consistency matters more than quality here",
+        body: "An irregular newsletter is worse than none, because it trains the reader that it is not important.",
+      },
+    ],
+    inputs: [
+      "Who subscribed and what they expected when they did",
+      "What the client can sustainably produce, honestly assessed",
+      "The content plan the newsletter draws from",
+      "Consent basis and the sending platform",
+    ],
+    outputs: [
+      "A defined format and reason to exist",
+      "Issue structure drawn from the content plan rather than assembled ad hoc",
+      "A cadence the client can actually sustain",
+      "Segment variants where the audience genuinely differs",
+    ],
+    sequence: [
+      { title: "The agency defines why it exists", body: "What does a subscriber get that they cannot get elsewhere? If there is no answer, do not start.", lane: "agency" },
+      { title: "Format and cadence are set", body: "Sustainable rather than ambitious. Monthly done properly beats weekly abandoned.", lane: "mengo" },
+      { title: "Issues are drawn from the plan", body: "Produced from the content programme rather than assembled from whatever exists.", lane: "mengo" },
+      { title: "The agency edits", body: "Newsletters carry a personal voice more than most channels, and it needs a person.", lane: "agency" },
+      { title: "The client sends", body: "From their own platform, under their own consent and sending reputation.", lane: "agency" },
+    ],
+    judgement: [
+      { label: "Whether it should exist", body: "Most clients who want a newsletter have no reason for one, and starting anyway produces a declining list." },
+      { label: "What cadence is sustainable", body: "Ambition at issue one is not evidence about issue twenty, and the failure is public." },
+      { label: "When to stop", body: "A newsletter that has become a chore reads like one. Ending deliberately is better than fading." },
+    ],
+    limits: [
+      "It does not send, and it does not manage lists.",
+      "It has no access to open or click data.",
+      "It does not advise on consent law, and the marketing-email rules are jurisdictional and enforced.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "useful",
+        headline: "Ask why before agreeing to one",
+        situation: "A client wants a newsletter because they feel they should have one.",
+        problem: "A newsletter with no reason to exist declines steadily and becomes visible evidence of a marketing programme not working.",
+        mengo: ["A format definition that forces the 'why' question", "A sustainable cadence", "Issue structure drawn from the plan"],
+        agency: ["Asking why, and being willing to advise against", "Editing every issue"],
+        outcome: "Either a newsletter with a purpose or a conversation that saved everyone time.",
+      },
+      {
+        stage: "solo",
+        relevance: "useful",
+        headline: "Issues that assemble rather than get written",
+        situation: "You produce newsletters for a few clients and each one takes half a day.",
+        problem: "Recurring commitments that take half a day are how a solo week disappears without anything visible being achieved.",
+        mengo: ["Issues drawn from the existing content plan", "Consistent structure per client", "Client voice inherited"],
+        agency: ["Editing", "Deciding what goes in each issue"],
+        outcome: "A newsletter that assembles from work already done.",
+      },
+      {
+        stage: "small-team",
+        relevance: "useful",
+        headline: "Newsletters that survive whoever is away",
+        situation: "One person writes the newsletter for a client and it does not go out when they are away.",
+        problem: "Irregularity is more damaging than mediocrity, and single-person dependency guarantees it.",
+        mengo: ["A defined format anyone can produce to", "Issue content drawn from the shared plan", "Voice held per client"],
+        agency: ["Editing", "Cover arrangements"],
+        outcome: "The newsletter goes out regardless of who is available.",
+      },
+      {
+        stage: "growing",
+        relevance: "useful",
+        headline: "Newsletter programmes across accounts",
+        situation: "Many clients with newsletters at different cadences and consent bases.",
+        problem: "Marketing email is regulated and consent bases differ, and at volume an error becomes likely.",
+        mengo: ["Consent basis recorded per client", "Consistent format structure across accounts", "Issues produced from each client's plan"],
+        agency: ["Consent verification before sending", "Editorial review"],
+        outcome: "Newsletter programmes at volume without a compliance error.",
+      },
+      {
+        stage: "established",
+        relevance: "useful",
+        headline: "Owned-audience programmes with governance",
+        situation: "Large clients with substantial lists across markets and regulatory regimes.",
+        problem: "List handling and consent at this scale is a genuine legal exposure for the client.",
+        mengo: ["Auditable record of what was produced and approved", "Consent basis recorded per segment and market", "Uniform structure across teams"],
+        agency: ["Legal review where required", "Governance over what is sent to owned lists"],
+        outcome: "Owned-audience programmes with the compliance trail they need.",
+      },
+    ],
+    related: {
+      capabilities: ["blog-content", "email-templates", "whatsapp-nurturing", "social-media"],
+      workflows: ["content-production", "content-planning", "lead-nurturing-flows"],
+      useCases: ["build-a-content-engine", "improve-client-retention"],
+    },
+    faqs: [
+      {
+        q: "Should every client have a newsletter?",
+        a: "No. Most clients who want one have no answer to what a subscriber gets that they could not get elsewhere, and a newsletter without that answer declines steadily and publicly.",
+      },
+      {
+        q: "What cadence works?",
+        a: "Whatever the client can sustain indefinitely. Monthly done reliably beats weekly abandoned at issue nine, and the abandoned version is worse than never starting.",
+      },
+      {
+        q: "Does this handle sending?",
+        a: "No. Sending, list management and consent stay with the client's own platform, which is where deliverability reputation and legal obligations live.",
+      },
+    ],
+  },
+
+  {
+    kind: "capability",
+    slug: "testimonials",
+    title: "Testimonials",
+    navLabel: "Testimonials",
+    group: "content",
+    depth: "staged",
+    headline: "Proof, gathered systematically instead of hoped for",
+    lead:
+      "Requesting, structuring and using customer testimonials. The highest-credibility content a client can have, and the work that never reaches the top of anyone's week because it requires asking.",
+    summary:
+      "A systematic approach to requesting and using customer testimonials, including the timing and the ask.",
+    seoTitle: "Testimonials — gathering client proof systematically",
+    seoDescription:
+      "Request structures, timing and usage for customer testimonials — the highest-credibility content a client owns and the least systematically gathered.",
+    updated: "2026-09-02",
+    meaning:
+      "The system for gathering customer proof: when to ask, how to ask so the answer is specific, permissions, and how the resulting material is used.",
+    job: "Turn testimonials from something hoped for into something requested on a rhythm.",
+    whyAgencies: [
+      {
+        label: "It is the most credible content there is",
+        body: "A specific customer statement outperforms anything the client says about themselves, and it costs nothing but the asking.",
+      },
+      {
+        label: "Vague testimonials are worthless",
+        body: "'Great service, highly recommend' persuades nobody. The specificity comes from how the question was asked.",
+      },
+      {
+        label: "Timing decides the response rate",
+        body: "Asked at the moment of satisfaction, most customers say yes. Asked six months later, most do not reply.",
+      },
+    ],
+    inputs: [
+      "Which customers are genuinely satisfied, and when",
+      "The moment in the customer journey when satisfaction peaks",
+      "The objections a testimonial could address",
+      "Permission requirements — name, company, photograph",
+    ],
+    outputs: [
+      "Request structures with questions that produce specific answers",
+      "A timing plan tied to the customer journey",
+      "Permission language covering intended use",
+      "A usage plan mapping testimonials to the objections they answer",
+    ],
+    sequence: [
+      { title: "The agency identifies the moment", body: "When satisfaction peaks, which is rarely when someone remembers to ask.", lane: "agency" },
+      { title: "Request structures are drafted", body: "Questions that produce specifics rather than 'great service'.", lane: "mengo" },
+      { title: "Permission language is prepared", body: "Covering name, company, photograph and intended use, explicitly.", lane: "mengo" },
+      { title: "The client asks", body: "The request comes from the person with the relationship. It cannot come from the agency.", lane: "agency" },
+      { title: "Responses are structured for use", body: "Mapped to the objections each one answers.", lane: "mengo" },
+      { title: "The agency verifies permission before use", body: "Every time. Publishing without documented permission is a real exposure.", lane: "agency" },
+    ],
+    judgement: [
+      { label: "Who to ask", body: "Asking an ambivalent customer produces a lukewarm testimonial that is worse than none." },
+      { label: "How to ask without pressure", body: "A customer who feels obliged writes something bland. The framing decides the quality." },
+      { label: "Which to use where", body: "A testimonial answering the objection a page addresses is worth several generic ones." },
+    ],
+    limits: [
+      "It does not contact customers. The request comes from the client's relationship.",
+      "It cannot verify that a testimonial is genuine, and fabricated testimonials are both unethical and, in most jurisdictions, unlawful.",
+      "It does not manage review platforms.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "core",
+        headline: "Ask your own clients, properly",
+        situation: "You have delivered good work for your first clients and have no proof to show the next prospect.",
+        problem: "New agencies have no track record and do not ask for testimonials at the moment when they would most readily be given.",
+        mengo: ["Request structures that produce specific answers", "Timing tied to project completion", "Permission language"],
+        agency: ["Actually asking, which is the hard part", "Judging who to ask"],
+        outcome: "Proof from your first engagements, gathered while the goodwill is fresh.",
+      },
+      {
+        stage: "solo",
+        relevance: "core",
+        headline: "A request rhythm rather than an occasional thought",
+        situation: "You know testimonials matter for your clients and it never gets scheduled.",
+        problem: "Testimonial gathering has no deadline and requires asking, which makes it the most reliably deferred task there is.",
+        mengo: ["A timing plan tied to the customer journey", "Request structures ready to send", "A usage map for what comes back"],
+        agency: ["The client relationship that carries the request", "Verifying permission"],
+        outcome: "Proof accumulates rather than being gathered in a panic before a pitch.",
+      },
+      {
+        stage: "small-team",
+        relevance: "useful",
+        headline: "Systematic gathering across accounts",
+        situation: "Some clients have testimonials and others have none, depending on who remembered to ask.",
+        problem: "Proof assets vary by account lead rather than by client, which is a process problem.",
+        mengo: ["A consistent request rhythm across accounts", "Standard permission language", "Visibility of which accounts lack proof"],
+        agency: ["The requests, which come from relationships", "Judging who to approach"],
+        outcome: "Every account gathers proof rather than the ones whose lead thinks of it.",
+      },
+      {
+        stage: "growing",
+        relevance: "useful",
+        headline: "Permission governance across a portfolio",
+        situation: "Testimonials used across many clients' materials, gathered at various times under various permissions.",
+        problem: "Using a testimonial beyond the permission granted is a real exposure, and at volume nobody remembers what was agreed.",
+        mengo: ["Permission scope recorded per testimonial", "Usage tracked against permission", "Consistent request structure"],
+        agency: ["Verification before each use", "Client relationships"],
+        outcome: "Every published testimonial has documented permission for that use.",
+      },
+      {
+        stage: "established",
+        relevance: "useful",
+        headline: "Customer proof with an audit trail",
+        situation: "Large clients using customer proof across regulated sectors and multiple markets.",
+        problem: "In several sectors customer testimonials are restricted or require specific disclosures, and permissions vary by market.",
+        mengo: ["Recorded permission scope and jurisdiction per testimonial", "Auditable usage history", "Uniform request structure"],
+        agency: ["Compliance review where the sector requires it", "Client relationships"],
+        outcome: "Customer proof used within documented permissions everywhere it appears.",
+      },
+    ],
+    related: {
+      capabilities: ["case-studies", "google-business-profile", "sales-collateral", "landing-page"],
+      workflows: ["client-review", "sales-enablement"],
+      useCases: ["improve-client-retention", "get-the-first-client"],
+    },
+    faqs: [
+      {
+        q: "How do we get specific testimonials rather than 'great service'?",
+        a: "Ask specific questions. 'What were you worried about before you started, and what happened?' produces usable material; 'would you write us a testimonial' produces a sentence nobody reads.",
+      },
+      {
+        q: "When is the right moment to ask?",
+        a: "At the point of peak satisfaction, which is usually right after a visible result rather than at the end of a contract. Most businesses ask months late, when the feeling has faded and the response rate has collapsed.",
+      },
+      {
+        q: "What permissions do we need?",
+        a: "Explicit permission covering the use — name, company, photograph, and where it will appear. Get it in writing at the time, because retrospective permission-chasing is slow and frequently unsuccessful.",
+      },
+    ],
+  },
+
+  {
+    kind: "capability",
+    slug: "case-studies",
+    title: "Case Studies",
+    navLabel: "Case Studies",
+    group: "content",
+    depth: "staged",
+    headline: "Evidence, structured so it persuades",
+    lead:
+      "The situation, what was done, what happened. The highest-value proof asset a client can own and the one most reliably left undone because it requires results, permission and a week nobody has.",
+    summary:
+      "Structured evidence — situation, action, outcome — gathered with permission and written to answer a buyer's actual doubt.",
+    seoTitle: "Case Studies — structured proof for client marketing",
+    seoDescription:
+      "Case study structure and gathering: situation, action and outcome, written to answer a specific buyer objection with documented permission.",
+    updated: "2026-09-02",
+    meaning:
+      "A structured account of a customer's situation, what the client did, and what resulted — written to address a specific doubt a prospective buyer holds.",
+    job: "Turn the client's results into evidence a prospect can check themselves against.",
+    whyAgencies: [
+      {
+        label: "It is the closest thing to proof",
+        body: "A prospect who recognises their own situation in a case study has done most of the qualifying themselves.",
+      },
+      {
+        label: "Everyone intends to and nobody does",
+        body: "Case studies need results, permission and writing time. All three are available and never simultaneously.",
+      },
+      {
+        label: "The structure decides whether it works",
+        body: "Most case studies describe what the supplier did. The ones that persuade describe the situation the reader is in.",
+      },
+    ],
+    inputs: [
+      "A customer whose situation resembles the target buyer's",
+      "What actually happened, including the parts that were difficult",
+      "Numbers the customer will let you publish",
+      "Documented permission covering the intended use",
+    ],
+    outputs: [
+      "A structure leading with the situation rather than the solution",
+      "The specific objection this case addresses",
+      "Verified figures, with permission recorded",
+      "Shorter derivative formats for sales collateral and social",
+    ],
+    sequence: [
+      { title: "The agency selects the case", body: "The one whose situation the target buyer recognises, not the one with the best numbers.", lane: "agency" },
+      { title: "The client secures permission", body: "Before any writing. Retrospective permission-chasing wastes the work.", lane: "agency" },
+      { title: "The account is structured", body: "Situation first, then what was done, then what resulted.", lane: "mengo" },
+      { title: "Claims are flagged", body: "Every figure marked as requiring verification and permission.", lane: "mengo" },
+      { title: "The customer approves", body: "The subject reads and approves before publication, always.", lane: "agency" },
+      { title: "Derivatives are produced", body: "Shorter versions for collateral, social and sales use.", lane: "mengo" },
+    ],
+    judgement: [
+      { label: "Which case to write", body: "The most impressive result is often not the most persuasive story, because the reader cannot see themselves in it." },
+      { label: "How much difficulty to include", body: "A case study with no difficulty reads as marketing. Including the hard part is what makes it credible." },
+      { label: "What figures are safe to publish", body: "Customer figures carry commercial sensitivity and require explicit permission." },
+    ],
+    limits: [
+      "It cannot generate results. The outcome has to have happened.",
+      "It cannot verify figures, and publishing an unverified customer number is a real risk.",
+      "It does not obtain permission. That is a client relationship task.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "useful",
+        headline: "Write up your own first engagements",
+        situation: "You have completed work for your first clients and have nothing to show a prospect.",
+        problem: "New agencies wait for an impressive result and end up with nothing, when a modest well-told case would have served.",
+        mengo: ["A structure leading with the situation", "The objection each case addresses", "Shorter derivative formats"],
+        agency: ["Getting permission from your own clients", "Deciding which engagement to write up"],
+        outcome: "Evidence from your first year rather than a wait for something impressive.",
+      },
+      {
+        stage: "solo",
+        relevance: "useful",
+        headline: "A rhythm rather than a panic before a pitch",
+        situation: "You produce case studies when a pitch requires one, from memory, at speed.",
+        problem: "Retrospective case studies are worse and harder, because the detail has faded and the permission conversation is cold.",
+        mengo: ["A structure ready when the result lands", "Permission language prepared", "Derivatives from one write-up"],
+        agency: ["The permission conversation at the right moment", "Selecting cases"],
+        outcome: "Case studies written while the detail is fresh.",
+      },
+      {
+        stage: "small-team",
+        relevance: "useful",
+        headline: "Proof gathered across accounts, not just the visible ones",
+        situation: "Case studies exist for the accounts whose leads are enthusiastic about writing them.",
+        problem: "Proof assets cluster where individuals are motivated rather than where the evidence is strongest.",
+        mengo: ["Consistent structure across accounts", "A record of which accounts have publishable results", "Permission scope recorded"],
+        agency: ["Permission conversations", "Selecting which cases serve which objection"],
+        outcome: "A proof library that reflects the work rather than the enthusiasm.",
+      },
+      {
+        stage: "growing",
+        relevance: "useful",
+        headline: "A proof library mapped to objections",
+        situation: "Many case studies across sectors, none organised by what they are useful for.",
+        problem: "A library nobody can search by objection is a library nobody uses, and sales teams write their own instead.",
+        mengo: ["Cases tagged by objection and sector", "Consistent structure so a sales team can find what they need", "Derivatives maintained alongside"],
+        agency: ["Selection and permission", "Deciding what is worth writing"],
+        outcome: "Sales teams can find the case that answers this prospect's specific doubt.",
+      },
+      {
+        stage: "established",
+        relevance: "useful",
+        headline: "Published evidence with a verification trail",
+        situation: "Case studies published across markets, containing customer figures, in regulated sectors.",
+        problem: "Published customer figures carry real exposure, and at scale the provenance of each is usually undocumented.",
+        mengo: ["Verification and permission recorded per figure", "Auditable approval trail", "Uniform structure across teams"],
+        agency: ["Customer approval before publication", "Compliance review where required"],
+        outcome: "Every published figure has documented verification and permission behind it.",
+      },
+    ],
+    related: {
+      capabilities: ["testimonials", "sales-collateral", "blog-content", "presentations-and-pitches"],
+      workflows: ["client-review", "sales-enablement", "content-production"],
+      useCases: ["improve-sales-enablement", "improve-client-retention"],
+    },
+    faqs: [
+      {
+        q: "Our clients will not let us publish their results.",
+        a: "Common, and negotiable more often than people assume. Anonymised cases — 'a professional services firm of forty people' — retain most of the persuasive value. The specificity that matters is in the situation, not the name.",
+      },
+      {
+        q: "What if the results were modest?",
+        a: "Write it anyway if the situation is recognisable. A prospect who sees their own circumstances described accurately is more persuaded by a modest honest outcome than by a spectacular one they cannot relate to.",
+      },
+      {
+        q: "How much of the difficulty should we include?",
+        a: "Enough to be credible. A case study where everything went smoothly reads as marketing, and readers discount it accordingly. Including the part that was hard is what makes the rest believable.",
+      },
+    ],
+  },
+
+  {
+    kind: "capability",
+    slug: "faq-bank",
+    title: "FAQ Bank",
+    navLabel: "FAQ Bank",
+    group: "content",
+    depth: "staged",
+    headline: "Every question, answered once, properly",
+    lead:
+      "A maintained set of the questions buyers actually ask and the client's best answers to them. Feeds the website, the sales conversation, the nurturing and increasingly the systems that generate answers about the business.",
+    summary:
+      "A maintained bank of real buyer questions and the client's best answers, feeding the site, sales and follow-up.",
+    seoTitle: "FAQ Bank — answering buyer questions once, properly",
+    seoDescription:
+      "A maintained set of real buyer questions and the client's best answers, feeding the website, sales conversations, nurturing and generated answers.",
+    updated: "2026-09-02",
+    meaning:
+      "A maintained inventory of the questions a client's buyers actually ask, each with the best available answer, used across every channel rather than answered separately in each.",
+    job: "Answer each buyer question once, well, and use it everywhere.",
+    whyAgencies: [
+      {
+        label: "The same questions are answered repeatedly and differently",
+        body: "Sales answers one way, the website another, support a third. The inconsistency is invisible internally and obvious to a buyer comparing them.",
+      },
+      {
+        label: "It feeds everything else",
+        body: "Website content, nurturing, sales collateral, search content and generated answers all draw on the same question set.",
+      },
+      {
+        label: "The questions themselves are the research",
+        body: "A list of what buyers actually ask is a better description of the market's doubts than most research produces.",
+      },
+    ],
+    inputs: [
+      "Questions from sales conversations, support and search",
+      "The client's best current answers, including informal ones",
+      "What may not be answered publicly, and why",
+      "Who owns the answer to each question",
+    ],
+    outputs: [
+      "A question bank grouped by segment and stage",
+      "One maintained answer per question",
+      "Flags where an answer is unclear or contested internally",
+      "Derivatives for the website, sales collateral and nurturing",
+    ],
+    sequence: [
+      { title: "The agency gathers real questions", body: "From sales, support and search rather than from imagination.", lane: "agency" },
+      { title: "Questions are grouped", body: "By segment and buying stage, which is what makes the bank navigable.", lane: "mengo" },
+      { title: "Answers are drafted", body: "One per question, from the client's best existing answer.", lane: "mengo" },
+      { title: "Contested answers are flagged", body: "Where the business disagrees internally, the bank surfaces it rather than picking one.", lane: "mengo" },
+      { title: "The client resolves and approves", body: "Internal disagreement about an answer is a business question, not a writing one.", lane: "agency" },
+      { title: "Derivatives are produced", body: "Website FAQ, sales responses, nurturing content — all from the same source.", lane: "mengo" },
+    ],
+    judgement: [
+      { label: "Which questions to answer publicly", body: "Some questions are better answered in conversation, and publishing an answer to a price question can lose deals that a conversation would win." },
+      { label: "How to answer a difficult one", body: "Evasion is visible. An honest limitation reads better than a deflection, but the calibration matters." },
+      { label: "When internal disagreement is the real finding", body: "Two people in the business giving different answers is a business problem the bank surfaces rather than solves." },
+    ],
+    limits: [
+      "It cannot answer questions the client has not answered.",
+      "It does not gather questions automatically — it has no access to support systems or search data.",
+      "It cannot resolve internal disagreement about what the answer is.",
+    ],
+    stages: [
+      {
+        stage: "starting",
+        relevance: "useful",
+        headline: "The cheapest research you will ever do",
+        situation: "You need to understand a client's market quickly and have no research budget.",
+        problem: "New agencies guess at buyer concerns because proper research is expensive and slow.",
+        mengo: ["A structure for collecting real questions", "Grouping by segment and stage", "Answers drafted from what the client already says"],
+        agency: ["Getting the questions from the client's sales reality", "Judging which to answer publicly"],
+        outcome: "A genuine picture of buyer doubt, gathered in a conversation.",
+      },
+      {
+        stage: "solo",
+        relevance: "useful",
+        headline: "One source for content across every channel",
+        situation: "You write website copy, nurturing and social for the same client and answer the same questions separately in each.",
+        problem: "Answering the same question three times in three places is duplicated effort producing inconsistency.",
+        mengo: ["One maintained answer per question", "Derivatives for each channel from the same source", "Consistency without you enforcing it"],
+        agency: ["Deciding what may be answered publicly", "Reviewing answers"],
+        outcome: "One answer, used everywhere, consistent by construction.",
+      },
+      {
+        stage: "small-team",
+        relevance: "useful",
+        headline: "Consistent answers across the team and the client",
+        situation: "Your team and the client's team answer the same buyer questions differently.",
+        problem: "A buyer who gets different answers from the website and from a salesperson stops trusting both.",
+        mengo: ["A shared question bank everyone draws from", "Contested answers flagged rather than silently varied", "Derivatives that stay in sync"],
+        agency: ["Resolving contested answers with the client", "Review"],
+        outcome: "One answer to each question, wherever a buyer encounters it.",
+      },
+      {
+        stage: "growing",
+        relevance: "useful",
+        headline: "Question banks that stay current across a portfolio",
+        situation: "Many clients with question banks that were built once and never revisited.",
+        problem: "Buyer questions change as markets do, and a stale bank propagates outdated answers everywhere it feeds.",
+        mengo: ["Maintained banks with visible last-review dates", "New questions captured from ongoing sales feedback", "Derivatives regenerated when an answer changes"],
+        agency: ["A review rhythm with each client", "Judging when an answer needs revisiting"],
+        outcome: "Answers stay current everywhere rather than only where someone remembered to update.",
+      },
+      {
+        stage: "established",
+        relevance: "useful",
+        headline: "Canonical answers across markets and channels",
+        situation: "Large clients answering buyer questions across markets, channels and languages.",
+        problem: "At this scale, inconsistent answers are certain and, in regulated sectors, a compliance issue rather than a nuisance.",
+        mengo: ["A canonical answer set with market variants where required", "Auditable approval per answer", "Uniform structure across teams"],
+        agency: ["Governance over what may be answered publicly", "Compliance review in regulated sectors"],
+        outcome: "One approved answer per question, applied consistently across every market.",
+      },
+    ],
+    related: {
+      capabilities: ["seo", "ai-discoverability", "sales-script", "website-planner"],
+      workflows: ["content-planning", "sales-enablement", "seo-workflow"],
+      useCases: ["build-a-content-engine", "improve-sales-enablement"],
+    },
+    faqs: [
+      {
+        q: "Where do the questions come from?",
+        a: "Sales conversations, support enquiries and search. All three need to be gathered by a person — there is no access to the client's systems, and the sales team is usually the richest source.",
+      },
+      {
+        q: "Should every question be answered publicly?",
+        a: "No. Some are better handled in conversation, and publishing an answer to a pricing question can lose deals a conversation would have won. That is a commercial judgement per client.",
+      },
+      {
+        q: "What if the client's own people disagree about the answer?",
+        a: "That is one of the most valuable things this surfaces. Two people giving buyers different answers is a business problem, and it is being solved badly right now — just invisibly.",
+      },
+    ],
+  },
+];

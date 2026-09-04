@@ -59,7 +59,7 @@ export const guides: Guide[] = [
       { type: "text", text: "Measure the composition of your hours. Move the structural layer. Find out where review capacity actually sits. Then hire against that, which will be a judgement role rather than a production role — a slower hire, a more expensive one, and a much better-targeted one." },
       { type: "quote", text: "Hiring for volume solves this quarter's problem and recreates it one level up. Hiring for judgement solves the version of the problem you will still have in two years." },
     ],
-    related: { stages: ["growing-agency", "small-agency"], useCases: ["scale-without-hiring", "handle-more-clients"] },
+    related: { stages: ["growing", "small-team"], useCases: ["scale-without-hiring", "handle-more-clients"] },
   },
 
   {
@@ -107,7 +107,7 @@ export const guides: Guide[] = [
       { type: "text", text: "Our own position is on the Responsible AI page. It is not a policy we can set for your agency, because your client contracts are yours." },
       { type: "quote", text: "An agency that has never articulated what its retainer buys will find that question answered for it, unfavourably, the first time a client's finance team looks closely." },
     ],
-    related: { stages: ["small-agency", "growing-agency"], useCases: ["handle-more-clients", "scale-without-hiring"] },
+    related: { stages: ["small-team", "growing"], useCases: ["handle-more-clients", "scale-without-hiring"] },
   },
 
   {
@@ -159,7 +159,7 @@ export const guides: Guide[] = [
       { type: "text", text: "Act on one category, not four. The measurement's value is that it points at a single constraint; treating it as a list of eight improvement projects guarantees that none of them finishes." },
       { type: "quote", text: "Almost every agency that measures this finds something they would have bet against. That is the entire reason to measure rather than to estimate." },
     ],
-    related: { stages: ["solo-agency", "small-agency", "growing-agency"], useCases: ["reduce-repetitive-work", "deliver-faster"] },
+    related: { stages: ["solo", "small-team", "growing"], useCases: ["reduce-repetitive-work", "deliver-faster"] },
   },
 
   {
@@ -210,7 +210,7 @@ export const guides: Guide[] = [
       ] },
       { type: "quote", text: "The agencies that will regret this are not the ones that adopted early. They are the ones that adopted without deciding where the human review sits." },
     ],
-    related: { stages: ["small-agency", "large-agency"], useCases: ["standardize-delivery"] },
+    related: { stages: ["small-team", "established"], useCases: ["standardize-delivery"] },
   },
 ];
 

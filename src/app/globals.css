@@ -1492,3 +1492,182 @@ html.js-reveal [data-reveal-lines] > * {
 .nav-item[data-open="true"]::after {
   transform: scaleX(1);
 }
+
+/* ============================================================================
+   Search panel
+
+   Mounts on open like the mega panel, so the same rule applies: an animation,
+   not a transition. It rises rather than drops, because it is anchored to the
+   viewport rather than to the header edge it came from.
+   ========================================================================= */
+
+@keyframes search-panel {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.search-panel {
+  animation: search-panel 0.28s var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-panel {
+    animation: none;
+  }
+}
+
+/* ============================================================================
+   THE LAYERS — the whole system, stacked
+   ----------------------------------------------------------------------------
+   The spine says how one workflow runs. This says how the product is built:
+   layers that each sit on the one below and are referenced by the one above,
+   with a person at the bottom and a person at the top. Same continuous rail,
+   heavier rhythm, and a lane band down the inside edge so the two human ends
+   are legible before anything is read.
+   ========================================================================= */
+
+@utility system-layers {
+  position: relative;
+  display: grid;
+  gap: 0;
+  padding-inline-start: 3.25rem;
+}
+
+@media (min-width: 768px) {
+  .system-layers {
+    padding-inline-start: 4.25rem;
+  }
+}
+
+.system-layers::before {
+  content: "";
+  position: absolute;
+  inset-block: 2.4rem 2rem;
+  inset-inline-start: 0.6875rem;
+  width: 2px;
+  background: var(--color-line);
+}
+
+@media (min-width: 768px) {
+  .system-layers::before {
+    inset-inline-start: 1.0625rem;
+  }
+}
+
+.on-dark .system-layers::before {
+  background: var(--color-line-dark);
+}
+
+.system-layer {
+  position: relative;
+  padding-block: 1.9rem;
+}
+
+.system-layer + .system-layer {
+  border-top: 1px solid color-mix(in oklab, var(--color-line) 65%, transparent);
+}
+
+.on-dark .system-layer + .system-layer {
+  border-top-color: color-mix(in oklab, var(--color-line-dark) 85%, transparent);
+}
+
+/* The inside edge carries the lane as a band. Colour is not doing the work on
+   its own — every layer also names its owner in text — but it is what lets the
+   shape of the stack read at a glance. */
+.system-layer::before {
+  content: "";
+  position: absolute;
+  inset-block: 1.9rem;
+  inset-inline-start: -1.6rem;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-lane-agency);
+}
+
+@media (min-width: 768px) {
+  .system-layer::before {
+    inset-inline-start: -2.1rem;
+  }
+}
+
+.system-layer[data-lane="mengo"]::before {
+  background: var(--color-lane-mengo);
+}
+
+.system-layer-node {
+  position: absolute;
+  inset-block-start: 2.2rem;
+  inset-inline-start: -3.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-lane-agency);
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-lane-agency);
+}
+
+@media (min-width: 768px) {
+  .system-layer-node {
+    inset-inline-start: -4.25rem;
+    width: 2.125rem;
+    height: 2.125rem;
+    font-size: 0.8125rem;
+  }
+}
+
+.system-layer-node[data-lane="mengo"] {
+  background: var(--color-lime);
+  border-color: var(--color-lime);
+  color: var(--color-on-accent);
+}
+
+.on-dark .system-layer-node {
+  background: var(--color-forest);
+  border-color: var(--color-on-dark);
+  color: var(--color-on-dark);
+}
+
+.on-dark .system-layer-node[data-lane="mengo"] {
+  background: var(--color-lime);
+  border-color: var(--color-lime);
+  color: var(--color-on-accent);
+}
+
+/* ============================================================================
+   Select caret
+
+   A native select keeps the OS control's behaviour, which at 320px is the
+   right one — but its arrow has to be drawn by us once appearance is removed.
+   Two data URIs rather than one: the stroke colour is baked into the SVG, so a
+   single arrow would go invisible in one theme or the other.
+   ========================================================================= */
+
+@utility select-caret {
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' fill='none' stroke='%23414e46' stroke-width='1.5'%3E%3Cpath d='M1 1l3.5 3.5L8 1'/%3E%3C/svg%3E");
+}
+
+:root[data-theme="dark"] .select-caret {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' fill='none' stroke='%23a9b6ac' stroke-width='1.5'%3E%3Cpath d='M1 1l3.5 3.5L8 1'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .select-caret {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' fill='none' stroke='%23a9b6ac' stroke-width='1.5'%3E%3Cpath d='M1 1l3.5 3.5L8 1'/%3E%3C/svg%3E");
+  }
+}

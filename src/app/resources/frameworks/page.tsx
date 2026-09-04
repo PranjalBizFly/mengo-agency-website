@@ -42,7 +42,7 @@ export default function FrameworksPage() {
           breadcrumbSchema(TRAIL),
           collectionSchema(
             "Frameworks",
-            "Reusable structures for agency delivery, published for agencies to adopt.",
+            "Reusable delivery structures, published to be adopted under your own name.",
             routes.frameworks(),
           ),
         ]}
@@ -93,7 +93,13 @@ export default function FrameworksPage() {
 
       {heroPhoto ? (
         <Section tone="warm" tight>
-          <Figure photo={heroPhoto} aspect="21/9" drift />
+          <Figure
+            photo={heroPhoto}
+            aspect="21/9"
+            drift
+            context="Frameworks"
+            caption="Structures to adopt under your own name. They work without Mengo, which is the point of publishing them."
+          />
         </Section>
       ) : null}
 

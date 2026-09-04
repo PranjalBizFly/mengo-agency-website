@@ -1,40 +1,65 @@
+import Image from "next/image";
 import Link from "next/link";
 import { routes, site } from "@/lib/site";
 
 /**
- * The wordmark.
+ * The Mengo lockup: the official mark, then the wordmark.
  *
- * Mengo in the display face with the lime dot, and "for Agencies" set beside
- * it in the reading face. The qualifier is part of the mark rather than a
- * strapline underneath: this site's whole job in the first two seconds is to
- * say who it is for, and the logo is the first thing anyone reads.
+ * This is the product's own mark, used unchanged — the same asset the Mengo
+ * end-user site carries. That is the point: the two properties are one brand
+ * seen from two chairs, and a different lockup on this one would say the
+ * opposite before a reader had read a word.
  *
- * Below the small breakpoint the qualifier is hidden visually but kept in the
- * accessible name, so the header row fits at 320px without the mark losing its
- * meaning for a screen reader.
+ * There is deliberately no descriptor beside it. A qualifier attached to the
+ * logo is a qualifier on every page of the site, the audience is meant to be
+ * legible from the content, and it is the one piece of the mark that would
+ * differ from the product's.
+ *
+ * `tone` only changes the wordmark. The lime mark is legible on both the paper
+ * and the forest grounds, so it never needs a second version.
  */
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({
+  tone = "dark",
+  href = routes.home(),
+  className = "",
+}: {
+  tone?: "dark" | "light";
+  /** Null renders the lockup without a link — for the footer's brand block. */
+  href?: string | null;
+  className?: string;
+}) {
+  const lockup = (
+    <span className="inline-flex items-center gap-2.5">
+      <Image
+        src="/brand/mengo-mark.png"
+        alt=""
+        aria-hidden
+        priority
+        width={32}
+        height={32}
+        className="h-7 w-auto lg:h-8"
+      />
+      <span
+        className={`type-title text-[1.35rem] leading-none tracking-[-0.04em] transition-colors lg:text-[1.5rem] ${
+          tone === "light" ? "text-on-dark" : "text-ink group-hover:text-lime-deep"
+        }`}
+      >
+        {site.name}
+      </span>
+    </span>
+  );
+
+  if (!href) return <span className={`inline-flex items-center ${className}`}>{lockup}</span>;
+
   return (
     <Link
-      href={routes.home()}
-      /* `min-h-11` rather than the lettering's own height: this is the home
-         link, and on a phone it is a touch target before it is a wordmark.
-         The baseline alignment moves to the inner row so the qualifier still
-         sits on the wordmark's baseline rather than being centred against it. */
+      href={href}
+      /* `min-h-11` rather than the lockup's own height: this is the home link,
+         and on a phone it is a touch target before it is a wordmark. */
       className={`group inline-flex min-h-11 shrink-0 items-center ${className}`}
       aria-label={`${site.name} — home`}
     >
-      <span className="flex items-baseline gap-2">
-        <span className="type-title text-[1.3rem] leading-none text-ink lg:text-[1.45rem]">
-          Mengo
-          <span className="text-lime-deep" aria-hidden>
-            .
-          </span>
-        </span>
-        <span className="hidden text-fine font-medium leading-none text-ink-soft transition-colors group-hover:text-lime-deep sm:inline">
-          for Agencies
-        </span>
-      </span>
+      {lockup}
     </Link>
   );
 }

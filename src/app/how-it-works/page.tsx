@@ -124,7 +124,15 @@ export default function HowItWorksPage() {
               </ButtonLink>
             </div>
           </div>
-          {briefPhoto ? <Figure photo={briefPhoto} aspect="4/3" drift /> : null}
+          {briefPhoto ? (
+            <Figure
+              photo={briefPhoto}
+              aspect="4/3"
+              drift
+              context="Step one"
+              caption="The brief. One structure asked of every client, which does more for consistency than anything else available in year one."
+            />
+          ) : null}
         </div>
       </Section>
 
@@ -203,22 +211,33 @@ export default function HowItWorksPage() {
         </div>
       </Section>
 
-      {/* What never happens ------------------------------------------------- */}
+      {/* What never happens --------------------------------------------------
+          A statement, then the list beneath it at full width. The section above
+          uses the same forest ground and a heading-beside-list split; running
+          this one the same way would make the page's two most important claims
+          look like one repeated section. */}
       <Section tone="forest">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <Heading kicker="What never happens" title="The steps that are not in any workflow" size="d3" width="full" />
-          <MarkerList
-            tone="warn"
-            items={[
-              "Mengo sending an email, SMS or message on anyone's behalf",
-              "Mengo publishing to a social or web account",
-              "Mengo holding, spending or managing an advertising budget",
-              "Mengo contacting your client, under any circumstance",
-              "Work reaching a client without a named person having approved it",
-              "A generated fact standing in for one nobody supplied",
-            ]}
-          />
-        </div>
+        <Kicker className="mb-7">What never happens</Kicker>
+        <h2 className="max-w-[20ch] text-d2 text-on-dark">
+          The steps that are not in any workflow
+        </h2>
+        <p className="mt-8 max-w-[52rem] text-lead text-sage-bright" data-reveal>
+          Not defaults, not settings, not &ldquo;off by default&rdquo;. There is no step in any
+          published workflow that does any of these, which is why the boundary holds without anybody
+          having to police it.
+        </p>
+        <MarkerList
+          tone="warn"
+          className="mt-12 lg:columns-2 lg:gap-x-14 lg:[&>li]:break-inside-avoid"
+          items={[
+            "Mengo sending an email, SMS or message on anyone's behalf",
+            "Mengo publishing to a social or web account",
+            "Mengo holding, spending or managing an advertising budget",
+            "Mengo contacting your client, under any circumstance",
+            "Work reaching a client without a named person having approved it",
+            "A generated fact standing in for one nobody supplied",
+          ]}
+        />
       </Section>
 
       {/* The six workflows --------------------------------------------------- */}

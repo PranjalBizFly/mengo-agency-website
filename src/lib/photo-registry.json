@@ -129,8 +129,8 @@
     "sourceUrl": "https://unsplash.com/photos/1568992687947-868a62a9f521",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:start-an-agency:hero": {
-    "key": "stage:start-an-agency:hero",
+  "stage:starting:hero": {
+    "key": "stage:starting:hero",
     "src": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=2000&q=84",
     "alt": "A hand writing in a notebook beside a cup of coffee",
     "width": 2000,
@@ -139,8 +139,8 @@
     "sourceUrl": "https://unsplash.com/photos/1434030216411-0b793f4b4173",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:start-an-agency:week": {
-    "key": "stage:start-an-agency:week",
+  "stage:starting:week": {
+    "key": "stage:starting:week",
     "src": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=2000&q=84",
     "alt": "Hands typing on a laptop keyboard",
     "width": 2000,
@@ -149,8 +149,8 @@
     "sourceUrl": "https://unsplash.com/photos/1486312338219-ce68d2c6f44d",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:solo-agency:hero": {
-    "key": "stage:solo-agency:hero",
+  "stage:solo:hero": {
+    "key": "stage:solo:hero",
     "src": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=2000&q=84",
     "alt": "A single desk by a tall window, with plants and a laptop",
     "width": 2000,
@@ -159,8 +159,8 @@
     "sourceUrl": "https://unsplash.com/photos/1497215728101-856f4ea42174",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:solo-agency:week": {
-    "key": "stage:solo-agency:week",
+  "stage:solo:week": {
+    "key": "stage:solo:week",
     "src": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=2000&q=84",
     "alt": "A laptop, pen and coffee cup on a white desk",
     "width": 2000,
@@ -169,8 +169,8 @@
     "sourceUrl": "https://unsplash.com/photos/1501504905252-473c47e087f8",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:small-agency:hero": {
-    "key": "stage:small-agency:hero",
+  "stage:small-team:hero": {
+    "key": "stage:small-team:hero",
     "src": "https://images.unsplash.com/photo-1522071901873-411886a10004?auto=format&fit=crop&w=2000&q=84",
     "alt": "Four colleagues working at laptops around a table",
     "width": 2000,
@@ -179,8 +179,8 @@
     "sourceUrl": "https://unsplash.com/photos/1522071901873-411886a10004",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:small-agency:week": {
-    "key": "stage:small-agency:week",
+  "stage:small-team:week": {
+    "key": "stage:small-team:week",
     "src": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=84",
     "alt": "A small team working on laptops around a shared table",
     "width": 2000,
@@ -189,8 +189,8 @@
     "sourceUrl": "https://unsplash.com/photos/1522071820081-009f0129c71c",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:growing-agency:hero": {
-    "key": "stage:growing-agency:hero",
+  "stage:growing:hero": {
+    "key": "stage:growing:hero",
     "src": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2000&q=84",
     "alt": "A long table of people working in a dimly lit room",
     "width": 2000,
@@ -199,8 +199,8 @@
     "sourceUrl": "https://unsplash.com/photos/1521737604893-d14cc237f11d",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:growing-agency:week": {
-    "key": "stage:growing-agency:week",
+  "stage:growing:week": {
+    "key": "stage:growing:week",
     "src": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=2000&q=84",
     "alt": "Several people working at laptops around a table",
     "width": 2000,
@@ -209,8 +209,8 @@
     "sourceUrl": "https://unsplash.com/photos/1521737711867-e3b97375f902",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:large-agency:hero": {
-    "key": "stage:large-agency:hero",
+  "stage:established:hero": {
+    "key": "stage:established:hero",
     "src": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=2000&q=84",
     "alt": "A large seated audience facing a presenter in a panelled room",
     "width": 2000,
@@ -219,8 +219,8 @@
     "sourceUrl": "https://unsplash.com/photos/1524178232363-1fb2b075b655",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "stage:large-agency:week": {
-    "key": "stage:large-agency:week",
+  "stage:established:week": {
+    "key": "stage:established:week",
     "src": "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=2000&q=84",
     "alt": "A modern open-plan office with workstations and breakout seating",
     "width": 2000,
@@ -239,8 +239,8 @@
     "sourceUrl": "https://unsplash.com/photos/1517048676732-d65bc937f952",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "capability:strategy:hero": {
-    "key": "capability:strategy:hero",
+  "capability:brand-strategy:hero": {
+    "key": "capability:brand-strategy:hero",
     "src": "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&w=2000&q=84",
     "alt": "A woman standing in front of a whiteboard covered in notes",
     "width": 2000,
@@ -249,8 +249,8 @@
     "sourceUrl": "https://unsplash.com/photos/1573496799652-408c2ac9fe98",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "capability:content:hero": {
-    "key": "capability:content:hero",
+  "capability:blog-content:hero": {
+    "key": "capability:blog-content:hero",
     "src": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=2000&q=84",
     "alt": "Hands working across printed charts, sketches and a phone",
     "width": 2000,
@@ -259,8 +259,8 @@
     "sourceUrl": "https://unsplash.com/photos/1432888498266-38ffec3eaf0a",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "capability:campaigns:hero": {
-    "key": "capability:campaigns:hero",
+  "capability:marketing-calendar:hero": {
+    "key": "capability:marketing-calendar:hero",
     "src": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=2000&q=84",
     "alt": "A hand pinning printed layouts onto a planning wall",
     "width": 2000,
@@ -269,8 +269,8 @@
     "sourceUrl": "https://unsplash.com/photos/1531403009284-440f080d1e12",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "capability:lead-nurturing:hero": {
-    "key": "capability:lead-nurturing:hero",
+  "capability:whatsapp-nurturing:hero": {
+    "key": "capability:whatsapp-nurturing:hero",
     "src": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=2000&q=84",
     "alt": "A person using a phone beside an open laptop",
     "width": 2000,
@@ -279,8 +279,8 @@
     "sourceUrl": "https://unsplash.com/photos/1563986768609-322da13575f3",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "capability:research:hero": {
-    "key": "capability:research:hero",
+  "capability:sales-performance:hero": {
+    "key": "capability:sales-performance:hero",
     "src": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=84",
     "alt": "A laptop displaying an analytics dashboard on a desk",
     "width": 2000,
@@ -289,8 +289,8 @@
     "sourceUrl": "https://unsplash.com/photos/1460925895917-afdab827c52f",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "capability:marketing-systems:hero": {
-    "key": "capability:marketing-systems:hero",
+  "capability:sops:hero": {
+    "key": "capability:sops:hero",
     "src": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=2000&q=84",
     "alt": "An overhead desk with a journal, glasses, coffee and a tablet",
     "width": 2000,
@@ -319,8 +319,8 @@
     "sourceUrl": "https://unsplash.com/photos/1531545514256-b1400bc00f31",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "workflow:strategy-and-planning:hero": {
-    "key": "workflow:strategy-and-planning:hero",
+  "workflow:marketing-planning:hero": {
+    "key": "workflow:marketing-planning:hero",
     "src": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=2000&q=84",
     "alt": "Hands gesturing across a meeting table beside an open laptop",
     "width": 2000,
@@ -429,8 +429,8 @@
     "sourceUrl": "https://unsplash.com/photos/1555396273-367ea4eb4db5",
     "license": "Unsplash License — free for commercial and editorial use"
   },
-  "usecase:start-an-agency:hero": {
-    "key": "usecase:start-an-agency:hero",
+  "usecase:starting:hero": {
+    "key": "usecase:starting:hero",
     "src": "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?auto=format&fit=crop&w=2000&q=84",
     "alt": "An open notebook and fountain pen on a wooden desk",
     "width": 2000,

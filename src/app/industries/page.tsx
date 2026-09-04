@@ -8,7 +8,8 @@ import { photo } from "@/lib/images";
 import { routes } from "@/lib/site";
 import { pageMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, collectionSchema } from "@/seo/schema";
-import { industries } from "@/data/industries";
+import { industries, industriesInSector } from "@/data/industries";
+import { SECTOR_NOTES, SECTOR_ORDER, sectorLabel } from "@/lib/nav";
 
 const TRAIL = [
   { label: "Home", href: routes.home() },
@@ -34,6 +35,11 @@ export const metadata: Metadata = pageMetadata({
  * Each sector already owns exactly one photograph in the registry, so this
  * costs no new images and breaks no uniqueness rule: the hub links to the same
  * asset the page uses, at a different size, in the same run of the site.
+ *
+ * Grouped by constraint rather than listed alphabetically. Ten sectors in one
+ * run is a dump; four groups named by what the marketing has to contend with is
+ * a map — and it is the same grouping the navigation panel uses, so a reader
+ * arriving from the menu finds the shape they were just looking at.
  */
 export default function IndustriesPage() {
   return (
@@ -60,22 +66,45 @@ export default function IndustriesPage() {
       />
 
       <Section tone="paper" tight>
-        <ul className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-          {industries.map((industry) => {
-            const cover = photo(`industry:${industry.slug}:hero`);
-            return (
-              <li key={industry.slug} data-reveal>
-                <Link href={routes.industry(industry.slug)} className="group block">
-                  {cover ? <FigureMini photo={cover} aspect="4/3" /> : null}
-                  <h2 className="mt-6 type-title text-h5 transition-colors group-hover:text-lime-deep">
-                    {industry.title}
-                  </h2>
-                  <p className="mt-3 text-body leading-relaxed text-ink-soft">{industry.summary}</p>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {SECTOR_ORDER.map((sector, index) => {
+          const members = industriesInSector(sector);
+          if (members.length === 0) return null;
+          return (
+            <section key={sector} className={index === 0 ? "" : "mt-20"}>
+              <div className="rule-b flex flex-wrap items-baseline justify-between gap-x-10 gap-y-2 pb-5">
+                <h2 className="type-title text-d4">{sectorLabel(sector)}</h2>
+                <p className="max-w-[52ch] text-small leading-relaxed text-ink-soft">
+                  {SECTOR_NOTES[sector]}
+                </p>
+              </div>
+              <ul className="mt-10 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+                {members.map((industry) => {
+                  const cover = photo(`industry:${industry.slug}:hero`);
+                  return (
+                    <li key={industry.slug} data-reveal>
+                      <Link href={routes.industry(industry.slug)} className="group block">
+                        {/* Six of the ten own a photograph; the other four are
+                            text-led rather than given a borrowed one, and the
+                            rule under the heading keeps the run even. */}
+                        {cover ? <FigureMini photo={cover} aspect="4/3" /> : null}
+                        <h3
+                          className={`type-title text-h5 transition-colors group-hover:text-lime-deep ${
+                            cover ? "mt-6" : "rule-t pt-6"
+                          }`}
+                        >
+                          {industry.title}
+                        </h3>
+                        <p className="mt-3 text-body leading-relaxed text-ink-soft">
+                          {industry.summary}
+                        </p>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          );
+        })}
       </Section>
 
       <Section tone="forest">
@@ -92,9 +121,10 @@ export default function IndustriesPage() {
               real risk, not a hypothetical one.
             </Statement>
             <p className="mt-9 max-w-[46rem] text-body leading-relaxed text-sage-bright" data-reveal>
-              In healthcare, professional services and real estate the constraint is not editorial —
-              it is regulatory, and the review has to be done by someone qualified to do it. Each of
-              those pages carries a section saying so, and it is the most important part of the page.
+              In healthcare, financial services, education, professional services and real estate
+              the constraint is not editorial — it is regulatory, and the review has to be done by
+              somebody qualified to do it. Each of those pages carries a section saying so, and on
+              several of them it is the most important part of the page.
             </p>
             <div className="mt-10 flex flex-wrap gap-3" data-reveal>
               <ButtonLink href={routes.guide("using-ai-in-client-work-responsibly")} variant="secondary">

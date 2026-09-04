@@ -5,6 +5,8 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Motion } from "@/components/ui/Motion";
+import { SearchProvider } from "@/components/search/Search";
+import { allPaths } from "@/lib/registry";
 import { JsonLd } from "@/components/ui/primitives";
 import { organizationSchema, websiteSchema } from "@/seo/schema";
 import { REVEAL_INIT_SCRIPT, THEME_INIT_SCRIPT } from "@/lib/reveal-init";
@@ -80,11 +82,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Reading progress, painted by the same rAF loop as the image drift
             and hidden entirely under reduced motion. */}
         <div data-scroll-progress className="scroll-progress" aria-hidden />
-        <Header />
-        <main id="main" tabIndex={-1} className="outline-none">
-          {children}
-        </main>
-        <Footer />
+        {/* The provider owns the "/" and ⌘K shortcuts and the dialog, and it
+            wraps header, page and footer because all three offer a way in.
+
+            The page count is read from the route registry here, on the server,
+            rather than from the search index in the browser: the registry is
+            what decides which pages exist, so the number the dialog states is
+            the source rather than a copy of it — and it is present before the
+            index has finished loading. */}
+        <SearchProvider totalPages={allPaths().length}>
+          <Header />
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
+          <Footer />
+        </SearchProvider>
         <Motion />
       </body>
     </html>

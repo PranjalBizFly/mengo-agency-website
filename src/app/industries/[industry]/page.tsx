@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { Section, Heading, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
-import { IndexRows, NumberedRows, MarkerList, StoryRows } from "@/components/ui/editorial";
+import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
+import { IndexRows, NumberedRows, MarkerList, ProseRows, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
 import { PhotoSection, Credit } from "@/components/ui/Photo";
 import { Related, relatedCapabilities, relatedWorkflows } from "@/components/sections/related";
@@ -11,6 +11,8 @@ import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/seo/schema";
 import { industries, industryBySlug } from "@/data/industries";
+import { capabilityBySlug } from "@/data/capabilities";
+import { industryCapability } from "@/data/industry-capabilities";
 
 export function generateStaticParams() {
   return industries.map((industry) => ({ industry: industry.slug }));
@@ -45,6 +47,21 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
 
   const heroPhoto = photo(`industry:${industry.slug}:hero`);
 
+  /* This sector's own capability pages. These are curated pairs rather than a
+     cross product, so every one has something true to say. */
+  const sectorCapabilities = industry.capabilities
+    .map((slug) => {
+      const capability = capabilityBySlug.get(slug);
+      if (!capability) return null;
+      return {
+        kicker: capability.title,
+        title: `${capability.title} for ${industry.title} clients`,
+        body: industryCapability(industry.slug, slug)?.headline ?? capability.job,
+        href: routes.industryCapability(industry.slug, slug),
+      };
+    })
+    .filter((c) => c !== null);
+
   const trail = [
     { label: "Home", href: routes.home() },
     { label: "Industries", href: routes.industries() },
@@ -63,24 +80,25 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
         lead={industry.lead}
       />
 
-      {/* What is distinctive -------------------------------------------- */}
+      {/* What is distinctive --------------------------------------------
+          Prose rows rather than an index: each of these is an argument that
+          needs a paragraph, and the sticky label keeps the reader oriented
+          inside it. */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <Heading
-            kicker="The character of the sector"
-            title="What makes marketing here different"
-            size="d3"
-            width="full"
-          />
-          <IndexRows items={industry.character} columns={1} />
-        </div>
+        <Heading
+          kicker="The character of the sector"
+          title="What makes marketing here different"
+          lead="Four things that are true of this sector and not of the one next to it. Everything further down the page follows from them."
+          size="d3"
+        />
+        <ProseRows items={industry.character} className="mt-14" />
       </Section>
 
       {/* Delivery pressures ---------------------------------------------- */}
       <Section tone="warm">
         <Heading
           kicker="Delivery pressure"
-          title="What that does to an agency's week"
+          title="What that does to the delivery week"
           lead="Sector characteristics are not abstract. Each one converts into a specific operational cost on the agency delivering into it."
           size="d3"
         />
@@ -120,25 +138,32 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
       )}
 
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
           <Heading kicker="Where Mengo helps" title="The load it can carry here" size="d3" width="full" />
-          <IndexRows items={industry.support} columns={1} />
+          <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
+            The structural layer, in this sector&rsquo;s shape. None of it reaches a client without
+            somebody named signing it off, and in the regulated sectors that person is not always in
+            your building.
+          </p>
         </div>
+        <IndexRows items={industry.support} columns={2} className="mt-14" />
       </Section>
 
-      {/* Care ------------------------------------------------------------- */}
+      {/* Care -------------------------------------------------------------
+          A statement, then the list. On the pages where this section matters
+          most it is the most important thing on them, and burying it beside a
+          heading in the same grid as everything else said otherwise. */}
       <Section tone="forest">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <div>
-            <Heading kicker="Handle with care" title="Constraints that must not be got wrong" size="d3" width="full" />
-            <p className="mt-7 max-w-[38rem] text-body leading-relaxed text-sage-bright" data-reveal>
-              These are the sector's real exposures. None of them are satisfied by a review step
-              alone — they need someone qualified, and in several cases they need the client's own
-              compliance function.
-            </p>
-          </div>
-          <MarkerList items={industry.care} tone="warn" />
-        </div>
+        <Kicker className="mb-7">Handle with care</Kicker>
+        <h2 className="max-w-[22ch] text-d2 text-on-dark">
+          Constraints that must not be got wrong
+        </h2>
+        <p className="mt-8 max-w-[52rem] text-lead text-sage-bright" data-reveal>
+          These are the sector&rsquo;s real exposures. None of them is satisfied by a review step
+          alone — they need somebody qualified, and in several cases they need the client&rsquo;s own
+          compliance function.
+        </p>
+        <MarkerList items={industry.care} tone="warn" className="mt-12 lg:columns-2 lg:gap-x-14 lg:[&>li]:break-inside-avoid" />
       </Section>
 
       {/* FAQ -------------------------------------------------------------- */}
@@ -149,15 +174,33 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
         </div>
       </Section>
 
+      {/* This sector's capability pages ---------------------------------- */}
+      <Section tone="paper">
+        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+          <Heading
+            kicker="In this sector"
+            title={`${industry.capabilities.length} capabilities that work differently here`}
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
+            These are the capabilities where working in this sector genuinely changes the job — the
+            constraints, the review requirements and what the agency has to supply. The rest of the
+            taxonomy applies here the same way it applies anywhere.
+          </p>
+        </div>
+        <StoryRows className="mt-12" columns={2} items={sectorCapabilities} />
+      </Section>
+
       {/* Onward ----------------------------------------------------------- */}
       <Section tone="warm">
         <div className="grid gap-x-16 gap-y-14 lg:grid-cols-2">
           <div>
-            <Heading kicker="Most relevant here" title="Capabilities" size="d4" width="full" />
+            <Heading kicker="Most relevant here" title="Capabilities in general" size="d4" width="full" />
             <StoryRows
               className="mt-9"
               columns={1}
-              items={relatedCapabilities(industry.related.capabilities)}
+              items={relatedCapabilities(industry.capabilities.slice(0, 3))}
             />
           </div>
           <div>

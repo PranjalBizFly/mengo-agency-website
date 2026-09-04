@@ -56,7 +56,13 @@ export default async function GuidePage({ params }: { params: Promise<{ guide: s
 
       {cover ? (
         <Section tone="paper" tight>
-          <Figure photo={cover} aspect="21/9" drift />
+          <Figure
+            photo={cover}
+            aspect="21/9"
+            drift
+            context="Written for"
+            caption={guide.audience}
+          />
         </Section>
       ) : null}
 

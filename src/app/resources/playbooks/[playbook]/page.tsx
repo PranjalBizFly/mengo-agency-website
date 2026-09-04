@@ -68,7 +68,13 @@ export default async function PlaybookPage({ params }: { params: Promise<{ playb
 
       {cover ? (
         <Section tone="paper" tight>
-          <Figure photo={cover} aspect="21/9" drift />
+          <Figure
+            photo={cover}
+            aspect="21/9"
+            drift
+            context="Playbook"
+            caption={`${playbook.audience} · ${playbook.effort}`}
+          />
         </Section>
       ) : null}
 
