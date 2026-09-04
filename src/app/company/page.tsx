@@ -52,7 +52,7 @@ export default function CompanyIndexPage() {
         countLabel="pages"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <StoryRows
           columns={1}
           items={companyPages.map((page) => ({

@@ -150,7 +150,7 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
       )}
 
       {/* The transition -------------------------------------------------- */}
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <div className="grid gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start">
           <Heading kicker="What changes next" title={`Moving to ${stage.transition.to}`} size="d4" width="full" />
           <div>

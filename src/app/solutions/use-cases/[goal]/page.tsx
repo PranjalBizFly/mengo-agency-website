@@ -99,7 +99,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
 
       {/* Illustration ---------------------------------------------------- */}
       {heroPhoto ? (
-        <Section tone="paper" tight>
+        <Section tone="paper">
           <Figure
             photo={heroPhoto}
             aspect="21/9"

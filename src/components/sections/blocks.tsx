@@ -16,16 +16,22 @@ import { Statement } from "@/components/ui/primitives";
  * working as a diagram.
  */
 export function Blocks({ blocks, className = "" }: { blocks: Block[]; className?: string }) {
+  /* A document that opens on prose gets that first paragraph set as a
+     statement. One that opens on a heading or a device does not — there the
+     structure is already doing the work, and enlarging the first sentence
+     underneath it would fight the heading rather than introduce it. */
+  const opensOnProse = blocks[0]?.type === "text";
+
   return (
     <div className={className}>
       {blocks.map((block, i) => (
-        <BlockView key={i} block={block} />
+        <BlockView key={i} block={block} opening={i === 0 && opensOnProse} />
       ))}
     </div>
   );
 }
 
-function BlockView({ block }: { block: Block }) {
+function BlockView({ block, opening = false }: { block: Block; opening?: boolean }) {
   switch (block.type) {
     case "heading":
       return (
@@ -35,7 +41,11 @@ function BlockView({ block }: { block: Block }) {
       );
 
     case "text":
-      return (
+      return opening ? (
+        <p className="max-w-[46rem] text-d4 leading-[1.45] tracking-[-0.015em] text-ink" data-reveal>
+          {block.text}
+        </p>
+      ) : (
         <p className="mt-6 max-w-[44rem] text-prose text-ink-soft" data-reveal>
           {block.text}
         </p>

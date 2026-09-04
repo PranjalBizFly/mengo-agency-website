@@ -8,6 +8,7 @@ import { Blocks } from "@/components/sections/blocks";
 import { Figure } from "@/components/ui/Photo";
 import { Related, relatedWorkflows, relatedPlaybooks } from "@/components/sections/related";
 import { photo } from "@/lib/images";
+import { DocumentCta, PrevNext, neighboursOf } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, documentSchema } from "@/seo/schema";
@@ -49,6 +50,8 @@ export default async function FrameworkPage({
 
   const cover = photo(`framework:${framework.slug}:hero`);
 
+  const { previous, next } = neighboursOf(frameworks, framework.slug, routes.framework);
+
   const trail = [
     { label: "Home", href: routes.home() },
     { label: "Resources", href: routes.resources() },
@@ -84,7 +87,7 @@ export default async function FrameworkPage({
       </Section>
 
       {cover ? (
-        <Section tone="paper" tight>
+        <Section tone="paper">
           <Figure
             photo={cover}
             aspect="21/9"
@@ -96,14 +99,14 @@ export default async function FrameworkPage({
       ) : null}
 
       {/* The body --------------------------------------------------------- */}
-      <Section tone="paper" tight as="div">
+      <Section tone="paper" as="div">
         <article className="max-w-[52rem]">
           <Blocks blocks={framework.blocks} />
         </article>
       </Section>
 
       {/* Licence ----------------------------------------------------------- */}
-      <Section tone="forest" tight>
+      <Section tone="forest">
         <div className="grid gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)] lg:items-start">
           <Heading kicker="Use it" title="This is yours" size="d4" width="full" />
           <p className="max-w-[48rem] text-lead text-sage-bright" data-reveal>
@@ -132,6 +135,14 @@ export default async function FrameworkPage({
             })),
         ]}
       />
+      <PrevNext
+        previous={previous}
+        next={next}
+        collectionLabel="Frameworks"
+        collectionHref={routes.frameworks()}
+      />
+
+      <DocumentCta />
     </>
   );
 }

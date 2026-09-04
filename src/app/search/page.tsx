@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Section, JsonLd } from "@/components/ui/primitives";
+import { JsonLd } from "@/components/ui/primitives";
 import { IndexHero } from "@/components/sections/heroes";
 import { SearchResults } from "@/components/search/SearchResults";
 import { routes } from "@/lib/site";
@@ -51,9 +51,14 @@ export default function SearchPage() {
         note="Press / anywhere on the site for the quick dialog instead, or open the directory if you would rather filter than search."
       />
 
-      <Section tone="paper" tight>
-        <SearchResults records={searchIndex} />
-      </Section>
+      {/* Not the shared `Section`: its full top rhythm would drop the control
+          bar most of a screen below the hero, and the bar is the first thing
+          this page is for. The foot keeps the shared cadence. */}
+      <section className="bg-paper pb-section pt-8 text-ink">
+        <div className="wrap">
+          <SearchResults records={searchIndex} />
+        </div>
+      </section>
     </>
   );
 }

@@ -129,7 +129,7 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
 
       {/* Illustration ---------------------------------------------------- */}
       {heroPhoto ? (
-        <Section tone="warm" tight>
+        <Section tone="warm">
           <Figure
             photo={heroPhoto}
             aspect="21/9"

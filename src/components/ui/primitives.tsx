@@ -49,7 +49,6 @@ export function Section({
   id,
   className = "",
   bleed = false,
-  tight = false,
   as: Tag = "section",
   labelledBy,
 }: {
@@ -59,8 +58,6 @@ export function Section({
   className?: string;
   /** Skip the container, for sections managing their own full-bleed layout. */
   bleed?: boolean;
-  /** Shorter vertical rhythm, for sections that continue the one above. */
-  tight?: boolean;
   as?: "section" | "div";
   labelledBy?: string;
 }) {
@@ -68,7 +65,7 @@ export function Section({
     <Tag
       id={id}
       aria-labelledby={labelledBy}
-      className={`${TONE[tone]} ${tight ? "py-section-tight" : "py-section"} ${className}`}
+      className={`${TONE[tone]} py-section ${className}`}
     >
       {bleed ? children : <div className="wrap">{children}</div>}
     </Tag>
@@ -202,14 +199,14 @@ const SIZE: Record<ButtonSize, string> = {
 
 const VARIANT: Record<Variant, string> = {
   primary:
-    "bg-lime text-on-accent shadow-[0_8px_22px_-8px_rgb(95_139_20/0.55)] hover:bg-lime-bright hover:shadow-[0_16px_34px_-10px_rgb(95_139_20/0.5)]",
+    "bg-lime text-on-accent shadow-[0_8px_22px_-8px_rgb(95_139_20/0.65)] hover:bg-lime-bright hover:shadow-[0_16px_34px_-10px_rgb(95_139_20/0.6)]",
   /* The section action, and the one most likely to land on a photograph. A
      22% hairline disappears over a busy frame, so on a dark ground the border
      runs at 35% over a faint wash of its own — enough to read against any part
      of a picture without becoming a filled button and competing with the
      page's actual primary action. */
   secondary:
-    "border border-ink/25 bg-transparent text-ink hover:border-ink/55 hover:bg-ink/[0.04] [.on-dark_&]:border-on-dark/35 [.on-dark_&]:bg-on-dark/[0.07] [.on-dark_&]:text-on-dark [.on-dark_&]:hover:border-lime [.on-dark_&]:hover:bg-lime/15 [.on-dark_&]:hover:text-lime",
+    "border border-ink/25 bg-transparent text-ink hover:border-ink/60 hover:bg-ink/[0.04] [.on-dark_&]:border-on-dark/35 [.on-dark_&]:bg-on-dark/[0.07] [.on-dark_&]:text-on-dark [.on-dark_&]:hover:border-lime [.on-dark_&]:hover:bg-lime/15 [.on-dark_&]:hover:text-lime",
   ghost:
     "px-0 text-ink underline decoration-lime decoration-2 underline-offset-[6px] hover:decoration-lime-deep [.on-dark_&]:text-on-dark",
 };

@@ -7,6 +7,7 @@ import { Blocks } from "@/components/sections/blocks";
 import { Figure } from "@/components/ui/Photo";
 import { Related, relatedStages, relatedUseCases } from "@/components/sections/related";
 import { photo } from "@/lib/images";
+import { DocumentCta, PrevNext, neighboursOf } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, documentSchema } from "@/seo/schema";
@@ -35,6 +36,8 @@ export default async function GuidePage({ params }: { params: Promise<{ guide: s
 
   const cover = photo(`guide:${guide.slug}:hero`);
 
+  const { previous, next } = neighboursOf(guides, guide.slug, routes.guide);
+
   const trail = [
     { label: "Home", href: routes.home() },
     { label: "Resources", href: routes.resources() },
@@ -55,7 +58,7 @@ export default async function GuidePage({ params }: { params: Promise<{ guide: s
       />
 
       {cover ? (
-        <Section tone="paper" tight>
+        <Section tone="paper">
           <Figure
             photo={cover}
             aspect="21/9"
@@ -66,7 +69,7 @@ export default async function GuidePage({ params }: { params: Promise<{ guide: s
         </Section>
       ) : null}
 
-      <Section tone="paper" tight as="div">
+      <Section tone="paper" as="div">
         <article className="max-w-[52rem]">
           <Blocks blocks={guide.blocks} />
         </article>
@@ -90,6 +93,14 @@ export default async function GuidePage({ params }: { params: Promise<{ guide: s
             })),
         ]}
       />
+      <PrevNext
+        previous={previous}
+        next={next}
+        collectionLabel="Guides"
+        collectionHref={routes.guides()}
+      />
+
+      <DocumentCta />
     </>
   );
 }

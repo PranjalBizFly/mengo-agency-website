@@ -72,8 +72,12 @@ export function Related({
   tone?: "paper" | "warm" | "deep";
 }) {
   if (items.length === 0) return null;
+
+  /* Full rhythm rather than tight. This closes a page, and the product site
+     gives a closing rail the same breathing room as every other section — a
+     long-form page measured 90px a side here against its 134px. */
   return (
-    <Section tone={tone} tight>
+    <Section tone={tone}>
       <Heading kicker={kicker} title={title} size="d4" />
       <StoryRows items={items} columns={2} className="mt-10" />
     </Section>

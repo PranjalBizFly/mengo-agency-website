@@ -59,7 +59,7 @@ export default function StagesPage() {
         note="If you are between two, read the earlier one. The problems described there are usually the ones still unresolved."
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <Ladder
           steps={stages.map((stage) => ({
             label: stage.title,

@@ -46,7 +46,7 @@ export default function GuidesPage() {
         countLabel="guides"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <StoryRows
           columns={1}
           items={guides.map((guide) => ({
@@ -59,7 +59,7 @@ export default function GuidesPage() {
       </Section>
 
       {heroPhoto ? (
-        <Section tone="warm" tight>
+        <Section tone="warm">
           <Figure
             photo={heroPhoto}
             aspect="21/9"

@@ -7,6 +7,7 @@ import { Blocks } from "@/components/sections/blocks";
 import { Figure } from "@/components/ui/Photo";
 import { Related } from "@/components/sections/related";
 import { photo } from "@/lib/images";
+import { DocumentCta, PrevNext, neighboursOf } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { articleSchema, breadcrumbSchema } from "@/seo/schema";
@@ -37,6 +38,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
 
   const cover = photo(`article:${article.slug}:hero`);
 
+  const { previous, next } = neighboursOf(articles, article.slug, routes.article);
+
   const trail = [
     { label: "Home", href: routes.home() },
     { label: "Resources", href: routes.resources() },
@@ -60,7 +63,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
       />
 
       {cover ? (
-        <Section tone="paper" tight>
+        <Section tone="paper">
           <Figure
             photo={cover}
             aspect="21/9"
@@ -71,7 +74,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
         </Section>
       ) : null}
 
-      <Section tone="paper" tight as="div">
+      <Section tone="paper" as="div">
         <article className="max-w-[46rem]">
           <Blocks blocks={article.blocks} />
         </article>
@@ -91,6 +94,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ articl
             href: routes.article(other.slug),
           }))}
       />
+      <PrevNext
+        previous={previous}
+        next={next}
+        collectionLabel="Journal"
+        collectionHref={routes.blog()}
+      />
+
+      <DocumentCta />
     </>
   );
 }

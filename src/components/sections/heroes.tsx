@@ -209,8 +209,13 @@ export function IndexHero({
             <Kicker reveal className="mb-6">
               {kicker}
             </Kicker>
+            {/* d2, not d1. The product site sets every index and hub opening
+                one scale below the homepage, and it is the right call: a
+                directory that shouts as loudly as the front door flattens the
+                hierarchy between them. Measured, mine was 70px against their
+                60px at 1280. */}
             <h1
-              className="max-w-[16ch] text-d1"
+              className="max-w-[18ch] text-d2"
               data-reveal
               style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
             >

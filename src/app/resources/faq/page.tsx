@@ -58,7 +58,7 @@ export default function FaqPage() {
       />
 
       {/* The general set, in full ---------------------------------------- */}
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,1.4fr)] lg:items-start">
           <Heading kicker="General" title="Before anything else" size="d3" width="full" />
           <FaqList faqs={generalFaqs} />
@@ -131,7 +131,7 @@ export default function FaqPage() {
       </Section>
 
       {heroPhoto ? (
-        <Section tone="paper" tight>
+        <Section tone="paper">
           <Figure
             photo={heroPhoto}
             aspect="21/9"

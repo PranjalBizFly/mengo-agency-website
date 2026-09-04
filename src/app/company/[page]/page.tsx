@@ -56,7 +56,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ page: 
       <LongformHero trail={trail} kicker="Company" title={page.headline} lead={page.lead} />
 
       {cover ? (
-        <Section tone="paper" tight>
+        <Section tone="paper">
           <Figure
             photo={cover}
             aspect="21/9"
@@ -67,14 +67,14 @@ export default async function CompanyPage({ params }: { params: Promise<{ page: 
         </Section>
       ) : null}
 
-      <Section tone="paper" tight as="div">
+      <Section tone="paper" as="div">
         <article className="max-w-[56rem]">
           <Blocks blocks={page.blocks} />
         </article>
       </Section>
 
       {second ? (
-        <Section tone="warm" tight>
+        <Section tone="warm">
           <Figure
             photo={second}
             aspect="21/9"

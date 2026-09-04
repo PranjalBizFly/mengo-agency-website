@@ -19,28 +19,33 @@
 @theme {
   /* --- Brand core. Fixed by the Mengo identity. --- */
   --color-lime: #a3e625;
-  --color-lime-bright: #b9f350;
+  --color-lime-bright: #b8f34a;
+  /* The product site sets this to #6f9f1a. Kept darker here because that
+     value measures 2.93:1 on paper — below the 3:1 floor for interface
+     colour, let alone the 4.5:1 body-text minimum — and this is the link
+     colour on every light section of the site. 3.76:1 is still short of AA
+     for small text and is the better of the two. */
   --color-lime-deep: #5f8b14;
   --color-forest: #022018;
   --color-forest-900: #01180f;
   --color-forest-800: #052a1f;
-  --color-forest-700: #0b3325;
-  --color-forest-600: #16402e;
-  --color-forest-500: #1f4c37;
-  --color-sage: #a3b6a9;
-  --color-sage-bright: #c2d0c5;
+  --color-forest-700: #0a2e1c;
+  --color-forest-600: #123322;
+  --color-forest-500: #1b3f2a;
+  --color-sage: #82958a;
+  --color-sage-bright: #8fa396;
 
   /* --- Paper. The reading surface. --- */
   --color-paper: #f6f7f3;
-  --color-paper-warm: #edefe6;
-  --color-paper-deep: #e3e6da;
-  --color-line: #d5dac9;
-  --color-ink: #131d18;
-  --color-ink-soft: #414e46;
+  --color-paper-warm: #eef0e8;
+  --color-paper-deep: #e4e7dd;
+  --color-line: #dcdfd4;
+  --color-ink: #14201a;
+  --color-ink-soft: #45524b;
 
   /* --- Role tokens that never follow the surface --- */
   --color-on-dark: #ffffff;
-  --color-line-dark: #1d4130;
+  --color-line-dark: #1b3f2a;
   --color-on-accent: #022018;
   --color-field: #ffffff;
 
@@ -59,65 +64,72 @@
   /* Display scale. Fluid clamps from 320px to 1920px with no breakpoint
      jumps, because this site's headlines are sentences rather than two-word
      slogans and a stepped scale breaks them at awkward widths. */
-  --text-d1: clamp(2.4rem, 1.45rem + 3.9vw, 4.9rem);
-  --text-d1--line-height: 0.96;
-  --text-d1--letter-spacing: -0.038em;
+  --text-d1: clamp(2.4rem, 1.5rem + 3.6vw, 4.65rem);
+  --text-d1--line-height: 0.94;
+  --text-d1--letter-spacing: -0.035em;
   --text-d2: clamp(2rem, 1.3rem + 3.1vw, 3.9rem);
-  --text-d2--line-height: 1;
-  --text-d2--letter-spacing: -0.032em;
-  --text-d3: clamp(1.7rem, 1.1rem + 2.3vw, 2.9rem);
-  --text-d3--line-height: 1.07;
-  --text-d3--letter-spacing: -0.026em;
+  --text-d2--line-height: 0.98;
+  --text-d2--letter-spacing: -0.03em;
+  --text-d3: clamp(1.7rem, 1.05rem + 2.4vw, 3rem);
+  --text-d3--line-height: 1.06;
+  --text-d3--letter-spacing: -0.025em;
   --text-d4: clamp(1.35rem, 1.05rem + 1.2vw, 2rem);
-  --text-d4--line-height: 1.16;
+  --text-d4--line-height: 1.15;
   --text-d4--letter-spacing: -0.02em;
 
-  --text-lead: clamp(1.0625rem, 0.97rem + 0.5vw, 1.35rem);
+  --text-lead: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem);
   --text-lead--line-height: 1.55;
 
   /* Component headings. Deliberately fixed: a row title that grows with the
      viewport stops reading as a row title. */
-  --text-h5: 1.3125rem;
-  --text-h5--line-height: 1.24;
+  --text-h5: 1.25rem;
+  --text-h5--line-height: 1.25;
   --text-h6: 1.125rem;
   --text-h6--line-height: 1.3;
   --text-h7: 1.0625rem;
   --text-h7--line-height: 1.35;
+  --text-h8: 1rem;
+  --text-h8--line-height: 1.4;
 
   --text-prose: 1.0625rem;
-  --text-prose--line-height: 1.72;
+  --text-prose--line-height: 1.7;
   --text-body: 0.9375rem;
-  --text-body--line-height: 1.62;
+  --text-body--line-height: 1.6;
   --text-small: 0.875rem;
   --text-small--line-height: 1.55;
   --text-fine: 0.8125rem;
   --text-fine--line-height: 1.5;
   --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1.2;
-  --text-eyebrow--letter-spacing: 0.15em;
+  --text-eyebrow--letter-spacing: 0.14em;
 
+  /* The product site declares a 1.375rem statement token and never renders
+     it. Here the statement is a real device on twenty-one pages, so it keeps
+     its display scale rather than inheriting a value nothing uses. */
   --text-statement: clamp(1.4rem, 1.05rem + 1.5vw, 2.3rem);
   --text-statement--line-height: 1.3;
+  --text-wordmark: 1.35rem;
+  --text-wordmark-lg: 1.5rem;
 
   /* --- Rhythm ------------------------------------------------------------ */
   --spacing-gutter: 1.25rem;
-  --spacing-section: clamp(4.75rem, 2.8rem + 7.4vw, 9.75rem);
-  --spacing-section-tight: clamp(3.25rem, 2rem + 4.5vw, 6rem);
+  --spacing-section: clamp(4.5rem, 2.6rem + 7.2vw, 9.5rem);
 
   /* --- Motion ------------------------------------------------------------ */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
 
   /* --- Form -------------------------------------------------------------- */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.875rem;
-  --radius-lg: 1.5rem;
-  --radius-xl: 2rem;
+  --radius-sm: 0.625rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.625rem;
+  --radius-xl: 2.25rem;
 
   --shadow-sm: 0 2px 10px rgb(2 32 24 / 0.06);
-  --shadow-md: 0 12px 32px -12px rgb(2 32 24 / 0.18);
-  --shadow-lg: 0 28px 64px -20px rgb(2 32 24 / 0.24);
-  --shadow-xl: 0 44px 100px -28px rgb(2 32 24 / 0.34);
+  --shadow-md: 0 10px 30px rgb(2 32 24 / 0.1);
+  --shadow-lg: 0 24px 60px rgb(2 32 24 / 0.16);
+  --shadow-xl: 0 40px 96px -24px rgb(2 32 24 / 0.28);
+  --shadow-lift: 0 1px 2px rgb(2 32 24 / 0.05), 0 12px 32px -12px rgb(2 32 24 / 0.18);
 }
 
 /* ============================================================================
@@ -129,22 +141,22 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --color-paper: #0a1310;
-  --color-paper-warm: #0f1b16;
+  --color-paper: #0b1410;
+  --color-paper-warm: #101a15;
   --color-paper-deep: #14231c;
-  --color-line: #23332b;
-  --color-ink: #e9eee9;
-  --color-ink-soft: #a9b6ac;
-  --color-forest: #17241d;
+  --color-line: #26332b;
+  --color-ink: #e9eee7;
+  --color-ink-soft: #a9b5aa;
+  --color-forest: #17241c;
   --color-forest-900: #101a15;
-  --color-forest-800: #1b2a22;
-  --color-forest-700: #213228;
-  --color-forest-600: #293c31;
-  --color-forest-500: #32483a;
-  --color-sage: #b2c0b4;
-  --color-sage-bright: #ccd8ce;
+  --color-forest-800: #1b2a21;
+  --color-forest-700: #203127;
+  --color-forest-600: #26392d;
+  --color-forest-500: #2d4234;
+  --color-sage: #94a498;
+  --color-sage-bright: #b4c0b5;
   --color-lime-deep: #a3e625;
-  --color-line-dark: #32483a;
+  --color-line-dark: #2d4234;
   --color-field: #16221b;
   --color-lane-agency: #e9eee9;
   --color-lane-mengo: #a3e625;
@@ -157,22 +169,22 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --color-paper: #0a1310;
-    --color-paper-warm: #0f1b16;
+    --color-paper: #0b1410;
+    --color-paper-warm: #101a15;
     --color-paper-deep: #14231c;
-    --color-line: #23332b;
-    --color-ink: #e9eee9;
-    --color-ink-soft: #a9b6ac;
-    --color-forest: #17241d;
+    --color-line: #26332b;
+    --color-ink: #e9eee7;
+    --color-ink-soft: #a9b5aa;
+    --color-forest: #17241c;
     --color-forest-900: #101a15;
-    --color-forest-800: #1b2a22;
-    --color-forest-700: #213228;
-    --color-forest-600: #293c31;
-    --color-forest-500: #32483a;
-    --color-sage: #b2c0b4;
-    --color-sage-bright: #ccd8ce;
+    --color-forest-800: #1b2a21;
+    --color-forest-700: #203127;
+    --color-forest-600: #26392d;
+    --color-forest-500: #2d4234;
+    --color-sage: #94a498;
+    --color-sage-bright: #b4c0b5;
     --color-lime-deep: #a3e625;
-    --color-line-dark: #32483a;
+    --color-line-dark: #2d4234;
     --color-field: #16221b;
     --color-lane-agency: #e9eee9;
     --color-lane-mengo: #a3e625;
@@ -279,14 +291,14 @@ table {
   width: 100%;
   margin-inline: auto;
   padding-inline: var(--spacing-gutter);
-  max-width: 85rem;
+  max-width: 84rem;
 }
 
 @utility wrap-prose {
   width: 100%;
   margin-inline: auto;
   padding-inline: var(--spacing-gutter);
-  max-width: 44rem;
+  max-width: 46rem;
 }
 
 @media (min-width: 768px) {
@@ -335,7 +347,7 @@ table {
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow);
   line-height: 1.2;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 600;
   color: var(--color-ink-soft);
@@ -355,7 +367,7 @@ table {
   font-family: var(--font-sans);
   font-size: var(--text-eyebrow);
   line-height: 1.2;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 600;
   color: var(--color-ink-soft);

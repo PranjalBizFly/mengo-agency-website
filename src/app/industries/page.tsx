@@ -65,7 +65,7 @@ export default function IndustriesPage() {
         note="Every page names what is irreplaceably yours in that sector before it says anything about what Mengo carries."
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         {SECTOR_ORDER.map((sector, index) => {
           const members = industriesInSector(sector);
           if (members.length === 0) return null;

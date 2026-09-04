@@ -62,7 +62,7 @@ export default function GlossaryPage() {
         countLabel="terms"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         {/* The jump list. Real links to real anchors, so it works without
             JavaScript and a keyboard user can tab through it. */}
         <nav aria-label="Jump to letter" className="rule-b pb-7">

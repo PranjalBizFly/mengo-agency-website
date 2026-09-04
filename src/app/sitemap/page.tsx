@@ -106,7 +106,7 @@ export default function SitemapPage() {
         note={`${counts.entities} content pages, ${counts.capabilityStages} capability-by-stage pages, ${counts.industryCapabilities} industry capability pages, and ${counts.static} hubs and top-level pages.`}
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <div className="grid gap-x-12 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {staticGroups.map((group) => (
             <div key={group}>

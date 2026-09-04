@@ -58,7 +58,7 @@ export default function UseCasesPage() {
         note="There are no percentages on any of them. We have no outcome data we could stand behind, and inventing some would be the fastest way to lose you."
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <nav aria-label="Use case groups" className="rule-b pb-7">
           <ul className="flex flex-wrap gap-2">
             {USE_CASE_PHASES.map((phase) => (

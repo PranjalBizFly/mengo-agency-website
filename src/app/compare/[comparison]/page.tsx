@@ -124,7 +124,7 @@ export default async function ComparisonPage({
       </Section>
 
       {/* Other comparisons -------------------------------------------------- */}
-      <Section tone="deep" tight>
+      <Section tone="deep">
         <Heading kicker="Other comparisons" title="The alternatives agencies actually weigh" size="d4" />
         <StoryRows
           className="mt-10"

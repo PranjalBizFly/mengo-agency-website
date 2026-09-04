@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { Section, JsonLd } from "@/components/ui/primitives";
+import { JsonLd } from "@/components/ui/primitives";
 import { IndexHero } from "@/components/sections/heroes";
 import { ExploreDirectory } from "@/components/explore/ExploreDirectory";
 import { routes } from "@/lib/site";
@@ -48,9 +48,14 @@ export default function ExplorePage() {
         note="Press / anywhere on the site to search instead. This page is for when you want to see the shape of what exists rather than jump to one thing."
       />
 
-      <Section tone="paper" tight>
-        <ExploreDirectory records={searchIndex} facets={facets} />
-      </Section>
+      {/* Not the shared `Section`: its full top rhythm would drop the control
+          bar most of a screen below the hero, and the bar is the first thing
+          this page is for. The foot keeps the shared cadence. */}
+      <section className="bg-paper pb-section pt-8 text-ink">
+        <div className="wrap">
+          <ExploreDirectory records={searchIndex} facets={facets} />
+        </div>
+      </section>
     </>
   );
 }

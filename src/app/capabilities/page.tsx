@@ -68,7 +68,7 @@ export default function CapabilitiesPage() {
       />
 
       {/* The map ---------------------------------------------------------- */}
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <div className="grid gap-x-14 gap-y-16 lg:grid-cols-2">
           {capabilityGroups.map((group) => {
             const members = capabilitiesInGroup(group.slug);

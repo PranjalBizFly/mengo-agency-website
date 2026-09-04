@@ -221,7 +221,7 @@ export default async function CapabilityPage({
           </ol>
         </Section>
       ) : (
-        <Section tone="paper" tight>
+        <Section tone="paper">
           <div className="grid gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start">
             <Heading kicker="By stage" title="This one does not vary" size="d4" width="full" />
             <p className="max-w-[48rem] text-lead text-ink-soft" data-reveal>
@@ -420,7 +420,7 @@ export default async function CapabilityPage({
           One destination, chosen from the reader's own position, rather than a
           closing wall of links. A page that ends in forty choices has not
           ended. */}
-      <Section tone="deep" tight>
+      <Section tone="deep">
         <div className="grid gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
           <Heading kicker={nextStep.kicker} title="Where to go next" size="d3" width="full" />
           <div>

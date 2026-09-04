@@ -57,7 +57,7 @@ export default function FrameworksPage() {
         countLabel="frameworks"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <ul data-reveal-stagger>
           {frameworks.map((framework) => (
             <li key={framework.slug} data-reveal>
@@ -92,7 +92,7 @@ export default function FrameworksPage() {
       </Section>
 
       {heroPhoto ? (
-        <Section tone="warm" tight>
+        <Section tone="warm">
           <Figure
             photo={heroPhoto}
             aspect="21/9"

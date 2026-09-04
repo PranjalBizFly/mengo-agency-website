@@ -52,7 +52,7 @@ export default function ComparePage() {
         countLabel="comparisons"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <ul data-reveal-stagger>
           {comparisons.map((comparison) => (
             <li key={comparison.slug} data-reveal>

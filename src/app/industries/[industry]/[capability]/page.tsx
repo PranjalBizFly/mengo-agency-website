@@ -181,7 +181,7 @@ export default async function IndustryCapabilityPage({
           Two axes out of this page: the other sectors that change this same
           capability, and the five sizes it reads differently at. Both derived
           from relations authored elsewhere. */}
-      <Section tone="warm" tight>
+      <Section tone="warm">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-2">
           <div>
             <p className="label rule-b pb-4">{capability.title} in other sectors</p>

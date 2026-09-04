@@ -58,7 +58,7 @@ export default function BlogPage() {
         countLabel="pieces"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <ul data-reveal-stagger>
           {ordered.map((article) => (
             <li key={article.slug} data-reveal>
@@ -89,7 +89,7 @@ export default function BlogPage() {
       </Section>
 
       {heroPhoto ? (
-        <Section tone="warm" tight>
+        <Section tone="warm">
           <Figure
             photo={heroPhoto}
             aspect="21/9"

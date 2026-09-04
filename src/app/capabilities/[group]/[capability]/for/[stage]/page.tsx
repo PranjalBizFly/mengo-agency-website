@@ -265,7 +265,7 @@ export default async function CapabilityStagePage({
       ) : null}
 
       {/* Limits ------------------------------------------------------------ */}
-      <Section tone={showSequence ? "warm" : "deep"} tight>
+      <Section tone={showSequence ? "warm" : "deep"}>
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
           <Heading kicker="Limits" title="What this does not do" size="d4" width="full" />
           <MarkerList items={capability.limits} tone="warn" />

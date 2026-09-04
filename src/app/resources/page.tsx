@@ -90,7 +90,7 @@ export default function ResourcesPage() {
         countLabel="pieces, plus a glossary"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <div className="grid gap-x-14 gap-y-16 lg:grid-cols-2">
           {sections.map((section) => (
             <div key={section.heading}>

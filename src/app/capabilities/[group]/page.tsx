@@ -79,7 +79,7 @@ export default async function CapabilityGroupPage({
       />
 
       {/* The capabilities, with a stage relevance strip ------------------- */}
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <ul data-reveal-stagger>
           {members.map((capability) => (
             <li key={capability.slug} data-reveal>
@@ -181,7 +181,7 @@ export default async function CapabilityGroupPage({
       </Section>
 
       {/* Onward -------------------------------------------------------------- */}
-      <Section tone="warm" tight>
+      <Section tone="warm">
         <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
           <Heading kicker="Elsewhere" title="Other capability groups" size="d4" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>

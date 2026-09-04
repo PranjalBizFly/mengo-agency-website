@@ -62,7 +62,7 @@ export default function SolutionsPage() {
       />
 
       {/* Lens one: where you are ----------------------------------------- */}
-      <Section tone="paper" tight labelledBy="by-stage">
+      <Section tone="paper" labelledBy="by-stage">
         <div className="rule-b flex flex-wrap items-end justify-between gap-x-8 gap-y-4 pb-7">
           <h2 id="by-stage" className="type-title text-d4">
             Where you are

@@ -61,7 +61,7 @@ export default function WorkflowsPage() {
         note="Look at the strip on each row. The first and last node are outlined on every one of them — those are yours."
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <nav aria-label="Delivery phases" className="rule-b pb-7">
           <ul className="flex flex-wrap gap-2">
             {WORKFLOW_PHASES.map((phase) => (

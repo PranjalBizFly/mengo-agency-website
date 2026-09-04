@@ -56,7 +56,7 @@ export default function PlaybooksPage() {
         countLabel="playbooks"
       />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <ul data-reveal-stagger>
           {playbooks.map((playbook) => (
             <li key={playbook.slug} data-reveal>
@@ -92,7 +92,7 @@ export default function PlaybooksPage() {
       </Section>
 
       {heroPhoto ? (
-        <Section tone="warm" tight>
+        <Section tone="warm">
           <Figure
             photo={heroPhoto}
             aspect="21/9"

@@ -57,7 +57,7 @@ export default async function LegalPage({ params }: { params: Promise<{ page: st
         meta={[{ label: "Last updated", value: DATE.format(new Date(page.updated)) }]}
       />
 
-      <Section tone="paper" tight as="div">
+      <Section tone="paper" as="div">
         <article className="max-w-[46rem]">
           <Blocks blocks={page.blocks} />
         </article>

@@ -61,7 +61,7 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ t
 
       <LongformHero trail={trail} kicker="Glossary" title={term.title} lead={term.definition} />
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <div className="max-w-[46rem]">
           <div className="rule-t pt-7">
             <h2 className="label">Why it matters to an agency</h2>
@@ -82,13 +82,13 @@ export default async function GlossaryTermPage({ params }: { params: Promise<{ t
       </Section>
 
       {seeAlso.length > 0 ? (
-        <Section tone="warm" tight>
+        <Section tone="warm">
           <Heading kicker="See also" title="Related terms" size="d4" />
           <StoryRows className="mt-10" columns={2} items={seeAlso} />
         </Section>
       ) : null}
 
-      <Section tone="paper" tight>
+      <Section tone="paper">
         <div className="flex flex-wrap items-center gap-4" data-reveal>
           <ButtonLink href={routes.glossary()} variant="secondary">
             All {glossaryTerms.length} terms
