@@ -11,6 +11,7 @@ import {
   SpineKey,
   StoryRows,
   MarkerList,
+  IndexBand,
 } from "@/components/ui/editorial";
 import { PhotoHero } from "@/components/sections/heroes";
 import { SystemLayers } from "@/components/sections/system";
@@ -106,7 +107,7 @@ export default function HomePage() {
             </>
           }
           aside={
-            <dl className="grid gap-x-10 gap-y-6 border-t border-sage/25 pt-7 sm:grid-cols-2 lg:grid-cols-4">
+            <dl className="hero-facts">
               {[
                 { label: "You own", value: "Clients, strategy, final approval" },
                 { label: "Mengo carries", value: "Research, planning, drafts, sequences" },
@@ -115,7 +116,7 @@ export default function HomePage() {
               ].map((fact) => (
                 <div key={fact.label}>
                   <dt className="label">{fact.label}</dt>
-                  <dd className="mt-2 text-small leading-relaxed text-sage-bright">{fact.value}</dd>
+                  <dd className="mt-2 text-small leading-snug text-on-dark">{fact.value}</dd>
                 </div>
               ))}
             </dl>
@@ -485,36 +486,55 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 11 — Solutions and sectors, as two indexes ------------------------- */}
+      {/* 11 — The job you arrived holding ----------------------------------
+          Eight of the twenty-one, each carrying the situation it describes, and
+          a door to the rest. The previous version of this band listed all
+          twenty-one as bare titles beside all ten sectors: two thousand pixels
+          of ruled rows with nothing in them to tell a reader which row was
+          theirs. A destination without a reason is not a destination. */}
       <Section tone="deep">
-        <div className="grid gap-x-16 gap-y-14 lg:grid-cols-2">
-          <div>
-            <Heading kicker="By goal" title="What you are trying to do" size="d4" width="full" />
-            <StoryRows
-              className="mt-9"
-              columns={1}
-              items={useCases.map((useCase) => ({
-                title: useCase.title,
-                href: routes.useCase(useCase.slug),
-              }))}
-            />
-          </div>
-          <div>
-            <Heading kicker="By client sector" title="Who you deliver for" size="d4" width="full" />
-            <StoryRows
-              className="mt-9"
-              columns={1}
-              items={industries.map((industry) => ({
-                title: industry.title,
-                href: routes.industry(industry.slug),
-              }))}
-            />
+        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end">
+          <Heading
+            kicker="Start from the problem"
+            title="What are you actually trying to fix?"
+            size="d3"
+            width="full"
+          />
+          <div className="flex flex-wrap items-end justify-start gap-4 lg:justify-end">
+            <ButtonLink href={routes.useCases()} variant="secondary">
+              All {useCases.length} use cases
+            </ButtonLink>
           </div>
         </div>
+        <StoryRows
+          className="mt-14"
+          columns={2}
+          items={useCases.slice(0, 8).map((useCase) => ({
+            title: useCase.title,
+            body: useCase.summary,
+            href: routes.useCase(useCase.slug),
+          }))}
+        />
       </Section>
 
-      {/* 12 — Evidence. The honest version. ----------------------------- */}
-      <Section tone="paper" id="evidence">
+      {/* 12 — The sectors, as an index rather than a ledger ------------------
+          Ten destinations do not need ten ruled rows. They need one argument
+          about why the sector changes the work, and then the ten names. */}
+      <Section tone="forest">
+        <IndexBand
+          kicker="Built around how the client's market buys"
+          title={`${industries.length} client sectors, each with its own constraints`}
+          lead="Buying cycle, review requirements and regulatory exposure change the channel ranking, the approval path and what the agency has to supply. Those are inputs here, not garnish."
+          action={{ label: "Browse all sectors", href: routes.industries() }}
+          items={industries.map((industry) => ({
+            label: industry.title,
+            href: routes.industry(industry.slug),
+          }))}
+        />
+      </Section>
+
+      {/* 13 — Evidence. The honest version. ----------------------------- */}
+      <Section tone="warm" id="evidence">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <Heading
             kicker="Evidence"
@@ -559,7 +579,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 13 — The awkward questions --------------------------------------
+      {/* 14 — The awkward questions --------------------------------------
           Before the resources rather than after them: a reader who has got
           this far is evaluating, and the questions they are holding are the
           ones about the boundary. Answering them here rather than burying
@@ -582,7 +602,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 14 — Resources ------------------------------------------------- */}
+      {/* 15 — Resources ------------------------------------------------- */}
       <Section tone="warm">
         <Heading
           kicker="Resources"
@@ -590,6 +610,9 @@ export default function HomePage() {
           lead="Frameworks to adopt under your own name, playbooks to work through on Monday, and writing about how this work is run."
           size="d3"
         />
+        {/* Three shelves, each row carrying the thing it is about. A title on
+            its own asks the reader to gamble a click; one line of what it is
+            for turns twelve gambles into twelve decisions. */}
         <div className="mt-14 grid gap-x-14 gap-y-12 lg:grid-cols-3">
           <div>
             <p className="label rule-t pt-4">Frameworks</p>
@@ -598,6 +621,7 @@ export default function HomePage() {
               columns={1}
               items={frameworks.map((framework) => ({
                 title: framework.title,
+                body: framework.summary,
                 href: routes.framework(framework.slug),
               }))}
             />
@@ -609,6 +633,7 @@ export default function HomePage() {
               columns={1}
               items={playbooks.map((playbook) => ({
                 title: playbook.title,
+                body: playbook.summary,
                 href: routes.playbook(playbook.slug),
               }))}
             />
@@ -618,8 +643,9 @@ export default function HomePage() {
             <StoryRows
               className="mt-5"
               columns={1}
-              items={articles.slice(0, 4).map((article) => ({
+              items={articles.slice(0, 3).map((article) => ({
                 title: article.title,
+                body: article.summary,
                 href: routes.article(article.slug),
               }))}
             />
@@ -627,11 +653,11 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 15 — Compare approaches -----------------------------------------
+      {/* 16 — Compare approaches -----------------------------------------
           The alternatives, named rather than avoided. Every one of these pages
           leads with when the other option wins, which is the only way a
           comparison published by one side of it is worth reading. */}
-      <Section tone="deep">
+      <Section tone="paper">
         <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end">
           <Heading
             kicker="Weighing it up"
@@ -656,7 +682,7 @@ export default function HomePage() {
         />
       </Section>
 
-      {/* 16 — Close ------------------------------------------------------ */}
+      {/* 17 — Close ------------------------------------------------------ */}
       {closePhoto ? (
         <PhotoSection photo={closePhoto} scrim="panel" align="panel">
           <Kicker className="mb-7">Where to start</Kicker>

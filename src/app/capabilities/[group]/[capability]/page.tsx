@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
 import { IndexRows, MarkerList, ProseRows, Spine, SpineKey, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { StackPosition } from "@/components/sections/system";
+import { SectionRail } from "@/components/sections/SectionRail";
 import { PhotoSection, Credit } from "@/components/ui/Photo";
 import { relatedCapabilities, relatedUseCases } from "@/components/sections/related";
 import {
@@ -18,6 +20,7 @@ import {
 } from "@/lib/relations";
 import { workflowBySlug } from "@/data/workflows";
 import { photo } from "@/lib/images";
+import { CtaBand } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/seo/schema";
@@ -103,7 +106,6 @@ export default async function CapabilityPage({
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(capability.faqs)]} />
 
       <RuleHero
-        tone="warm"
         trail={trail}
         kicker={group ? `${group.title} capability` : "Capability"}
         title={capability.headline}
@@ -122,6 +124,8 @@ export default async function CapabilityPage({
         }
       />
 
+      <SectionRail />
+
       {/* Why agencies need it ------------------------------------------- */}
       {/* Prose rows: each of these is a reason with an argument behind it,
           and an index row would compress the argument out of it. */}
@@ -135,13 +139,30 @@ export default async function CapabilityPage({
         <ProseRows items={capability.whyAgencies} className="mt-14" />
       </Section>
 
+      {/* Where it sits ---------------------------------------------------
+          Before what it does, where it is. A reader who arrives on this page
+          from a search result has no way to know whether they are looking at a
+          feature or at one layer of a system, and every other band on the page
+          reads differently once they do. */}
+      <Section tone="forest">
+        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+          <Heading kicker="In the system" title="Where this sits" size="d3" width="full" />
+          <p className="max-w-[44rem] text-body leading-relaxed text-sage-bright" data-reveal>
+            The {capabilities.length} capabilities are not a list of tools. They are eight layers,
+            each built on the one below and referenced by the one above, opening and closing with a
+            person. This is the layer {capability.title.toLowerCase()} belongs to.
+          </p>
+        </div>
+        <StackPosition group={capability.group} className="mt-14" />
+      </Section>
+
       {/* In and out ------------------------------------------------------ */}
       <Section tone="warm">
         <Heading
           kicker="In and out"
           title="What you hand over, and what comes back"
           lead="Concrete artefacts rather than outcomes. If something is not on the right-hand list, it is not produced."
-          size="d3"
+          size="label"
         />
         <div className="mt-14 grid gap-x-14 gap-y-12 lg:grid-cols-2">
           <div>
@@ -260,7 +281,7 @@ export default async function CapabilityPage({
           under a full-width heading. */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
-          <Heading kicker="Your judgement" title="What no system decides for you" size="d3" width="full" />
+          <Heading kicker="Your judgement" title="What no system decides for you" size="d4" width="full" />
           <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
             Every one of these is a decision a person has to make with something at stake. A draft
             can inform them; it cannot make any of them, and a workflow that pretends otherwise is
@@ -274,7 +295,7 @@ export default async function CapabilityPage({
       <Section tone="forest">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
-            <Heading kicker="Limits" title="What this does not do" size="d3" width="full" />
+            <Heading kicker="Limits" title="What this does not do" size="label" width="full" />
             <Statement className="mt-9">
               If a claim is not made in this section, it is not being made.
             </Statement>
@@ -286,7 +307,7 @@ export default async function CapabilityPage({
       {/* FAQ --------------------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-          <Heading kicker="Questions" title="What agencies ask about this" size="d3" width="full" />
+          <Heading kicker="Questions" title="What agencies ask about this" size="d4" width="full" />
           <FaqList faqs={capability.faqs} />
         </div>
       </Section>
@@ -301,7 +322,7 @@ export default async function CapabilityPage({
           kicker="Where this appears"
           title="The rest of the system, from here"
           lead="A capability on its own is a definition. These are the places it is actually doing something — and they are the same pages that name it, read from the other end."
-          size="d3"
+          size="d4"
           id="where-it-appears"
         />
 
@@ -420,9 +441,9 @@ export default async function CapabilityPage({
           One destination, chosen from the reader's own position, rather than a
           closing wall of links. A page that ends in forty choices has not
           ended. */}
-      <Section tone="deep">
+      <Section tone="paper">
         <div className="grid gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
-          <Heading kicker={nextStep.kicker} title="Where to go next" size="d3" width="full" />
+          <Heading kicker={nextStep.kicker} title="Where to go next" size="d4" width="full" />
           <div>
             <p className="max-w-[46rem] text-lead text-ink-soft" data-reveal>
               {nextStep.kind === "workflow"
@@ -451,6 +472,12 @@ export default async function CapabilityPage({
         </div>
       </Section>
 
+      <CtaBand
+        eyebrow="Next step"
+        title="Start with one account, not the whole portfolio"
+        body={`${capability.title} is one capability of ${capabilities.length}. The way to find out whether it earns its place is to run it on a single client, against a measure you agreed before you began.`}
+        secondary={{ label: "How it works", href: routes.howItWorks() }}
+      />
     </>
   );
 }

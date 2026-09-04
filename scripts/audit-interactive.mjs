@@ -365,9 +365,13 @@ check(page.url().includes("q=healthcare"), "the query stays in the URL while fil
 console.log("\n  Directory");
 await page.goto(`${BASE}/explore/`, { waitUntil: "networkidle" });
 
-const rowCount = () => page.locator("main a[href^='/']").count();
-const unfiltered = await rowCount();
-check(unfiltered > 400, `the directory lists the whole site unfiltered (${unfiltered} links)`);
+/* The control bar, scoped: "Workflows" and "Clear" also name things in the
+   header and the footer, and an unscoped role query would find those first. */
+const bar = page.locator("div.sticky");
+const visibleRows = () =>
+  page.evaluate(
+    () => [...document.querySelectorAll("[data-entry]")].filter((li) => !li.hidden).length,
+  );
 
 /* Against the registry itself rather than against a threshold: a directory
    that quietly drops a hundred pages is the failure this exists to catch. */
@@ -376,45 +380,85 @@ const published = await page.evaluate(async () => {
   const records = await response.json();
   return records.length;
 });
-const listed = await page.evaluate(
-  () => document.querySelectorAll("main section ul > li > a[href^='/']").length,
+const listed = await page.locator("[data-entry]").count();
+check(listed === published, `every registered page is in the directory (${listed} of ${published})`);
+
+const categories = await page.locator("[data-category]").count();
+check(categories > 1, `the site is grouped into categories (${categories})`);
+check(
+  (await page.locator("[data-category] [data-toggle]").count()) === categories,
+  "every category carries its own disclosure control",
+);
+
+const layout = await page.evaluate(() => {
+  const list = document.querySelector("[data-entries]");
+  const head = document.querySelector("[data-category] h2").parentElement;
+  return {
+    columns: getComputedStyle(list).gridTemplateColumns.split(" ").length,
+    rule: getComputedStyle(head).borderBottomWidth,
+  };
+});
+check(layout.columns === 3, `entries run in three columns at 1280 (${layout.columns})`);
+check(layout.rule === "1px", `a thin divider closes each heading (${layout.rule})`);
+
+/* Collapsing is presentation only: it folds the rows and changes no count. */
+await bar.getByRole("button", { name: "Collapse all" }).click();
+await page.waitForTimeout(250);
+const folded = await page.evaluate(() => ({
+  open: [...document.querySelectorAll("[data-entries]")].filter((ul) => !ul.hidden).length,
+  headings: document.querySelectorAll("[data-category] h2").length,
+  total: document.querySelector("[aria-live=polite]").textContent.trim(),
+}));
+check(folded.open === 0, `collapse all folds every category (${folded.open} left open)`);
+check(folded.headings === categories, "the headings stay when the rows fold away");
+check(folded.total === `${published} pages`, `folding changes no count (${folded.total})`);
+
+await bar.getByRole("button", { name: "Expand all" }).click();
+await page.waitForTimeout(250);
+check((await visibleRows()) === published, "expand all restores every row");
+
+/* A category chip narrows to that category, and the count says which. */
+await bar.getByRole("button", { name: /^Industries/ }).click();
+await page.waitForTimeout(250);
+const chipFiltered = await visibleRows();
+check(
+  chipFiltered < published && chipFiltered > 5,
+  `the category chips narrow the directory (${chipFiltered} pages)`,
 );
 check(
-  listed === published,
-  `every registered page is in the directory (${listed} of ${published})`,
+  /industries/i.test(await page.locator("[aria-live=polite]").innerText()),
+  "the count names the category it is showing",
 );
 
-await page.locator("main").getByRole("button", { name: /^Industries/ }).click();
+await bar.getByRole("button", { name: "Clear", exact: true }).click();
 await page.waitForTimeout(250);
-const chipFiltered = await rowCount();
-check(
-  chipFiltered < unfiltered && chipFiltered > 10,
-  `the category chips narrow the directory (${chipFiltered} links)`,
-);
+check((await visibleRows()) === published, "clear puts every page back");
 
-await page.selectOption('select[aria-label="Section"]', "Industries");
-await page.waitForTimeout(250);
-const filtered = await rowCount();
-check(filtered < unfiltered && filtered > 10, `the section filter narrows it (${filtered} links)`);
-check(page.url().includes("section=Industries"), "the filter is in the query string");
+/* Search reaches the whole registry, by title and by URL slug. */
+await bar.locator("input[type=search]").fill("onboarding");
+await page.waitForTimeout(300);
+const searched = await visibleRows();
+check(searched > 0 && searched < 100, `directory search narrows the list (${searched} pages)`);
 
-await page.selectOption('select[aria-label="Client sector"]', "healthcare");
-await page.waitForTimeout(250);
-const twice = await rowCount();
-check(twice < filtered, `filters combine (${twice} links)`);
+await bar.locator("input[type=search]").fill("client-onboarding");
+await page.waitForTimeout(300);
+check((await visibleRows()) > 0, "a pasted slug finds its page");
 
-// A deep link has to restore the same view.
-await page.goto(`${BASE}/explore/?section=Workflows`, { waitUntil: "networkidle" });
+/* A search has to override a fold, or the page it matched stays hidden. */
+await bar.locator("input[type=search]").fill("");
+await page.waitForTimeout(200);
+await bar.getByRole("button", { name: "Collapse all" }).click();
+await page.waitForTimeout(200);
+await bar.locator("input[type=search]").fill("healthcare");
 await page.waitForTimeout(300);
 check(
-  (await page.locator('select[aria-label="Section"]').inputValue()) === "Workflows",
-  "a filtered URL restores its filters",
+  await page.evaluate(() =>
+    [...document.querySelectorAll("[data-category]")]
+      .filter((section) => !section.hidden)
+      .every((section) => !section.querySelector("[data-entries]").hidden),
+  ),
+  "a search re-opens whatever it matches",
 );
-
-await page.fill('input[aria-label="Search the directory"]', "onboarding");
-await page.waitForTimeout(300);
-const searched = await rowCount();
-check(searched > 0 && searched < 100, `directory search narrows within a filter (${searched} links)`);
 
 /* --------------------------------------------------- The panel on a phone */
 console.log("\n  Search panel at 390px");

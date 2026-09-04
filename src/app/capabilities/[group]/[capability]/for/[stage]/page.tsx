@@ -5,8 +5,10 @@ import Link from "next/link";
 import { Section, Heading, Statement, ButtonLink, JsonLd } from "@/components/ui/primitives";
 import { MarkerList, StoryRows, Spine, SpineKey } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SectionRail } from "@/components/sections/SectionRail";
 import { Related, relatedWorkflows, relatedCapabilities } from "@/components/sections/related";
 import { RELEVANCE_LABEL, RELEVANCE_NOTE } from "@/components/sections/capability-stage";
+import { CtaBand } from "@/components/sections/longform";
 import { routes, absolute } from "@/lib/site";
 import { pageMetadata } from "@/seo/metadata";
 import { breadcrumbSchema } from "@/seo/schema";
@@ -128,7 +130,6 @@ export default async function CapabilityStagePage({
       />
 
       <RuleHero
-        tone={isLater ? "warm" : "paper"}
         trail={trail}
         kicker={`${capability.title} · ${stage.title}`}
         title={view.headline}
@@ -164,6 +165,8 @@ export default async function CapabilityStagePage({
         }
       />
 
+      <SectionRail />
+
       {/* Later stages lead with the redirection, because that is the advice */}
       {isLater && view.insteadDoThis ? (
         <Section tone="forest">
@@ -180,7 +183,7 @@ export default async function CapabilityStagePage({
       ) : (
         <Section tone="warm">
           <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start">
-            <Heading kicker="The problem here" title="What actually goes wrong" size="d3" width="full" />
+            <Heading kicker="The problem here" title="What actually goes wrong" size="d4" width="full" />
             <div>
               <p className="max-w-[46rem] text-lead text-ink-soft" data-reveal>
                 {view.problem}
@@ -233,7 +236,7 @@ export default async function CapabilityStagePage({
       {/* What changes ----------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start">
-          <Heading kicker="What changes" title="Afterwards" size="d3" width="full" />
+          <Heading kicker="What changes" title="Afterwards" size="d4" width="full" />
           <div>
             <p className="max-w-[46rem] text-lead text-ink-soft" data-reveal>
               {view.outcome}
@@ -252,7 +255,7 @@ export default async function CapabilityStagePage({
         <Section tone="deep">
           <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
             <div className="lg:sticky lg:top-32 lg:self-start">
-              <Heading kicker="How it runs" title="The sequence, unchanged by stage" size="d3" width="full" />
+              <Heading kicker="How it runs" title="The sequence, unchanged by stage" size="d4" width="full" />
               <p className="mt-6 max-w-[36rem] text-body leading-relaxed text-ink-soft" data-reveal>
                 The steps are the same whatever size the agency is. What differs is how much of it
                 you were doing manually before.
@@ -278,7 +281,7 @@ export default async function CapabilityStagePage({
           <Heading
             kicker="Other stages"
             title={`${capability.title} at a different size`}
-            size="d3"
+            size="d4"
             width="full"
           />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
@@ -303,13 +306,18 @@ export default async function CapabilityStagePage({
       </Section>
 
       <Related
-        tone="warm"
         kicker="Related"
         title="Where this runs"
         items={[
           ...relatedWorkflows(capability.related.workflows),
           ...relatedCapabilities(capability.related.capabilities.slice(0, 2)),
         ]}
+      />
+      <CtaBand
+        eyebrow="Next step"
+        title="Try it at your own size first"
+        body={`This page is ${capability.title} read from one stage. Run it on a single account at that size and compare it honestly against how that account was being delivered before.`}
+        secondary={{ label: `More on ${stage.title}`, href: routes.stage(stage.slug) }}
       />
     </>
   );

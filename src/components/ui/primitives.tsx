@@ -81,15 +81,25 @@ export function Kicker({
   children,
   className = "",
   as: Tag = "p",
+  pill = false,
   reveal = false,
 }: {
   children: ReactNode;
   className?: string;
   as?: "p" | "h2" | "span";
+  /**
+   * The chip form, for a hero opening. Section labels keep the flat lettering:
+   * a pill on every band would turn a page into a row of badges, which is the
+   * decoration this site does not use.
+   */
+  pill?: boolean;
   reveal?: boolean;
 }) {
   return (
-    <Tag className={`kicker ${className}`} {...(reveal ? { "data-reveal": "" } : {})}>
+    <Tag
+      className={`${pill ? "eyebrow-pill" : "kicker"} ${className}`}
+      {...(reveal ? { "data-reveal": "" } : {})}
+    >
       {children}
     </Tag>
   );
@@ -115,22 +125,43 @@ export function Heading({
   kicker?: string;
   title: ReactNode;
   lead?: ReactNode;
-  size?: "d1" | "d2" | "d3" | "d4";
+  /**
+   * `label` is a real size, not a fallback. A page whose every band opens at
+   * the same scale reads as a list of equal things no matter how varied the
+   * devices beneath are, and an entity page has eight or nine bands — far more
+   * than there are load-bearing arguments on it. The supporting ones open at
+   * eyebrow scale and let the two or three that carry the page have d3.
+   */
+  size?: "d1" | "d2" | "d3" | "d4" | "label";
   as?: "h1" | "h2" | "h3";
   width?: "measure" | "wide" | "full";
   id?: string;
   className?: string;
 }) {
-  const sizeClass = { d1: "text-d1", d2: "text-d2", d3: "text-d3", d4: "text-d4" }[size];
+  const sizeClass = {
+    d1: "text-d1",
+    d2: "text-d2",
+    d3: "text-d3",
+    d4: "text-d4",
+    label: "label",
+  }[size];
   const widthClass = { measure: "max-w-[46rem]", wide: "max-w-[62rem]", full: "" }[width];
+  const isLabel = size === "label";
 
   return (
-    <div className={`${widthClass} ${className}`} data-reveal>
-      {kicker ? <Kicker className="mb-6">{kicker}</Kicker> : null}
+    <div className={`${widthClass} ${className}`} data-band-label={kicker} data-reveal>
+      {/* At label scale the kicker and the heading would be the same lettering
+          twice, so the kicker becomes the rule above it instead. */}
+      {kicker && !isLabel ? <Kicker className="mb-6">{kicker}</Kicker> : null}
+      {isLabel ? <div className="rule-t mb-5" aria-hidden /> : null}
       <Tag id={id} className={sizeClass}>
         {title}
       </Tag>
-      {lead ? <p className="mt-6 max-w-[44rem] text-lead text-ink-soft">{lead}</p> : null}
+      {lead ? (
+        <p className={`${isLabel ? "mt-5" : "mt-6"} max-w-[44rem] text-lead text-ink-soft`}>
+          {lead}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -261,6 +292,53 @@ export function Arrow() {
     <svg width="18" height="12" viewBox="0 0 18 12" fill="none" aria-hidden>
       <path d="M11.5 1L16.5 6L11.5 11M16 6H1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Link lists                                                                */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * A list of destinations, as rows with a mark rather than as prose links.
+ *
+ * The product site's shared list row, and the reason its related rails read as
+ * navigation rather than as a paragraph of links: a lime dot on a hanging
+ * indent, one rhythm, two sizes. The row is 33px under a mouse, which is what
+ * lets a rail carry twenty destinations in the height a 44px row spends on
+ * thirteen; the 44px floor comes back under a coarse pointer, where it is a
+ * touch target rather than a list.
+ */
+export function RelatedLinkList({
+  links,
+  size = "body",
+  className = "",
+}: {
+  links: { href: string; label: string }[];
+  /** `compact` for a rail beside content, `body` for a full-width band. */
+  size?: "body" | "compact";
+  className?: string;
+}) {
+  if (links.length === 0) return null;
+  const type = size === "compact" ? "text-small" : "text-body";
+
+  return (
+    <ul className={className}>
+      {links.map((link) => (
+        <li key={link.href}>
+          <Link
+            href={link.href}
+            className={`grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 py-1.5 [@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:py-2.5 ${type} leading-relaxed text-ink-soft transition-colors duration-300 hover:text-lime-deep [.on-dark_&]:text-sage-bright [.on-dark_&]:hover:text-lime`}
+          >
+            <span
+              aria-hidden
+              className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-lime-deep [.on-dark_&]:bg-lime"
+            />
+            <span>{link.label}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }
 

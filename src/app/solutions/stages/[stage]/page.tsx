@@ -5,9 +5,11 @@ import Link from "next/link";
 import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
 import { IndexRows, NumberedRows, LedgerBlock, Spine, SpineKey, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SectionRail } from "@/components/sections/SectionRail";
 import { Figure, PhotoSection, Credit } from "@/components/ui/Photo";
 import { Related, relatedCapabilities, relatedWorkflows } from "@/components/sections/related";
 import { photo } from "@/lib/images";
+import { CtaBand } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/seo/schema";
@@ -95,8 +97,10 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
         }
       />
 
+      <SectionRail />
+
       {/* Where the week goes -------------------------------------------- */}
-      <Section tone="paper">
+      <Section tone="warm">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <Heading kicker="The situation" title="Where the week actually goes" size="d3" width="full" />
           <IndexRows items={stage.situation} columns={1} />
@@ -104,7 +108,7 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
       </Section>
 
       {/* What breaks ----------------------------------------------------- */}
-      <Section tone="warm">
+      <Section tone="paper">
         <Heading
           kicker="What breaks"
           title="The problems this stage recognises"
@@ -115,7 +119,7 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
       </Section>
 
       {/* The ledger ------------------------------------------------------ */}
-      <Section tone="forest">
+      <Section tone="deep">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
           <Heading kicker="The boundary" title="What stays yours" size="d2" width="full" />
           <Statement>
@@ -142,8 +146,8 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
           </div>
         </PhotoSection>
       ) : (
-        <Section tone="deep">
-          <Heading kicker="The working week" title="How the week runs at this stage" size="d3" />
+        <Section tone="forest">
+          <Heading kicker="The working week" title="How the week runs at this stage" size="d4" />
           <SpineKey className="mt-8" />
           <Spine steps={stage.week} className="mt-8" />
         </Section>
@@ -152,7 +156,7 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
       {/* The transition -------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start">
-          <Heading kicker="What changes next" title={`Moving to ${stage.transition.to}`} size="d4" width="full" />
+          <Heading kicker="What changes next" title={`Moving to ${stage.transition.to}`} size="label" width="full" />
           <div>
             <p className="max-w-[46rem] text-lead text-ink-soft" data-reveal>
               {stage.transition.body}
@@ -196,13 +200,13 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
       {/* FAQ -------------------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-          <Heading kicker="Questions" title="At this stage, people ask" size="d3" width="full" />
+          <Heading kicker="Questions" title="At this stage, people ask" size="d4" width="full" />
           <FaqList faqs={stage.faqs} />
         </div>
       </Section>
 
       <Related
-        tone="deep"
+        tone="warm"
         title={stage.cta.label}
         kicker="Next"
         items={[
@@ -218,6 +222,12 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
             href: routes.getStarted(),
           },
         ]}
+      />
+      <CtaBand
+        eyebrow="Next step"
+        title="Start from the week you actually have"
+        body={`${stage.shape} That is the situation this page describes, and the honest test is one account run through one workflow at that size.`}
+        secondary={{ label: "Compare all five stages", href: routes.stages() }}
       />
     </>
   );

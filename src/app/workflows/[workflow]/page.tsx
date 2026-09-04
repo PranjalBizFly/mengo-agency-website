@@ -5,10 +5,12 @@ import { notFound } from "next/navigation";
 import { Section, Heading, Kicker, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
 import { IndexRows, MarkerList, Spine, SpineKey, StoryRows, FactStrip } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SectionRail } from "@/components/sections/SectionRail";
 import { Figure } from "@/components/ui/Photo";
 import { Related, relatedCapabilities, relatedStages } from "@/components/sections/related";
 import { industriesForWorkflow, useCasesForWorkflow } from "@/lib/relations";
 import { photo } from "@/lib/images";
+import { CtaBand } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema, howToSchema } from "@/seo/schema";
@@ -78,6 +80,8 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
         }
       />
 
+      <SectionRail />
+
       {/* The spine — the page's reason for existing --------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
@@ -97,7 +101,7 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
       <Section tone="forest">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
-            <Heading kicker="Checkpoints" title="The steps that cannot be skipped" size="d3" width="full" />
+            <Heading kicker="Checkpoints" title="The steps that cannot be skipped" size="label" width="full" />
             <p className="mt-7 max-w-[38rem] text-body leading-relaxed text-sage-bright" data-reveal>
               These are steps rather than guidance. A review requirement expressed as a standard
               loses to a deadline; one expressed as a step in the workflow does not.
@@ -143,7 +147,7 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
       {/* FAQ -------------------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-          <Heading kicker="Questions" title="About this workflow" size="d3" width="full" />
+          <Heading kicker="Questions" title="About this workflow" size="d4" width="full" />
           <FaqList faqs={workflow.faqs} />
         </div>
       </Section>
@@ -152,7 +156,7 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
       <Section tone="warm">
         <div className="grid gap-x-16 gap-y-14 lg:grid-cols-2">
           <div>
-            <Heading kicker="Draws on" title="Capabilities" size="d4" width="full" />
+            <Heading kicker="Draws on" title="Capabilities" size="label" width="full" />
             <StoryRows
               className="mt-9"
               columns={1}
@@ -218,7 +222,6 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
       </Section>
 
       <Related
-        tone="deep"
         kicker="Next"
         title="Put it to work"
         items={[
@@ -233,6 +236,12 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
             href: routes.getStarted(),
           },
         ]}
+      />
+      <CtaBand
+        eyebrow="Next step"
+        title="Run it once, on one client"
+        body={`${workflow.title} opens and closes with a person. The only way to know what it changes is to run it end to end on a single account and look at what came back.`}
+        secondary={{ label: "All workflows", href: routes.workflows() }}
       />
     </>
   );

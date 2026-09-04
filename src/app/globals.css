@@ -53,6 +53,7 @@
      The agency lane is the ink of the page — it is the reader's own column.
      The Mengo lane is the brand accent. They are never the same weight:
      the agency side always reads first. */
+  --color-eyebrow-ink: #022018;
   --color-lane-agency: #04291d;
   --color-lane-mengo: #5f8b14;
 
@@ -158,6 +159,7 @@
   --color-lime-deep: #a3e625;
   --color-line-dark: #2d4234;
   --color-field: #16221b;
+  --color-eyebrow-ink: #a3e625;
   --color-lane-agency: #e9eee9;
   --color-lane-mengo: #a3e625;
   --shadow-sm: 0 2px 10px rgb(0 0 0 / 0.4);
@@ -360,6 +362,26 @@ table {
 /* The section-opening eyebrow. A rule with a lime cap rather than a pill:
    this site's sections open with a line, which is the same gesture the
    ledger, the spine and the index use, so the whole page reads in one hand. */
+@utility eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  /* Forest rather than lime: at this size the accent is text, and lime-deep on
+     a lime-tinted chip resolves to about 2.8:1. The chip stays lime — the
+     lettering inside it does not. */
+  color: var(--color-eyebrow-ink);
+  background: color-mix(in oklab, var(--color-lime) 30%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-lime-deep) 22%, transparent);
+  padding: 0.5rem 0.875rem;
+  border-radius: 999px;
+}
+
 @utility kicker {
   display: inline-flex;
   align-items: center;
@@ -379,6 +401,14 @@ table {
   height: 2px;
   flex: none;
   background: var(--color-lime-deep);
+}
+
+/* On a dark ground the chip inverts: lime lettering on a faint lime wash,
+   rather than forest lettering that would sit at about 2:1 against it. */
+.on-dark .eyebrow-pill {
+  color: var(--color-lime);
+  background: color-mix(in oklab, var(--color-lime) 14%, transparent);
+  border-color: color-mix(in oklab, var(--color-lime) 26%, transparent);
 }
 
 .on-dark .kicker {
@@ -754,6 +784,55 @@ table {
 }
 
 /* ============================================================================
+   HERO FACTS
+   ----------------------------------------------------------------------------
+   The strip along the foot of a hero. Ruled into columns rather than floated
+   apart, which is what stops four short facts reading as a stray paragraph.
+   ========================================================================= */
+
+@utility hero-facts {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid color-mix(in oklab, var(--color-sage) 28%, transparent);
+}
+
+@media (min-width: 640px) {
+  .hero-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-facts {
+    grid-template-columns: repeat(var(--hero-facts, 4), minmax(0, 1fr));
+  }
+}
+
+.hero-facts > * {
+  padding: 1.375rem 0;
+  border-bottom: 1px solid color-mix(in oklab, var(--color-sage) 18%, transparent);
+}
+
+@media (min-width: 640px) {
+  .hero-facts > * {
+    padding-inline-end: 2rem;
+    border-bottom: 0;
+  }
+
+  .hero-facts > * + * {
+    padding-inline-start: 2rem;
+    border-inline-start: 1px solid color-mix(in oklab, var(--color-sage) 18%, transparent);
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-facts > :nth-child(2n + 1) {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/* ============================================================================
    THE LADDER — agency growth stages
    ----------------------------------------------------------------------------
    Five stages as a horizontal run on desktop and a stacked run on a phone,
@@ -1012,12 +1091,12 @@ table {
   background:
     linear-gradient(
       100deg,
-      rgb(2 32 24 / 0.94) 0%,
-      rgb(2 32 24 / 0.89) 36%,
-      rgb(2 32 24 / 0.52) 64%,
-      rgb(2 32 24 / 0.2) 100%
+      rgb(2 32 24 / 0.96) 0%,
+      rgb(2 32 24 / 0.93) 46%,
+      rgb(2 32 24 / 0.58) 72%,
+      rgb(2 32 24 / 0.24) 100%
     ),
-    linear-gradient(to top, rgb(2 32 24 / 0.68) 0%, transparent 44%);
+    linear-gradient(to top, rgb(2 32 24 / 0.72) 0%, transparent 46%);
 }
 
 .photo-band > .photo-band-media[data-scrim="start"]::after {

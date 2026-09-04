@@ -5,10 +5,12 @@ import { notFound } from "next/navigation";
 import { Section, Heading, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
 import { IndexRows, NumberedRows, MarkerList, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SectionRail } from "@/components/sections/SectionRail";
 import { Figure } from "@/components/ui/Photo";
 import { Related, relatedStages, relatedWorkflows } from "@/components/sections/related";
 import { industriesForUseCase } from "@/lib/relations";
 import { photo } from "@/lib/images";
+import { CtaBand } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/seo/schema";
@@ -73,6 +75,8 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
         }
       />
 
+      <SectionRail />
+
       {/* Why the obvious answer fails ----------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
@@ -114,7 +118,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
-            <Heading kicker="What to expect" title="Described without numbers" size="d3" width="full" />
+            <Heading kicker="What to expect" title="Described without numbers" size="label" width="full" />
             <p className="mt-7 max-w-[38rem] text-body leading-relaxed text-ink-soft" data-reveal>
               There are no percentages here because we have none we could stand behind. What follows
               is what changes structurally, which you can verify on your own numbers.
@@ -128,7 +132,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
       <Section tone="forest">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
-            <Heading kicker="Honestly" title="Who this is not for" size="d3" width="full" />
+            <Heading kicker="Honestly" title="Who this is not for" size="label" width="full" />
             <Statement className="mt-9">
               If one of these describes you, the answer is no — and finding that out here costs you
               nothing.
@@ -141,7 +145,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
       {/* FAQ -------------------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-          <Heading kicker="Questions" title="What people ask here" size="d3" width="full" />
+          <Heading kicker="Questions" title="What people ask here" size="d4" width="full" />
           <FaqList faqs={useCase.faqs} />
         </div>
       </Section>
@@ -195,7 +199,6 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
       </Section>
 
       <Related
-        tone="deep"
         kicker="Next"
         title="Weigh it against the alternatives"
         items={[
@@ -210,6 +213,12 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
             href: routes.comparison("mengo-vs-manual-work"),
           },
         ]}
+      />
+      <CtaBand
+        eyebrow="Next step"
+        title="Test it on the smallest version of the problem"
+        body={`${useCase.situation} Pick the one account where that is most true and run it through a single workflow first.`}
+        secondary={{ label: "All use cases", href: routes.useCases() }}
       />
     </>
   );

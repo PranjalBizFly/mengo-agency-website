@@ -4,9 +4,11 @@ import { notFound } from "next/navigation";
 import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
 import { IndexRows, NumberedRows, MarkerList, ProseRows, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SectionRail } from "@/components/sections/SectionRail";
 import { PhotoSection, Credit } from "@/components/ui/Photo";
 import { Related, relatedCapabilities, relatedWorkflows } from "@/components/sections/related";
 import { photo } from "@/lib/images";
+import { CtaBand } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/seo/schema";
@@ -73,12 +75,13 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(industry.faqs)]} />
 
       <RuleHero
-        tone="warm"
         trail={trail}
         kicker="Client sector"
         title={industry.headline}
         lead={industry.lead}
       />
+
+      <SectionRail />
 
       {/* What is distinctive --------------------------------------------
           Prose rows rather than an index: each of these is an argument that
@@ -100,7 +103,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
           kicker="Delivery pressure"
           title="What that does to the delivery week"
           lead="Sector characteristics are not abstract. Each one converts into a specific operational cost on the agency delivering into it."
-          size="d3"
+          size="label"
         />
         <NumberedRows items={industry.pressures} columns={2} className="mt-14" />
       </Section>
@@ -167,9 +170,9 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
       </Section>
 
       {/* FAQ -------------------------------------------------------------- */}
-      <Section tone="paper">
+      <Section tone="warm">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-          <Heading kicker="Questions" title="Asked by agencies in this sector" size="d3" width="full" />
+          <Heading kicker="Questions" title="Asked by agencies in this sector" size="d4" width="full" />
           <FaqList faqs={industry.faqs} />
         </div>
       </Section>
@@ -180,7 +183,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
           <Heading
             kicker="In this sector"
             title={`${industry.capabilities.length} capabilities that work differently here`}
-            size="d3"
+            size="label"
             width="full"
           />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
@@ -216,7 +219,6 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
       </Section>
 
       <Related
-        tone="deep"
         kicker="Next"
         title="Before you run client work through anything"
         items={[
@@ -231,6 +233,12 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
             href: routes.responsibleAi(),
           },
         ]}
+      />
+      <CtaBand
+        eyebrow="Next step"
+        title="Start with the constraint, not the capability"
+        body={`In ${industry.title} the thing that decides what the marketing can be is usually the constraint rather than the idea. Read those first, then pick one account to run through a single workflow.`}
+        secondary={{ label: "How it works", href: routes.howItWorks() }}
       />
     </>
   );

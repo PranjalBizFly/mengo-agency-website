@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { Section, Heading, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
 import { CompareTable, IndexRows, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SectionRail } from "@/components/sections/SectionRail";
+import { CtaBand } from "@/components/sections/longform";
 import { routes } from "@/lib/site";
 import { entityMetadata } from "@/seo/metadata";
 import { breadcrumbSchema, faqSchema } from "@/seo/schema";
@@ -55,7 +57,6 @@ export default async function ComparisonPage({
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(comparison.faqs)]} />
 
       <RuleHero
-        tone="warm"
         trail={trail}
         kicker="Comparison"
         title={comparison.headline}
@@ -67,6 +68,8 @@ export default async function ComparisonPage({
           </div>
         }
       />
+
+      <SectionRail />
 
       {/* The table ------------------------------------------------------- */}
       <Section tone="paper">
@@ -86,7 +89,7 @@ export default async function ComparisonPage({
             <Heading
               kicker="Choose the other"
               title={`When ${comparison.other.toLowerCase()} is the right answer`}
-              size="d3"
+              size="label"
               width="full"
             />
             <Statement className="mt-9">
@@ -100,7 +103,7 @@ export default async function ComparisonPage({
       {/* When Mengo fits -------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <Heading kicker="Choose Mengo" title="When this is the better fit" size="d3" width="full" />
+          <Heading kicker="Choose Mengo" title="When this is the better fit" size="label" width="full" />
           <IndexRows items={comparison.chooseMengo} columns={1} />
         </div>
       </Section>
@@ -118,7 +121,7 @@ export default async function ComparisonPage({
       {/* FAQ --------------------------------------------------------------- */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)]">
-          <Heading kicker="Questions" title="Asked when weighing this up" size="d3" width="full" />
+          <Heading kicker="Questions" title="Asked when weighing this up" size="d4" width="full" />
           <FaqList faqs={comparison.faqs} />
         </div>
       </Section>
@@ -144,6 +147,12 @@ export default async function ComparisonPage({
           </ButtonLink>
         </div>
       </Section>
+      <CtaBand
+        eyebrow="Next step"
+        title="The comparison only settles on your own numbers"
+        body={`${comparison.question} Nothing on this page answers that for your practice — one account, one workflow and a measure you set in advance will.`}
+        secondary={{ label: "All comparisons", href: routes.compare() }}
+      />
     </>
   );
 }

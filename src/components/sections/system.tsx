@@ -132,3 +132,125 @@ export function SystemLayers({ className = "" }: { className?: string }) {
     </ol>
   );
 }
+
+/* ------------------------------------------------------------------------ */
+/* Position in the stack                                                     */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Where one capability sits in the system.
+ *
+ * A capability page can describe a capability perfectly and still leave the
+ * reader with the impression that they are looking at item forty-one of
+ * sixty-four. That impression is the thing this site most needs to defeat,
+ * because the argument the whole product rests on is that the sixty-four are
+ * one connected system rather than a feature list.
+ *
+ * So every capability page carries the stack, with its own layer lit and the
+ * layers either side named. It is the same eight layers as the homepage, drawn
+ * small: a rail of marks, then the layer this capability belongs to, then what
+ * it is built on and what reads it. A reader who lands here from a search
+ * result learns the shape of the whole product from one band.
+ */
+export function StackPosition({
+  group,
+  className = "",
+}: {
+  group: GroupSlug;
+  className?: string;
+}) {
+  const index = systemLayers.findIndex((layer) => layer.groups?.includes(group));
+  if (index < 0) return null;
+
+  const layer = systemLayers[index];
+  const below = systemLayers[index - 1];
+  const above = systemLayers[index + 1];
+  const here = groupBySlug.get(group);
+
+  return (
+    <div className={className}>
+      {/* The rail. Eight marks, the current one lit — the whole system in one
+          line, so the position is read before anything is read about it. */}
+      <ol className="flex flex-wrap items-stretch gap-x-1 gap-y-4" data-reveal>
+        {systemLayers.map((step, i) => {
+          const current = i === index;
+          return (
+            <li key={step.label} className="min-w-0 flex-1 basis-[7rem]">
+              <span
+                aria-hidden
+                className={`block h-[3px] rounded-full ${
+                  current ? "bg-lime" : step.lane === "agency" ? "bg-on-dark/35" : "bg-on-dark/15"
+                }`}
+              />
+              <span
+                className={`mt-3 block text-fine leading-snug ${
+                  current ? "font-semibold text-lime" : "text-on-dark/55"
+                }`}
+              >
+                {current ? <span className="sr-only">This capability sits in: </span> : null}
+                {step.label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+
+      <div className="mt-12 grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div data-reveal>
+          <h3 className="text-d4 text-on-dark">{layer.label}</h3>
+          <p className="mt-5 max-w-[46ch] text-body leading-relaxed text-sage-bright">
+            {layer.body}
+          </p>
+        </div>
+
+        {/* What it stands on and what stands on it. The two sentences that turn
+            a position into a dependency. */}
+        <dl className="grid gap-y-7" data-reveal>
+          {below ? (
+            <div className="rule-t pt-5">
+              <dt className="label">Built on</dt>
+              <dd className="mt-2.5 max-w-[52ch] text-body leading-relaxed text-sage-bright">
+                <span className="text-on-dark">{below.label}.</span>{" "}
+                {here ? `${here.title} cannot be set before it.` : null}
+              </dd>
+            </div>
+          ) : null}
+          {above ? (
+            <div className="rule-t pt-5">
+              <dt className="label">Read by</dt>
+              <dd className="mt-2.5 max-w-[52ch] text-body leading-relaxed text-sage-bright">
+                <span className="text-on-dark">{above.label}.</span> Change this and everything
+                above it reflows rather than being rewritten.
+              </dd>
+            </div>
+          ) : null}
+          <div className="rule-t pt-5">
+            <dt className="label">The layer holds</dt>
+            <dd className="mt-3 flex flex-wrap gap-2">
+              {(layer.groups ?? []).map((slug) => {
+                const sibling = groupBySlug.get(slug);
+                if (!sibling) return null;
+                return (
+                  <Link
+                    key={slug}
+                    href={routes.capabilityGroup(slug)}
+                    className={`inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-small transition-colors ${
+                      slug === group
+                        ? "border-lime text-lime"
+                        : "border-line text-sage-bright hover:border-lime hover:text-lime"
+                    }`}
+                  >
+                    {sibling.title}
+                    <span className="tnum text-fine opacity-70">
+                      {capabilitiesInGroup(slug).length}
+                    </span>
+                  </Link>
+                );
+              })}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  );
+}

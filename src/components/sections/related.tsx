@@ -1,4 +1,4 @@
-import { Section, Heading } from "@/components/ui/primitives";
+import { Section, Kicker, RelatedLinkList, TextLink } from "@/components/ui/primitives";
 import { StoryRows, type StoryRowItem } from "@/components/ui/editorial";
 import { routes } from "@/lib/site";
 import { capabilityUrl } from "@/lib/registry";
@@ -59,27 +59,63 @@ export function relatedPlaybooks(slugs: string[]): StoryRowItem[] {
     .map((p) => ({ kicker: "Playbook", title: p.title, body: p.audience, href: routes.playbook(p.slug) }));
 }
 
-/** The closing section on an entity page. */
+export interface RelatedGroup {
+  heading: string;
+  links: { href: string; label: string }[];
+  seeAll?: { label: string; href: string };
+}
+
+/**
+ * The quiet band before a page's closing action.
+ *
+ * Grouped columns with `text-h6` headings over dotted link rows — the product
+ * site's rail, and deliberately quieter than the sections above it. A related
+ * rail that shouts competes with the argument it is supposed to follow.
+ */
 export function Related({
   items,
+  groups,
   title = "Keep reading",
   kicker = "Related",
-  tone = "warm",
+  tone = "paper",
 }: {
-  items: StoryRowItem[];
+  /** A flat run, rendered as one group under `title`. */
+  items?: StoryRowItem[];
+  /** Distinct groups, each its own column. */
+  groups?: RelatedGroup[];
   title?: string;
   kicker?: string;
   tone?: "paper" | "warm" | "deep";
 }) {
-  if (items.length === 0) return null;
+  const resolved: RelatedGroup[] =
+    groups ??
+    (items && items.length > 0
+      ? [{ heading: title, links: items.map((item) => ({ href: item.href, label: item.title })) }]
+      : []);
 
-  /* Full rhythm rather than tight. This closes a page, and the product site
-     gives a closing rail the same breathing room as every other section — a
-     long-form page measured 90px a side here against its 134px. */
+  const populated = resolved.filter((group) => group.links.length > 0);
+  if (populated.length === 0) return null;
+
+  /* Four groups get a column each rather than orphaning one onto a second row;
+     three or fewer keep the three-column rhythm. */
+  const columns = populated.length >= 4 ? "md:grid-cols-2 lg:grid-cols-4" : "lg:grid-cols-3";
+
   return (
     <Section tone={tone}>
-      <Heading kicker={kicker} title={title} size="d4" />
-      <StoryRows items={items} columns={2} className="mt-10" />
+      <Kicker>{kicker}</Kicker>
+      <div className={`mt-10 grid gap-x-12 gap-y-12 ${columns}`} data-reveal-stagger>
+        {populated.map((group) => (
+          <div key={group.heading} data-reveal>
+            <h2 className="type-title text-h6 tracking-[-0.02em]">{group.heading}</h2>
+            <RelatedLinkList links={group.links} className="mt-3" />
+            {group.seeAll ? (
+              <p className="mt-4 text-small">
+                <TextLink href={group.seeAll.href}>{group.seeAll.label}</TextLink>
+              </p>
+            ) : null}
+          </div>
+        ))}
+      </div>
     </Section>
   );
 }

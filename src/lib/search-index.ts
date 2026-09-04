@@ -150,7 +150,7 @@ export const searchIndex: SearchRecord[] = [
     u: routes.explore(),
     sec: "Mengo",
     ty: "Page",
-    s: "Every page on the site, filterable by section, stage, group, sector and type.",
+    s: "Every page on the site, grouped by category and searchable from one field.",
     kw: "directory index all pages browse search",
   },
   {

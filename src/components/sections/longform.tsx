@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Section, Heading, ButtonLink } from "@/components/ui/primitives";
+import { Section, Kicker, ButtonLink } from "@/components/ui/primitives";
 import { routes } from "@/lib/site";
 
 /**
@@ -85,17 +85,59 @@ export function PrevNext({
 }
 
 /**
- * The closing band.
+ * The closing band, and the last thing on every page of this site.
  *
- * Deliberately not the footer's call to action repeated: this one names what
- * the reader has just finished and offers the thing that follows from it. The
- * library is published to be useful without Mengo, so the action here is an
- * invitation rather than a demand — and the secondary route is back into the
- * material, for the reader for whom the answer is still no.
+ * The product site's shape: an eyebrow, a `d2` line on forest with a radial
+ * lime wash behind it, one paragraph and one action. Deliberately not the
+ * footer's call to action repeated — this one names what the reader has just
+ * finished and offers what follows from it.
  */
+export function CtaBand({
+  eyebrow = "Next step",
+  title,
+  body,
+  action = { label: "Get started", href: routes.getStarted() },
+  secondary,
+}: {
+  eyebrow?: string;
+  title: string;
+  body: string;
+  action?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}) {
+  return (
+    <section className="on-dark relative isolate overflow-hidden bg-forest py-section text-sage-bright">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(58%_120%_at_82%_50%,rgb(163_230_37/0.15),transparent_64%)]"
+      />
+      <div className="wrap relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-20">
+        <div>
+          <Kicker className="mb-6">{eyebrow}</Kicker>
+          <h2 className="max-w-[18ch] text-d2 text-on-dark" data-reveal>
+            {title}
+          </h2>
+          <p className="mt-7 max-w-[46rem] text-lead text-sage-bright" data-reveal>
+            {body}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3" data-reveal>
+          <ButtonLink href={action.href}>{action.label}</ButtonLink>
+          {secondary ? (
+            <ButtonLink href={secondary.href} variant="secondary">
+              {secondary.label}
+            </ButtonLink>
+          ) : null}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** The library's closing band. One `CtaBand`, with the library's own words. */
 export function DocumentCta({
   kicker = "After reading",
-  title = "Try it on one account before you try it on the practice",
+  title = "Try it on one account before the whole practice",
   body,
 }: {
   kicker?: string;
@@ -103,23 +145,15 @@ export function DocumentCta({
   body?: string;
 }) {
   return (
-    <Section tone="forest">
-      <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <div>
-          <Heading kicker={kicker} title={title} size="d3" width="full" />
-          <p className="mt-7 max-w-[46rem] text-lead text-sage-bright" data-reveal>
-            {body ??
-              "Everything in this library works without Mengo — that is why it is published. If you want to see what the same structure looks like carried by a system, start with one client and one workflow."}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <ButtonLink href={routes.getStarted()}>Get started</ButtonLink>
-          <ButtonLink href={routes.resources()} variant="secondary">
-            More from the library
-          </ButtonLink>
-        </div>
-      </div>
-    </Section>
+    <CtaBand
+      eyebrow={kicker}
+      title={title}
+      body={
+        body ??
+        "Everything in this library works without Mengo — that is why it is published. If you want to see what the same structure looks like carried by a system, start with one client and one workflow."
+      }
+      secondary={{ label: "More from the library", href: routes.resources() }}
+    />
   );
 }
 

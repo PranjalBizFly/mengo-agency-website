@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import type { ComparisonRow, Ledger, Step, Term } from "@/lib/types";
-import { Arrow } from "@/components/ui/primitives";
+import { Arrow, ButtonLink, Kicker } from "@/components/ui/primitives";
 
 /**
  * The editorial devices.
@@ -456,6 +456,86 @@ export function ProseRows({
           <p className="text-prose text-ink-soft">{item.body}</p>
         </div>
       ))}
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* The index band — context beside inventory                                 */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * A large set of destinations, presented so the reader understands the set
+ * before meeting it.
+ *
+ * The defect this exists to remove: a heading followed by twenty-one ruled
+ * rows carrying nothing but titles. That is a directory, and a reader has no
+ * way to tell which row is worth a click, so they scroll past all of them. It
+ * is also enormously expensive in height — twenty-one rows is two thousand
+ * pixels to say nothing.
+ *
+ * So the band splits. The left column argues: what this set is, why it is
+ * organised this way, and a door to the whole of it. The right column is the
+ * inventory itself, compact — three columns of hairline-ruled links at the
+ * body scale, which fits eighteen destinations in the height a ruled list
+ * spends on six.
+ *
+ * The `action` is not optional in spirit. A band that shows part of a set and
+ * offers no route to the rest is worse than one that shows all of it.
+ */
+export function IndexBand({
+  kicker,
+  title,
+  lead,
+  action,
+  items,
+  columns = 3,
+  className = "",
+}: {
+  kicker?: string;
+  title: ReactNode;
+  lead?: ReactNode;
+  action?: { label: string; href: string };
+  items: { label: string; href: string }[];
+  columns?: 2 | 3;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] ${className}`}
+    >
+      <div data-reveal>
+        {kicker ? (
+          <Kicker pill className="mb-6">
+            {kicker}
+          </Kicker>
+        ) : null}
+        <h2 className="max-w-[16ch] text-d3 text-ink">{title}</h2>
+        {lead ? <p className="mt-6 max-w-[38ch] text-lead text-ink-soft">{lead}</p> : null}
+        {action ? (
+          <div className="mt-9">
+            <ButtonLink href={action.href} variant="secondary">
+              {action.label}
+            </ButtonLink>
+          </div>
+        ) : null}
+      </div>
+
+      <ul
+        className={`grid content-start gap-x-10 sm:grid-cols-2 ${columns === 3 ? "lg:grid-cols-3" : ""}`}
+        data-reveal-stagger
+      >
+        {items.map((item) => (
+          <li key={item.href} className="rule-t" data-reveal>
+            <Link
+              href={item.href}
+              className="block py-4 text-body leading-snug text-ink-soft transition-[color,transform] duration-300 ease-[var(--ease-out-expo)] hover:text-lime-deep motion-safe:hover:translate-x-1"
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

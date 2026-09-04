@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import { Section, Heading, Statement, ButtonLink, JsonLd } from "@/components/ui/primitives";
 import { MarkerList, ProseRows, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SectionRail } from "@/components/sections/SectionRail";
 import { Related, relatedWorkflows } from "@/components/sections/related";
 import { industriesForCapability } from "@/lib/relations";
 import { stageBySlug } from "@/data/stages";
+import { CtaBand } from "@/components/sections/longform";
 import { routes, absolute } from "@/lib/site";
 import { pageMetadata } from "@/seo/metadata";
 import { breadcrumbSchema } from "@/seo/schema";
@@ -117,7 +119,6 @@ export default async function IndustryCapabilityPage({
       />
 
       <RuleHero
-        tone="warm"
         trail={trail}
         kicker={`${industry.title} · ${capability.title}`}
         title={entry.headline}
@@ -133,6 +134,8 @@ export default async function IndustryCapabilityPage({
           </>
         }
       />
+
+      <SectionRail />
 
       {/* What is different here ------------------------------------------
           This is the whole reason the page exists, so it gets the composition
@@ -152,7 +155,7 @@ export default async function IndustryCapabilityPage({
       <Section tone="warm">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
           <div>
-            <Heading kicker="Irreplaceably yours" title="What the agency contributes" size="d3" width="full" />
+            <Heading kicker="Irreplaceably yours" title="What the agency contributes" size="d4" width="full" />
             <Statement className="mt-9">
               Sector knowledge is what a client is buying here. It is also the thing nothing on this
               page produces.
@@ -166,7 +169,7 @@ export default async function IndustryCapabilityPage({
       <Section tone="forest">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div>
-            <Heading kicker="Handle with care" title="Constraints specific to this pairing" size="d3" width="full" />
+            <Heading kicker="Handle with care" title="Constraints specific to this pairing" size="d4" width="full" />
             <p className="mt-7 max-w-[38rem] text-body leading-relaxed text-sage-bright" data-reveal>
               These are the sector&rsquo;s real exposures as they bear on this capability. Several are
               not satisfied by an editorial review alone — they need someone qualified, and in some
@@ -237,7 +240,7 @@ export default async function IndustryCapabilityPage({
       {/* The rest of this sector ------------------------------------------ */}
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
-          <Heading kicker="This sector" title={`Other ${industry.title} capabilities`} size="d3" width="full" />
+          <Heading kicker="This sector" title={`Other ${industry.title} capabilities`} size="d4" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             These are the capabilities where working in this sector genuinely changes the job. The
             rest of the taxonomy applies here in the same way it applies anywhere.
@@ -247,10 +250,15 @@ export default async function IndustryCapabilityPage({
       </Section>
 
       <Related
-        tone="warm"
         kicker="Related"
         title="Workflows this runs in"
         items={relatedWorkflows(capability.related.workflows)}
+      />
+      <CtaBand
+        eyebrow="Next step"
+        title="One client, one capability, one measure"
+        body={`${capability.title} for a ${industry.title} client is a narrow enough question to answer properly. Run it on one account and decide what you are measuring before you start.`}
+        secondary={{ label: `More on ${industry.title}`, href: routes.industry(industry.slug) }}
       />
     </>
   );

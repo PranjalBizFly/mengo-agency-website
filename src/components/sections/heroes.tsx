@@ -57,9 +57,9 @@ export function PhotoHero({
   return (
     <section className="on-dark photo-band text-sage-bright">
       <PhotoGround photo={photo} scrim="hero" priority drift={false} position={position} />
-      <div className="wrap flex min-h-[clamp(30rem,78svh,46rem)] flex-col justify-end pb-14 pt-(--header-h) md:pb-20">
+      <div className="wrap flex min-h-[clamp(34rem,82svh,48rem)] flex-col justify-end pb-14 pt-(--header-h) md:pb-20">
         <div className="max-w-[52rem] pt-16 md:pt-24">
-          <Kicker reveal className="mb-7">
+          <Kicker pill reveal className="mb-7">
             {kicker}
           </Kicker>
           <h1 className="text-d1 text-on-dark" data-reveal style={{ "--reveal-delay": "90ms" } as React.CSSProperties}>
@@ -67,7 +67,7 @@ export function PhotoHero({
           </h1>
           {subtitle ? (
             <p
-              className="mt-5 max-w-[34ch] text-d4 text-sage-bright"
+              className="mt-6 max-w-[30ch] font-display text-d4 font-semibold text-lime"
               data-reveal
               style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
             >
@@ -75,7 +75,7 @@ export function PhotoHero({
             </p>
           ) : null}
           <p
-            className={`${subtitle ? "mt-8" : "mt-7"} max-w-[46rem] text-lead text-sage-bright`}
+            className={`${subtitle ? "mt-8" : "mt-7"} max-w-[44ch] text-lead text-on-dark/85`}
             data-reveal
             style={{ "--reveal-delay": "210ms" } as React.CSSProperties}
           >
@@ -98,7 +98,10 @@ export function PhotoHero({
           </div>
         ) : null}
 
-        <Credit photo={photo} className="mt-10" />
+        {/* Licensing requires the attribution to be present and findable, not
+            prominent — and on a first screen it is the one element competing
+            with the argument. Demoted to the quietest text on the page. */}
+        <Credit photo={photo} className="mt-8 text-[0.6875rem] text-sage/70" />
       </div>
     </section>
   );
@@ -107,12 +110,24 @@ export function PhotoHero({
 /* ------------------------------------------------------------------------ */
 
 /**
- * The entity-page opening. No photograph by design.
+ * The entity-page opening. Dark ground, no photograph.
  *
- * These pages are reference material and they are read in runs — an agency
- * evaluating this will open four workflows in four tabs. A full-bleed
- * photograph on each would make them indistinguishable and slow. The picture
- * appears once, further down, where it illustrates something.
+ * Dark because that is what makes a page read as part of this product rather
+ * than as a document about it. Every opening on the product site sits on a dark
+ * ground — a photograph under a scrim on the pages that have earned an image,
+ * forest on the ones that have not — and the four hundred and ninety entity
+ * pages here are the ones that set the site's character, because they are most
+ * of it. Opening them on paper with a lime dash made each one read as the top
+ * of a reference entry: correct, and inert.
+ *
+ * No photograph, because these pages are read in runs — an agency evaluating
+ * this will open four workflows in four tabs — and because the image budget is
+ * fifty-nine pictures used once each. Forest gives the same ground without
+ * spending one.
+ *
+ * The fact rail sits inside the opening rather than below it. What an entity
+ * *is* — its group, what it removes, what triggers it — belongs on the first
+ * screen beside the claim, not in a band underneath it.
  */
 export function RuleHero({
   trail,
@@ -121,7 +136,6 @@ export function RuleHero({
   lead,
   facts,
   actions,
-  tone = "paper",
 }: {
   trail: Crumb[];
   kicker: string;
@@ -129,24 +143,23 @@ export function RuleHero({
   lead: ReactNode;
   facts?: ReactNode;
   actions?: ReactNode;
-  tone?: "paper" | "warm";
 }) {
   return (
-    <section className={`${tone === "warm" ? "bg-paper-warm" : "bg-paper"} pb-16 pt-10 md:pb-20 md:pt-14`}>
+    <section className="on-dark relative isolate overflow-hidden bg-forest pb-14 pt-10 text-sage-bright md:pb-16 md:pt-12">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(66%_86%_at_84%_0%,rgb(163_230_37/0.13),transparent_60%)]"
+      />
       <div className="wrap">
         <Breadcrumbs trail={trail} className="mb-10" />
 
-        {/* The heavy rule is this archetype's whole visual identity: it does
-            the job a hero image would, at no bandwidth cost. */}
-        <div className="h-[3px] w-16 bg-lime" aria-hidden data-reveal />
-
-        <div className="mt-9 grid gap-x-12 gap-y-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-end">
+        <div className="grid gap-x-12 gap-y-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-end">
           <div>
-            <Kicker reveal className="mb-6">
+            <Kicker pill reveal className="mb-6">
               {kicker}
             </Kicker>
             <h1
-              className="max-w-[20ch] text-d2"
+              className="max-w-[20ch] text-d2 text-on-dark"
               data-reveal
               style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
             >
@@ -154,7 +167,7 @@ export function RuleHero({
             </h1>
           </div>
           <p
-            className="max-w-[44rem] text-lead text-ink-soft"
+            className="max-w-[44rem] text-lead text-on-dark/85"
             data-reveal
             style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
           >
@@ -172,7 +185,7 @@ export function RuleHero({
           </div>
         ) : null}
 
-        {facts ? <div className="mt-14">{facts}</div> : null}
+        {facts ? <div className="mt-12">{facts}</div> : null}
       </div>
     </section>
   );
