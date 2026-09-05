@@ -111,7 +111,7 @@ export function CtaBand({
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(58%_120%_at_82%_50%,rgb(163_230_37/0.15),transparent_64%)]"
       />
-      <div className="wrap relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-20">
+      <div className="wrap relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-20">
         <div>
           <Kicker className="mb-6">{eyebrow}</Kicker>
           <h2 className="max-w-[18ch] text-d2 text-on-dark" data-reveal>

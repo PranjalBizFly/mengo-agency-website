@@ -108,7 +108,7 @@ export default function CompanyIndexPage() {
       ) : null}
 
       <Section tone="warm">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Two properties" title="This site, and the product site" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             This site is written for the people running the agency. The Mengo product site for business owners —

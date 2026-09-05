@@ -81,58 +81,6 @@ export const systemLayers: SystemLayer[] = [
   },
 ];
 
-export function SystemLayers({ className = "" }: { className?: string }) {
-  return (
-    <ol className={`system-layers ${className}`} data-reveal-stagger>
-      {systemLayers.map((layer, index) => (
-        <li key={layer.label} className="system-layer" data-lane={layer.lane} data-reveal>
-          <span className="system-layer-node" data-lane={layer.lane} aria-hidden>
-            {index + 1}
-          </span>
-
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <h3 className="type-title text-h5">{layer.label}</h3>
-            <span
-              className={`label text-[0.6875rem] ${layer.lane === "mengo" ? "text-lime-deep" : ""}`}
-            >
-              <span className="sr-only">Carried by </span>
-              {LANE_LABEL[layer.lane]}
-            </span>
-          </div>
-
-          <p className="mt-3 max-w-[56ch] text-body leading-relaxed text-ink-soft">{layer.body}</p>
-
-          {layer.groups ? (
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {layer.groups.map((slug) => {
-                const group = groupBySlug.get(slug);
-                if (!group) return null;
-                return (
-                  <li key={slug}>
-                    <Link
-                      href={routes.capabilityGroup(slug)}
-                      className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-4 text-small transition-colors hover:border-lime-deep hover:text-lime-deep"
-                    >
-                      {group.title}
-                      <span className="tnum text-fine text-ink-soft">
-                        {capabilitiesInGroup(slug).length}
-                      </span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          ) : layer.note ? (
-            <p className="mt-4 inline-flex items-center rounded-full border border-dashed border-line px-4 py-2 text-fine text-ink-soft">
-              {layer.note}
-            </p>
-          ) : null}
-        </li>
-      ))}
-    </ol>
-  );
-}
-
 /* ------------------------------------------------------------------------ */
 /* Position in the stack                                                     */
 /* ------------------------------------------------------------------------ */
@@ -252,5 +200,90 @@ export function StackPosition({
         </dl>
       </div>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* The stack, read across                                                    */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * The eight layers as a horizontal rail rather than a vertical one.
+ *
+ * The vertical rail is correct when the point is depth — one thing sitting on
+ * another. On the homepage the point is the opposite: that the eight are one
+ * connected run, and a column eight items tall reads as a list of eight
+ * separate things while the reader scrolls past the connection. Set across, the
+ * whole system is one object taken in at a glance, which is the claim the band
+ * is making.
+ *
+ * The numeral carries the lane, as it does everywhere else on this site: filled
+ * for a layer Mengo holds, outlined for one that stays with a person. The
+ * connecting hairline runs from each numeral to the next and stops at the end
+ * of a row, so a wrapped rail does not appear to loop back on itself.
+ */
+export function SystemRail({ className = "" }: { className?: string }) {
+  return (
+    <ol
+      className={`grid gap-x-10 gap-y-10 sm:gap-y-14 sm:grid-cols-2 lg:grid-cols-4 ${className}`}
+      data-reveal-stagger
+    >
+      {systemLayers.map((layer, index) => (
+        <li
+          key={layer.label}
+          className="relative min-w-0 sm:[&:nth-child(2n)_span:first-child]:hidden lg:[&:nth-child(2n)_span:first-child]:block lg:[&:nth-child(4n)_span:first-child]:hidden"
+          data-reveal
+        >
+          {/* The rule runs to the next numeral. Hidden on the last column of a
+              row, where it would point at nothing. */}
+          <span
+            aria-hidden
+            className="absolute left-9 right-[-2.5rem] top-[0.9375rem] hidden h-px bg-line sm:block"
+          />
+          <span
+            aria-hidden
+            className="relative z-10 inline-flex h-[1.875rem] w-[1.875rem] items-center justify-center rounded-full border border-lime-deep/35 bg-lime/15 text-lime-deep [.on-dark_&]:border-lime/45 [.on-dark_&]:text-lime text-fine font-semibold tnum"
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          <div className="mt-7 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 className="type-title text-h6">{layer.label}</h3>
+            <span
+              className={`label text-[0.6875rem] ${layer.lane === "mengo" ? "text-lime-deep" : ""}`}
+            >
+              <span className="sr-only">Carried by </span>
+              {LANE_LABEL[layer.lane]}
+            </span>
+          </div>
+
+          <p className="mt-3 text-small leading-relaxed text-ink-soft">{layer.body}</p>
+
+          {layer.groups ? (
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {layer.groups.map((slug) => {
+                const group = groupBySlug.get(slug);
+                if (!group) return null;
+                return (
+                  <li key={slug}>
+                    <Link
+                      href={routes.capabilityGroup(slug)}
+                      className="inline-flex h-9 items-center gap-2 rounded-full border border-line px-3.5 text-fine transition-colors [@media(pointer:coarse)]:h-11 hover:border-lime-deep hover:text-lime-deep"
+                    >
+                      {group.title}
+                      <span className="tnum text-ink-soft">{capabilitiesInGroup(slug).length}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : layer.note ? (
+            <p className="mt-5 inline-flex rounded-full border border-dashed border-line px-3.5 py-2 text-fine text-ink-soft">
+              {layer.note}
+            </p>
+          ) : null}
+        </li>
+      ))}
+    </ol>
   );
 }

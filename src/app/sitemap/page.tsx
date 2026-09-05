@@ -152,12 +152,17 @@ export default function SitemapPage() {
 
       {/* Capability × stage, grouped by capability ---------------------- */}
       <Section tone="warm">
-        <Heading
-          kicker="By stage"
-          title={`${stageRoutes.length} capability pages, one per stage`}
-          lead="Every capability whose meaning changes with agency size, read from each of the five stages."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="By stage"
+            title={`${stageRoutes.length} capability pages, one per stage`}
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Every capability whose meaning changes with agency size, read from each of the five stages.
+          </p>
+        </div>
         <div className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {capabilityGroups.map((group) => {
             const members = [...byCapability.entries()].filter(
@@ -206,12 +211,17 @@ export default function SitemapPage() {
 
       {/* Industry × capability ------------------------------------------- */}
       <Section tone="paper">
-        <Heading
-          kicker="By client sector"
-          title={`${industryRoutes.length} industry capability pages`}
-          lead="Curated pairs only — the combinations where working in that sector genuinely changes the capability."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="By client sector"
+            title={`${industryRoutes.length} industry capability pages`}
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Curated pairs only — the combinations where working in that sector genuinely changes the capability.
+          </p>
+        </div>
         <div className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {[...byIndustry.entries()].map(([industrySlug, list]) => {
             const industry = industryBySlug.get(industrySlug);

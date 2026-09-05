@@ -121,7 +121,7 @@ export default function UseCasesPage() {
       </Section>
 
       <Section tone="warm">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Another way in" title="Or start from your size" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             The stage pages describe the week, what breaks and what changes on the way to the next

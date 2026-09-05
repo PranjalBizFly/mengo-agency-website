@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Section, Heading, ButtonLink, JsonLd } from "@/components/ui/primitives";
-import { SpineKey } from "@/components/ui/editorial";
 import { IndexHero } from "@/components/sections/heroes";
 import { Figure } from "@/components/ui/Photo";
 import { photo } from "@/lib/images";
@@ -80,7 +79,6 @@ export default function WorkflowsPage() {
           </ul>
         </nav>
 
-        <SpineKey className="mt-8" />
 
         {WORKFLOW_PHASES.map((phase) => (
           <section
@@ -148,7 +146,7 @@ export default function WorkflowsPage() {
           a band of its own: a photograph in an empty section is decoration, and
           the caption is what states the relationship. */}
       <Section tone="deep">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="The underlying shape" title="They are all one spine" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             Every workflow above is a variation on the same nine-step sequence. We published it as a

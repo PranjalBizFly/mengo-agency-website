@@ -7,14 +7,14 @@ import {
   NumberedRows,
   Ladder,
   LedgerBlock,
-  Spine,
-  SpineKey,
+  StepRows,
   StoryRows,
   MarkerList,
   IndexBand,
 } from "@/components/ui/editorial";
 import { PhotoHero } from "@/components/sections/heroes";
-import { SystemLayers } from "@/components/sections/system";
+import { SplitBand } from "@/components/sections/split-band";
+import { SystemRail } from "@/components/sections/system";
 import { Figure, PhotoSection, Credit } from "@/components/ui/Photo";
 import { photo } from "@/lib/images";
 import { routes, site } from "@/lib/site";
@@ -126,72 +126,96 @@ export default function HomePage() {
 
       {/* 2 — The problem ------------------------------------------------ */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
-          <div className="lg:sticky lg:top-32">
-            <Heading
-              kicker="The problem"
-              title="Nobody runs out of ideas. They run out of Thursday."
-              size="d2"
-              width="full"
-            />
-            <p className="mt-7 max-w-[40rem] text-lead text-ink-soft" data-reveal>
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="The problem"
+            title="Nobody runs out of ideas. They run out of Thursday."
+            size="d2"
+            width="full"
+            pill
+          />
+          {/* The page's own lead, moved to the facing column rather than
+              stacked under the heading. Same sentence, different position. */}
+          <div data-reveal>
+            <p className="max-w-[46ch] text-lead text-ink-soft">
               Client work has deadlines. Delivery has clients waiting. The structural work behind
               good marketing — the research, the planning, the system that makes the next piece
               faster than the last — has neither, so it loses to whatever is urgent.
             </p>
-            {realityPhoto ? (
-              <Figure
-                photo={realityPhoto}
-                aspect="4/3"
-                drift
-                className="mt-12"
-                context="The problem"
-                caption="The structural work behind good marketing has no deadline of its own, so it loses to whatever is urgent."
-              />
-            ) : null}
-          </div>
-
-          <div>
-            <IndexRows
-              columns={1}
-              items={[
-                {
-                  label: "Every brief starts at zero",
-                  body: "Positioning, audience, channels and a content plan get rebuilt from scratch for each client — even when two clients are in the same sector with the same buying cycle.",
-                },
-                {
-                  label: "The unpaid work is most of the job",
-                  body: "Research, planning and setting up the shape of a programme are real hours that never appear on an invoice, and they repeat in full on every account.",
-                },
-                {
-                  label: "Context reassembly is invisible",
-                  body: "Re-reading the strategy, the last three pieces and the tone the client likes, before writing a word. It is on no task list, and in most agencies it is one of the largest categories in the week.",
-                },
-                {
-                  label: "Quality moves with the week",
-                  body: "The first client of the month and the last get different versions of you. Clients notice inconsistency long before they notice a metric.",
-                },
-                {
-                  label: "Growth means hiring",
-                  body: "Win the client, recruit, onboard, deliver — with a quarter of compressed margin in the middle, taken as a bet on a pipeline that might not hold.",
-                },
-              ]}
-            />
           </div>
         </div>
+
+        {/* Full measure, two columns. Five observations need the width. */}
+        <IndexRows
+          className="mt-16"
+          columns={2}
+          items={[
+            {
+              label: "Every brief starts at zero",
+              body: "Positioning, audience, channels and a content plan get rebuilt from scratch for each client — even when two clients are in the same sector with the same buying cycle.",
+            },
+            {
+              label: "The unpaid work is most of the job",
+              body: "Research, planning and setting up the shape of a programme are real hours that never appear on an invoice, and they repeat in full on every account.",
+            },
+            {
+              label: "Context reassembly is invisible",
+              body: "Re-reading the strategy, the last three pieces and the tone the client likes, before writing a word. It is on no task list, and in most agencies it is one of the largest categories in the week.",
+            },
+            {
+              label: "Quality moves with the week",
+              body: "The first client of the month and the last get different versions of you. Clients notice inconsistency long before they notice a metric.",
+            },
+            {
+              label: "Growth means hiring",
+              body: "Win the client, recruit, onboard, deliver — with a quarter of compressed margin in the middle, taken as a bet on a pipeline that might not hold.",
+            },
+          ]}
+        />
+
+        {realityPhoto ? (
+          <Figure
+            photo={realityPhoto}
+            aspect="21/9"
+            drift
+            className="mt-16"
+            context="The problem"
+            caption="The structural work behind good marketing has no deadline of its own, so it loses to whatever is urgent."
+          />
+        ) : null}
       </Section>
 
       {/* 3 — What that actually costs ---------------------------------- */}
       <Section tone="warm">
-        <Heading
-          kicker="What it costs"
-          title="The constraint is rarely talent. It is the fixed cost of every account."
-          lead="Ask an agency what limits its growth and you will usually hear about hiring. Measure where the hours go and a different answer appears — one that no amount of recruitment fixes."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="What it costs"
+            title="The constraint is rarely talent. It is the fixed cost of every account."
+            size="d3"
+            width="full"
+          />
+          <div data-reveal>
+            <p className="max-w-[46ch] text-lead text-ink-soft">
+              Ask an agency what limits its growth and you will usually hear about hiring. Measure
+              where the hours go and a different answer appears — one that no amount of recruitment
+              fixes.
+            </p>
+            <p className="mt-7 max-w-[52ch] text-body leading-relaxed text-ink-soft">
+              We wrote this argument out properly in{" "}
+              <Link
+                href={routes.article("the-agency-bottleneck-is-not-talent")}
+                className="underline decoration-lime-deep decoration-[1.5px] underline-offset-[3px] transition-colors hover:text-lime-deep"
+              >
+                The agency bottleneck is not talent
+              </Link>
+              , along with how to measure it in a fortnight.
+            </p>
+          </div>
+        </div>
+
         <NumberedRows
           columns={2}
-          className="mt-14"
+          className="mt-16"
           items={[
             {
               label: "Structural work dominates",
@@ -211,21 +235,11 @@ export default function HomePage() {
             },
           ]}
         />
-        <p className="mt-12 max-w-[44rem] text-body text-ink-soft" data-reveal>
-          We wrote this argument out properly in{" "}
-          <Link
-            href={routes.article("the-agency-bottleneck-is-not-talent")}
-            className="underline decoration-lime-deep decoration-[1.5px] underline-offset-[3px] transition-colors hover:text-lime-deep"
-          >
-            The agency bottleneck is not talent
-          </Link>
-          , along with how to measure it in a fortnight.
-        </p>
       </Section>
 
       {/* 4 — The shift. The site's central claim. ----------------------- */}
       <Section tone="forest" id="the-shift">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading
             kicker="The shift"
             title="The work does not move. The layer underneath it does."
@@ -298,14 +312,14 @@ export default function HomePage() {
 
       {/* 5 — The whole system, as connected layers ---------------------- */}
       <Section tone="paper" id="the-system">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center">
           <Heading
             kicker="The full system"
             title={`${capabilities.length} capabilities. One stack.`}
             size="d2"
             width="full"
           />
-          <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
             A list of features is not a system. These are layers: each one sits on the one below it
             and is referenced by the one above, which is why the strategic layer only has to be set
             once and why the next piece of work is cheaper than the last. The stack opens and closes
@@ -313,7 +327,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <SystemLayers className="mt-14" />
+        <SystemRail className="mt-16" />
 
         <div className="mt-14 flex flex-wrap gap-3" data-reveal>
           <ButtonLink href={routes.capabilities()}>Browse all {capabilities.length}</ButtonLink>
@@ -338,7 +352,7 @@ export default function HomePage() {
           same sixty-four things, and a reader arriving with either one should
           not have to read the other's answer first. */}
       <Section tone="warm" id="capabilities">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading
             kicker="The catalogue"
             title={`Eight groups, ${capabilities.length} capabilities`}
@@ -397,12 +411,18 @@ export default function HomePage() {
 
       {/* 8 — Five stages --------------------------------------------- */}
       <Section tone="paper" id="stages">
-        <Heading
-          kicker="Whatever size you are"
-          title="Five stages, one path"
-          lead="Each of these points has a different constraint, a different week and a different set of things that break. Start with the one that describes your Thursday."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-8 lg:grid-cols-2 lg:items-end">
+          <Heading
+            kicker="Whatever size you are"
+            title="Five stages, one path"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Each of these points has a different constraint, a different week and a different set of
+            things that break. Start with the one that describes your Thursday.
+          </p>
+        </div>
         <Ladder
           className="mt-14"
           steps={stages.map((stage) => ({
@@ -416,16 +436,19 @@ export default function HomePage() {
       {/* 9 — The client workflow, on a photograph ----------------------- */}
       {workflowPhoto && onboarding ? (
         <PhotoSection photo={workflowPhoto} scrim="even" align="full" id="workflow">
-          <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+          <div className="grid gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
             <div className="lg:sticky lg:top-32 lg:self-start">
-              <Kicker className="mb-7">A real client engagement</Kicker>
-              <h2 className="text-d2 text-on-dark">From client brief to client delivery</h2>
-              <p className="mt-7 max-w-[40rem] text-lead text-sage-bright">
+              <Kicker pill className="mb-7">
+                A real client engagement
+              </Kicker>
+              <h2 className="max-w-[14ch] text-d2 text-on-dark">
+                From client brief to client delivery
+              </h2>
+              <p className="mt-7 max-w-[42ch] text-lead text-sage-bright">
                 This is the onboarding workflow, unedited. Every step carries the side that owns it,
                 and the pattern is not a coincidence: the agency opens the sequence and the agency
                 closes it.
               </p>
-              <SpineKey className="mt-9 text-sage-bright" />
               <div className="mt-9">
                 <ButtonLink href={routes.workflow(onboarding.slug)} variant="secondary">
                   Open this workflow
@@ -434,14 +457,14 @@ export default function HomePage() {
               <Credit photo={workflowPhoto} className="mt-10" />
             </div>
 
-            <Spine steps={onboarding.spine} />
+            <StepRows steps={onboarding.spine} />
           </div>
         </PhotoSection>
       ) : null}
 
       {/* 10 — Scaling delivery ------------------------------------------ */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-center">
+        <div className="grid gap-x-14 gap-y-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
           <div>
             <Heading
               kicker="What changes"
@@ -493,7 +516,7 @@ export default function HomePage() {
           of ruled rows with nothing in them to tell a reader which row was
           theirs. A destination without a reason is not a destination. */}
       <Section tone="deep">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading
             kicker="Start from the problem"
             title="What are you actually trying to fix?"
@@ -535,23 +558,20 @@ export default function HomePage() {
 
       {/* 13 — Evidence. The honest version. ----------------------------- */}
       <Section tone="warm" id="evidence">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <Heading
-            kicker="Evidence"
-            title="What we are not showing you, and why"
-            size="d3"
-            width="full"
-          />
-          <div>
-            <p className="max-w-[44rem] text-lead text-ink-soft" data-reveal>
-              There are no client logos on this site, no testimonials, no case studies and no
-              percentages. Mengo is early and we do not have outcome data we could stand
-              behind. Publishing invented figures would be the fastest way to lose the readers we
-              most want.
+        <SplitBand
+          kicker="Evidence"
+          title="What we are not showing you, and why"
+          lead="There are no client logos on this site, no testimonials, no case studies and no percentages. Mengo is early and we do not have outcome data we could stand behind."
+          aside={
+            <p className="max-w-[40ch] text-body leading-relaxed text-ink-soft">
+              Publishing invented figures would be the fastest way to lose the readers we most
+              want.
             </p>
+          }
+        >
+          <div>
             <IndexRows
-              className="mt-12"
-              columns={1}
+              columns="one"
               items={[
                 {
                   label: "What we will tell you",
@@ -576,7 +596,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
           </div>
-        </div>
+        </SplitBand>
       </Section>
 
       {/* 14 — The awkward questions --------------------------------------
@@ -604,12 +624,17 @@ export default function HomePage() {
 
       {/* 15 — Resources ------------------------------------------------- */}
       <Section tone="warm">
-        <Heading
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
           kicker="Resources"
           title="Things you can use whether or not you ever use Mengo"
-          lead="Frameworks to adopt under your own name, playbooks to work through on Monday, and writing about how this work is run."
           size="d3"
-        />
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Frameworks to adopt under your own name, playbooks to work through on Monday, and writing about how this work is run.
+          </p>
+        </div>
         {/* Three shelves, each row carrying the thing it is about. A title on
             its own asks the reader to gamble a click; one line of what it is
             for turns twelve gambles into twelve decisions. */}
@@ -658,7 +683,7 @@ export default function HomePage() {
           leads with when the other option wins, which is the only way a
           comparison published by one side of it is worth reading. */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading
             kicker="Weighing it up"
             title="The alternatives, and when they win"

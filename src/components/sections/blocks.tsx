@@ -1,5 +1,5 @@
 import type { Block } from "@/lib/types";
-import { LedgerBlock, MarkerList, IndexRows, Spine, SpineKey } from "@/components/ui/editorial";
+import { LedgerBlock, MarkerList, IndexRows, Spine } from "@/components/ui/editorial";
 import { Statement } from "@/components/ui/primitives";
 
 /**
@@ -60,7 +60,6 @@ function BlockView({ block, opening = false }: { block: Block; opening?: boolean
     case "steps":
       return (
         <div className="mt-10" data-reveal>
-          <SpineKey className="mb-7" />
           <Spine steps={block.items} />
         </div>
       );

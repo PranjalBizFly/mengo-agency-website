@@ -61,12 +61,17 @@ export default function GetStartedPage() {
 
       {/* The method ------------------------------------------------------ */}
       <Section tone="paper">
-        <Heading
-          kicker="A sensible evaluation"
-          title="Five steps, in this order"
-          lead="This is what we would want you to do whether or not you end up using Mengo. Steps one and two are worth doing on their own."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="A sensible evaluation"
+            title="Five steps, in this order"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            This is what we would want you to do whether or not you end up using Mengo. Steps one and two are worth doing on their own.
+          </p>
+        </div>
         <NumberedRows
           className="mt-14"
           columns={1}
@@ -160,7 +165,7 @@ export default function GetStartedPage() {
 
       {/* Read first --------------------------------------------------------- */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Or read first" title="Start with the page for your size" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             Each stage page describes the week, what breaks and what changes on the way to the next

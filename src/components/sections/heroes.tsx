@@ -120,10 +120,12 @@ export function PhotoHero({
  * of it. Opening them on paper with a lime dash made each one read as the top
  * of a reference entry: correct, and inert.
  *
- * No photograph, because these pages are read in runs — an agency evaluating
- * this will open four workflows in four tabs — and because the image budget is
- * fifty-nine pictures used once each. Forest gives the same ground without
- * spending one.
+ * The ground is a photograph where the page has one and forest where it does
+ * not. Both carry the same composition, so an entity page opens the same way
+ * whether or not an asset exists for it — which matters, because the image
+ * budget is a fixed pool used once each and most of these pages will never
+ * have one. Forest is the honest absence of a photograph, not a placeholder
+ * for one.
  *
  * The fact rail sits inside the opening rather than below it. What an entity
  * *is* — its group, what it removes, what triggers it — belongs on the first
@@ -136,6 +138,7 @@ export function RuleHero({
   lead,
   facts,
   actions,
+  photo,
 }: {
   trail: Crumb[];
   kicker: string;
@@ -143,9 +146,16 @@ export function RuleHero({
   lead: ReactNode;
   facts?: ReactNode;
   actions?: ReactNode;
+  /** The page's own photograph, where one has been assigned to it. */
+  photo?: Photo | null;
 }) {
   return (
-    <section className="on-dark relative isolate overflow-hidden bg-forest pb-14 pt-10 text-sage-bright md:pb-16 md:pt-12">
+    <section
+      className={`on-dark relative isolate overflow-hidden pb-14 pt-10 text-sage-bright md:pb-16 md:pt-12 ${
+        photo ? "photo-band" : "bg-forest"
+      }`}
+    >
+      {photo ? <PhotoGround photo={photo} scrim="start" priority drift={false} /> : null}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(66%_86%_at_84%_0%,rgb(163_230_37/0.13),transparent_60%)]"
@@ -186,6 +196,8 @@ export function RuleHero({
         ) : null}
 
         {facts ? <div className="mt-12">{facts}</div> : null}
+
+        {photo ? <Credit photo={photo} className="mt-10 text-[0.6875rem] text-sage/70" /> : null}
       </div>
     </section>
   );

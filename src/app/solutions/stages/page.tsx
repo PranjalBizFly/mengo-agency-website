@@ -71,12 +71,17 @@ export default function StagesPage() {
 
       {/* The comparison ------------------------------------------------- */}
       <Section tone="warm">
-        <Heading
-          kicker="What changes"
-          title="The constraint moves as the practice grows"
-          lead="Each stage is defined by what runs out first. Recognising which one you are in matters more than the headcount, because it determines what is worth fixing."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="What changes"
+            title="The constraint moves as the practice grows"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Each stage is defined by what runs out first. Recognising which one you are in matters more than the headcount, because it determines what is worth fixing.
+          </p>
+        </div>
         <IndexRows
           className="mt-14"
           columns={1}
@@ -112,7 +117,7 @@ export default function StagesPage() {
 
       {/* By goal instead --------------------------------------------------- */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Another way in" title="Or start from what you are trying to do" size="d3" width="full" />
           <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
             Some readers know their constraint better than their category. These pages start from

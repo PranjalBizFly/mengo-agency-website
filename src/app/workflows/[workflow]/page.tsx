@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Section, Heading, Kicker, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
-import { IndexRows, MarkerList, Spine, SpineKey, StoryRows, FactStrip } from "@/components/ui/editorial";
+import { IndexRows, MarkerList, Spine, StoryRows, FactStrip } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
 import { SectionRail } from "@/components/sections/SectionRail";
 import { Figure } from "@/components/ui/Photo";
@@ -65,6 +65,7 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(workflow.faqs), howToSchema(workflow)]} />
 
       <RuleHero
+        photo={heroPhoto}
         trail={trail}
         kicker="Workflow"
         title={workflow.headline}
@@ -84,14 +85,16 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
 
       {/* The spine — the page's reason for existing --------------------- */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)]">
+        <div className="grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <Heading kicker="The sequence" title="End to end, with owners" size="d3" width="full" />
+            <Heading kicker="The sequence" title="End to end, with owners"
+            size="d3"
+            width="full"
+          />
             <p className="mt-6 max-w-[34rem] text-body leading-relaxed text-ink-soft" data-reveal>
               The agency opens the sequence and the agency closes it. That is a property of every
               workflow published here, not a coincidence of this one.
             </p>
-            <SpineKey className="mt-8" />
           </div>
           <Spine steps={workflow.spine} />
         </div>
@@ -113,12 +116,17 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
 
       {/* Before and after ------------------------------------------------ */}
       <Section tone="paper">
-        <Heading
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
           kicker="What changes"
           title="How this usually runs, and how it runs here"
-          lead="The left column is not a straw man. It is how competent agencies deliver when nobody has had time to design the process."
           size="d3"
-        />
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            The left column is not a straw man. It is how competent agencies deliver when nobody has had time to design the process.
+          </p>
+        </div>
         <div className="mt-14 grid gap-x-14 gap-y-14 lg:grid-cols-2">
           <div>
             <p className="label rule-t pt-5">Without a defined workflow</p>
@@ -130,19 +138,6 @@ export default async function WorkflowPage({ params }: { params: Promise<{ workf
           </div>
         </div>
       </Section>
-
-      {/* Illustration ---------------------------------------------------- */}
-      {heroPhoto ? (
-        <Section tone="warm">
-          <Figure
-            photo={heroPhoto}
-            aspect="21/9"
-            drift
-            context="Trigger"
-            caption={workflow.trigger}
-          />
-        </Section>
-      ) : null}
 
       {/* FAQ -------------------------------------------------------------- */}
       <Section tone="paper">

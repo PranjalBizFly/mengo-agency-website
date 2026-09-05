@@ -75,6 +75,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(industry.faqs)]} />
 
       <RuleHero
+        photo={heroPhoto}
         trail={trail}
         kicker="Client sector"
         title={industry.headline}
@@ -88,23 +89,33 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
           needs a paragraph, and the sticky label keeps the reader oriented
           inside it. */}
       <Section tone="paper">
-        <Heading
-          kicker="The character of the sector"
-          title="What makes marketing here different"
-          lead="Four things that are true of this sector and not of the one next to it. Everything further down the page follows from them."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="The character of the sector"
+            title="What makes marketing here different"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Four things that are true of this sector and not of the one next to it. Everything further down the page follows from them.
+          </p>
+        </div>
         <ProseRows items={industry.character} className="mt-14" />
       </Section>
 
       {/* Delivery pressures ---------------------------------------------- */}
       <Section tone="warm">
-        <Heading
-          kicker="Delivery pressure"
-          title="What that does to the delivery week"
-          lead="Sector characteristics are not abstract. Each one converts into a specific operational cost on the agency delivering into it."
-          size="label"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="Delivery pressure"
+            title="What that does to the delivery week"
+            size="label"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Sector characteristics are not abstract. Each one converts into a specific operational cost on the agency delivering into it.
+          </p>
+        </div>
         <NumberedRows items={industry.pressures} columns={2} className="mt-14" />
       </Section>
 
@@ -113,35 +124,21 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
           carries the same content on a forest ground. Content that only
           exists when an image does is content that quietly disappears the
           first time a photograph is unassigned. */}
-      {heroPhoto ? (
-        <PhotoSection photo={heroPhoto} scrim="start" align="start">
+      <Section tone="forest">
+        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           <Statement>
             Sector knowledge is the thing a client is buying. It is also the thing nothing here
             produces.
           </Statement>
-          <div className="mt-12">
+          <div>
             <p className="label mb-6">Irreplaceably yours in this sector</p>
             <MarkerList items={industry.expertise} />
           </div>
-          <Credit photo={heroPhoto} className="mt-12" />
-        </PhotoSection>
-      ) : (
-        <Section tone="forest">
-          <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            <Statement>
-              Sector knowledge is the thing a client is buying. It is also the thing nothing here
-              produces.
-            </Statement>
-            <div>
-              <p className="label mb-6">Irreplaceably yours in this sector</p>
-              <MarkerList items={industry.expertise} />
-            </div>
-          </div>
-        </Section>
-      )}
+        </div>
+      </Section>
 
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Where Mengo helps" title="The load it can carry here" size="d3" width="full" />
           <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
             The structural layer, in this sector&rsquo;s shape. None of it reaches a client without
@@ -179,11 +176,11 @@ export default async function IndustryPage({ params }: { params: Promise<{ indus
 
       {/* This sector's capability pages ---------------------------------- */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading
-            kicker="In this sector"
-            title={`${industry.capabilities.length} capabilities that work differently here`}
-            size="label"
+              kicker="In this sector"
+              title={`${industry.capabilities.length} capabilities that work differently here`}
+              size="label"
             width="full"
           />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>

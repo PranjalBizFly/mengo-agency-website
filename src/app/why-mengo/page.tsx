@@ -70,9 +70,9 @@ export default function WhyMengoPage() {
       <Section tone="paper">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <Heading
-            kicker="One — the misdiagnosis"
-            title="Agencies describe a structural problem as a hiring problem"
-            size="d3"
+              kicker="One — the misdiagnosis"
+              title="Agencies describe a structural problem as a hiring problem"
+              size="d3"
             width="full"
           />
           <div>
@@ -110,12 +110,17 @@ export default function WhyMengoPage() {
 
       {/* 2 — The distinction ---------------------------------------------- */}
       <Section tone="warm">
-        <Heading
-          kicker="Two — the distinction"
-          title="Three kinds of hour, with three different economics"
-          lead="This is the whole analytical move. Once agency hours are separated this way, what should and should not be systematised stops being a matter of opinion."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="Two — the distinction"
+            title="Three kinds of hour, with three different economics"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            This is the whole analytical move. Once agency hours are separated this way, what should and should not be systematised stops being a matter of opinion.
+          </p>
+        </div>
         <NumberedRows
           className="mt-14"
           columns={1}
@@ -169,12 +174,17 @@ export default function WhyMengoPage() {
 
       {/* 4 — The boundary --------------------------------------------------- */}
       <Section tone="paper">
-        <Heading
-          kicker="Four — the boundary"
-          title="Applied to an agency engagement"
-          lead="This is the same ledger that appears throughout the site, because it is the same argument every time. The language changes by stage; the division does not."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="Four — the boundary"
+            title="Applied to an agency engagement"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            This is the same ledger that appears throughout the site, because it is the same argument every time. The language changes by stage; the division does not.
+          </p>
+        </div>
         <LedgerBlock
           className="mt-14"
           ledger={{
@@ -288,7 +298,7 @@ export default function WhyMengoPage() {
 
       {/* Onward -------------------------------------------------------------- */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Test the argument" title="Against what you would otherwise do" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             Each of these names the situations where the alternative is the better answer. The last

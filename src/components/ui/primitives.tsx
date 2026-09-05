@@ -119,6 +119,7 @@ export function Heading({
   size = "d3",
   as: Tag = "h2",
   width = "measure",
+  pill = false,
   id,
   className = "",
 }: {
@@ -135,6 +136,8 @@ export function Heading({
   size?: "d1" | "d2" | "d3" | "d4" | "label";
   as?: "h1" | "h2" | "h3";
   width?: "measure" | "wide" | "full";
+  /** The chip eyebrow, for a band that opens a movement. */
+  pill?: boolean;
   id?: string;
   className?: string;
 }) {
@@ -152,7 +155,11 @@ export function Heading({
     <div className={`${widthClass} ${className}`} data-band-label={kicker} data-reveal>
       {/* At label scale the kicker and the heading would be the same lettering
           twice, so the kicker becomes the rule above it instead. */}
-      {kicker && !isLabel ? <Kicker className="mb-6">{kicker}</Kicker> : null}
+      {kicker && !isLabel ? (
+        <Kicker pill={pill} className={pill ? "mb-7" : "mb-6"}>
+          {kicker}
+        </Kicker>
+      ) : null}
       {isLabel ? <div className="rule-t mb-5" aria-hidden /> : null}
       <Tag id={id} className={sizeClass}>
         {title}

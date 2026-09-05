@@ -67,12 +67,17 @@ export default function FaqPage() {
 
       {/* Where everything else lives -------------------------------------- */}
       <Section tone="warm">
-        <Heading
-          kicker="Everything else"
-          title="Where each answer lives"
-          lead="Section-specific questions sit on their own pages, with the context that makes them answerable. This is the index."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="Everything else"
+            title="Where each answer lives"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Section-specific questions sit on their own pages, with the context that makes them answerable. This is the index.
+          </p>
+        </div>
 
         <nav aria-label="Question sections" className="mt-12 rule-b pb-7">
           <ul className="flex flex-wrap gap-2">

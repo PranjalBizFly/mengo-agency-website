@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
-import { IndexRows, NumberedRows, LedgerBlock, Spine, SpineKey, StoryRows } from "@/components/ui/editorial";
+import { IndexRows, NumberedRows, LedgerBlock, Spine, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
+import { SplitBand } from "@/components/sections/split-band";
 import { SectionRail } from "@/components/sections/SectionRail";
 import { Figure, PhotoSection, Credit } from "@/components/ui/Photo";
 import { Related, relatedCapabilities, relatedWorkflows } from "@/components/sections/related";
@@ -67,6 +68,7 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(stage.faqs)]} />
 
       <RuleHero
+        photo={heroPhoto}
         trail={trail}
         kicker={`Stage ${stage.order + 1} of ${stages.length}`}
         title={stage.headline}
@@ -80,19 +82,11 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
           </>
         }
         facts={
-          <div className="grid gap-x-12 gap-y-8 rule-t pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+          <div className="rule-t pt-8">
             <div>
               <p className="label">This stage looks like</p>
               <p className="mt-3 max-w-[36ch] text-lead text-ink">{stage.shape}</p>
             </div>
-            {heroPhoto ? (
-              <Figure
-                photo={heroPhoto}
-                aspect="21/9"
-                context={`Stage ${stage.order + 1} of ${stages.length}`}
-                caption={stage.shape}
-              />
-            ) : null}
           </div>
         }
       />
@@ -101,26 +95,39 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
 
       {/* Where the week goes -------------------------------------------- */}
       <Section tone="warm">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-          <Heading kicker="The situation" title="Where the week actually goes" size="d3" width="full" />
+        <SplitBand
+          kicker="The situation"
+          title="Where the week actually goes"
+          lead={stage.shape}
+          aside={
+            <ButtonLink href={routes.stages()} variant="secondary">
+              Compare all five stages
+            </ButtonLink>
+          }
+        >
           <IndexRows items={stage.situation} columns={1} />
-        </div>
+        </SplitBand>
       </Section>
 
       {/* What breaks ----------------------------------------------------- */}
       <Section tone="paper">
-        <Heading
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
           kicker="What breaks"
           title="The problems this stage recognises"
-          lead="Not a list of things a system could fix — a list of what an agency at this size actually reports going wrong."
           size="d3"
-        />
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Not a list of things a system could fix — a list of what an agency at this size actually reports going wrong.
+          </p>
+        </div>
         <NumberedRows items={stage.problems} columns={2} className="mt-14" />
       </Section>
 
       {/* The ledger ------------------------------------------------------ */}
       <Section tone="deep">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="The boundary" title="What stays yours" size="d2" width="full" />
           <Statement>
             The division does not change with size. Only the language for it does.
@@ -132,23 +139,24 @@ export default async function StagePage({ params }: { params: Promise<{ stage: s
       {/* The week, as a spine -------------------------------------------- */}
       {weekPhoto ? (
         <PhotoSection photo={weekPhoto} scrim="even" align="full">
-          <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-            <div className="lg:sticky lg:top-32 lg:self-start">
-              <Kicker className="mb-7">The working week</Kicker>
-              <h2 className="text-d3 text-on-dark">How the week runs at this stage</h2>
-              <p className="mt-6 max-w-[38rem] text-lead text-sage-bright">
-                Every step carries the side that owns it. The agency opens the week and closes it.
-              </p>
-              <SpineKey className="mt-8 text-sage-bright" />
-              <Credit photo={weekPhoto} className="mt-10" />
-            </div>
+          <SplitBand
+            tone="dark"
+            sticky
+            kicker="The working week"
+            title="How the week runs at this stage"
+            lead="Every step carries the side that owns it. The agency opens the week and closes it."
+            aside={
+              <>
+                <Credit photo={weekPhoto} className="mt-10" />
+              </>
+            }
+          >
             <Spine steps={stage.week} />
-          </div>
+          </SplitBand>
         </PhotoSection>
       ) : (
         <Section tone="forest">
           <Heading kicker="The working week" title="How the week runs at this stage" size="d4" />
-          <SpineKey className="mt-8" />
           <Spine steps={stage.week} className="mt-8" />
         </Section>
       )}

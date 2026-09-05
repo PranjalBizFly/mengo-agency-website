@@ -110,9 +110,9 @@ export default function IndustriesPage() {
       <Section tone="forest">
         <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
           <Heading
-            kicker="A note on regulated sectors"
-            title="Some of these need more than a review step"
-            size="d3"
+              kicker="A note on regulated sectors"
+              title="Some of these need more than a review step"
+              size="d3"
             width="full"
           />
           <div>

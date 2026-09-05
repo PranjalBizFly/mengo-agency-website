@@ -73,12 +73,17 @@ export default async function ComparisonPage({
 
       {/* The table ------------------------------------------------------- */}
       <Section tone="paper">
-        <Heading
-          kicker="Side by side"
-          title={`${comparison.other} and Mengo`}
-          lead="Every row is written to be defensible rather than favourable. Where the alternative is better, the row says so."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="Side by side"
+            title={`${comparison.other} and Mengo`}
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Every row is written to be defensible rather than favourable. Where the alternative is better, the row says so.
+          </p>
+        </div>
         <CompareTable rows={comparison.rows} otherLabel={comparison.other} className="mt-14" />
       </Section>
 

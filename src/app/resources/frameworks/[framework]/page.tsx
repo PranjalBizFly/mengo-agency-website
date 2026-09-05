@@ -77,12 +77,17 @@ export default async function FrameworkPage({
 
       {/* The parts -------------------------------------------------------- */}
       <Section tone="paper">
-        <Heading
-          kicker="The framework"
-          title="Its parts"
-          lead="Each part does one job. A framework whose components overlap is a diagram, not a method."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="The framework"
+            title="Its parts"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Each part does one job. A framework whose components overlap is a diagram, not a method.
+          </p>
+        </div>
         <NumberedRows items={framework.parts} columns={1} className="mt-14" />
       </Section>
 

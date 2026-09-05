@@ -163,7 +163,7 @@ export default async function CapabilityGroupPage({
 
       {/* Adoption order — the reason this page exists --------------------- */}
       <Section tone="forest">
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Adoption order" title="What to do first, and what to leave" size="d2" width="full" />
           <Statement>
             A hub that lists its capabilities is a menu. This is the part that is actually advice.
@@ -182,7 +182,7 @@ export default async function CapabilityGroupPage({
 
       {/* Onward -------------------------------------------------------------- */}
       <Section tone="warm">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Elsewhere" title="Other capability groups" size="d4" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             {staged.length} of this group&rsquo;s {members.length} capabilities have a page for each

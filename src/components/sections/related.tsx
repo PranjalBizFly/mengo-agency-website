@@ -96,9 +96,21 @@ export function Related({
   const populated = resolved.filter((group) => group.links.length > 0);
   if (populated.length === 0) return null;
 
-  /* Four groups get a column each rather than orphaning one onto a second row;
-     three or fewer keep the three-column rhythm. */
-  const columns = populated.length >= 4 ? "md:grid-cols-2 lg:grid-cols-4" : "lg:grid-cols-3";
+  /* The grid takes the shape of what it holds. A fixed three-column rhythm
+     left a single-group band sitting in one third of the page with two empty
+     columns beside it. */
+  const columns =
+    populated.length >= 4
+      ? "md:grid-cols-2 lg:grid-cols-4"
+      : populated.length === 3
+        ? "lg:grid-cols-3"
+        : populated.length === 2
+          ? "sm:grid-cols-2"
+          : "";
+  /* One group has no neighbour to sit beside, so its links take the columns
+     instead — same rows, full measure. */
+  const listColumns =
+    populated.length === 1 ? "grid gap-x-12 sm:grid-cols-2 lg:grid-cols-3" : "";
 
   return (
     <Section tone={tone}>
@@ -107,7 +119,7 @@ export function Related({
         {populated.map((group) => (
           <div key={group.heading} data-reveal>
             <h2 className="type-title text-h6 tracking-[-0.02em]">{group.heading}</h2>
-            <RelatedLinkList links={group.links} className="mt-3" />
+            <RelatedLinkList links={group.links} className={`mt-3 ${listColumns}`} />
             {group.seeAll ? (
               <p className="mt-4 text-small">
                 <TextLink href={group.seeAll.href}>{group.seeAll.label}</TextLink>

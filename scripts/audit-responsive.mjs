@@ -30,7 +30,7 @@ const CHROME_PATHS = [
 ];
 
 /** Every width in the brief, plus the two where this design changes hardest. */
-const WIDTHS = [320, 360, 390, 430, 768, 900, 1024, 1280, 1440, 1600, 1920];
+const WIDTHS = [320, 360, 375, 390, 430, 768, 900, 1024, 1280, 1440, 1600, 1920];
 
 /** One page per archetype, plus the two heaviest layouts. */
 const PAGES = [

@@ -119,7 +119,7 @@ export default function CapabilitiesPage() {
 
       {/* The explorer ------------------------------------------------------ */}
       <Section tone="warm" id="explorer" labelledBy="explorer-heading">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading
             kicker="Narrow it down"
             title="Pick the week that sounds like yours"
@@ -179,7 +179,7 @@ export default function CapabilitiesPage() {
 
       {/* How to read it ---------------------------------------------------- */}
       <Section tone="warm">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Where this goes next" title="A capability is only half of it" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             A capability says what can be carried. A workflow says how it runs, who opens it and who

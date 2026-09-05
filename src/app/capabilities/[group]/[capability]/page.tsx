@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
-import { IndexRows, MarkerList, ProseRows, Spine, SpineKey, StoryRows } from "@/components/ui/editorial";
+import { IndexRows, MarkerList, ProseRows, Spine, StoryRows } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
 import { StackPosition } from "@/components/sections/system";
 import { SectionRail } from "@/components/sections/SectionRail";
@@ -106,6 +106,7 @@ export default async function CapabilityPage({
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(capability.faqs)]} />
 
       <RuleHero
+        photo={heroPhoto}
         trail={trail}
         kicker={group ? `${group.title} capability` : "Capability"}
         title={capability.headline}
@@ -130,12 +131,17 @@ export default async function CapabilityPage({
       {/* Prose rows: each of these is a reason with an argument behind it,
           and an index row would compress the argument out of it. */}
       <Section tone="paper">
-        <Heading
-          kicker="Why it matters"
-          title="What this is actually for"
-          lead={capability.meaning}
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="Why it matters"
+            title="What this is actually for"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            {capability.meaning}
+          </p>
+        </div>
         <ProseRows items={capability.whyAgencies} className="mt-14" />
       </Section>
 
@@ -145,7 +151,7 @@ export default async function CapabilityPage({
           feature or at one layer of a system, and every other band on the page
           reads differently once they do. */}
       <Section tone="forest">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="In the system" title="Where this sits" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-sage-bright" data-reveal>
             The {capabilities.length} capabilities are not a list of tools. They are eight layers,
@@ -158,12 +164,17 @@ export default async function CapabilityPage({
 
       {/* In and out ------------------------------------------------------ */}
       <Section tone="warm">
-        <Heading
-          kicker="In and out"
-          title="What you hand over, and what comes back"
-          lead="Concrete artefacts rather than outcomes. If something is not on the right-hand list, it is not produced."
-          size="label"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="In and out"
+            title="What you hand over, and what comes back"
+            size="label"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Concrete artefacts rather than outcomes. If something is not on the right-hand list, it is not produced.
+          </p>
+        </div>
         <div className="mt-14 grid gap-x-14 gap-y-12 lg:grid-cols-2">
           <div>
             <p className="label rule-t pt-5">You supply</p>
@@ -179,7 +190,7 @@ export default async function CapabilityPage({
       {/* By agency stage — the reason this page has this shape ----------- */}
       {capability.depth === "staged" ? (
         <Section tone="paper" id="by-stage">
-          <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-end">
+          <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
             <Heading
               kicker="By stage"
               title="The same capability, five different problems"
@@ -256,31 +267,16 @@ export default async function CapabilityPage({
       )}
 
       {/* The sequence ---------------------------------------------------- */}
-      {heroPhoto ? (
-        <PhotoSection photo={heroPhoto} scrim="even">
-          <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
-            <div className="lg:sticky lg:top-32 lg:self-start">
-              <Kicker className="mb-7">How it runs</Kicker>
-              <h2 className="text-d3 text-on-dark">Step by step, with owners</h2>
-              <SpineKey className="mt-8 text-sage-bright" />
-              <Credit photo={heroPhoto} className="mt-10" />
-            </div>
-            <Spine steps={capability.sequence} />
-          </div>
-        </PhotoSection>
-      ) : (
-        <Section tone="deep">
-          <Heading kicker="How it runs" title="Step by step, with owners" size="d3" />
-          <SpineKey className="mt-8" />
-          <Spine steps={capability.sequence} className="mt-8" />
-        </Section>
-      )}
+      <Section tone="deep">
+        <Heading kicker="How it runs" title="Step by step, with owners" size="d3" />
+        <Spine steps={capability.sequence} className="mt-8" />
+      </Section>
 
       {/* Judgement ------------------------------------------------------- */}
       {/* A set to scan rather than an argument to read, so it runs two-up
           under a full-width heading. */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="Your judgement" title="What no system decides for you" size="d4" width="full" />
           <p className="max-w-[42rem] text-body leading-relaxed text-ink-soft" data-reveal>
             Every one of these is a decision a person has to make with something at stake. A draft
@@ -318,13 +314,18 @@ export default async function CapabilityPage({
           workflows that run it, the stages that lead with it. Nothing here is a
           second list to keep in step with the first. */}
       <Section tone="warm" labelledBy="where-it-appears">
-        <Heading
-          kicker="Where this appears"
-          title="The rest of the system, from here"
-          lead="A capability on its own is a definition. These are the places it is actually doing something — and they are the same pages that name it, read from the other end."
-          size="d4"
-          id="where-it-appears"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="Where this appears"
+            title="The rest of the system, from here"
+            size="d4"
+            id="where-it-appears"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            A capability on its own is a definition. These are the places it is actually doing something — and they are the same pages that name it, read from the other end.
+          </p>
+        </div>
 
         <div className="mt-14 grid gap-x-14 gap-y-12 lg:grid-cols-3">
           <div>

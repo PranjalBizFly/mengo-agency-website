@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { Section, Heading, Kicker, Statement, ButtonLink, FaqList, JsonLd } from "@/components/ui/primitives";
-import { Spine, SpineKey, IndexRows, MarkerList, StoryRows } from "@/components/ui/editorial";
+import { Spine, IndexRows, MarkerList, StoryRows } from "@/components/ui/editorial";
 import { PhotoHero } from "@/components/sections/heroes";
 import { Figure, PhotoSection, Credit } from "@/components/ui/Photo";
 import { photo } from "@/lib/images";
@@ -86,7 +86,6 @@ export default function HowItWorksPage() {
               </ButtonLink>
             </>
           }
-          aside={<SpineKey className="text-sage-bright" />}
         />
       ) : null}
 
@@ -152,7 +151,6 @@ export default function HowItWorksPage() {
                   the agency brackets the process, and the two hand-offs back to you are the
                   checkpoints that make the whole thing safe.
                 </p>
-                <SpineKey className="mt-9 text-sage-bright" />
                 <Credit photo={reviewPhoto} className="mt-10" />
               </div>
               <Spine steps={spineSteps.items} />
@@ -169,7 +167,6 @@ export default function HowItWorksPage() {
                   the agency brackets the process, and the two hand-offs back to you are the
                   checkpoints that make the whole thing safe.
                 </p>
-                <SpineKey className="mt-9 text-sage-bright" />
               </div>
               <Spine steps={spineSteps.items} />
             </div>
@@ -242,7 +239,7 @@ export default function HowItWorksPage() {
 
       {/* The six workflows --------------------------------------------------- */}
       <Section tone="warm">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="In practice" title="The same spine, six ways" size="d3" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             Onboarding a client, planning a quarter, running a production week, launching a

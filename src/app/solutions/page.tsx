@@ -161,12 +161,17 @@ export default function SolutionsPage() {
 
       {/* Where both doors lead -------------------------------------------- */}
       <Section tone="paper">
-        <Heading
-          kicker="What is behind both"
-          title="The same system, whichever way you arrived"
-          lead="Every stage page and every goal page routes into these. They are the site, and the two lenses above are how you get to the part of it that is yours."
-          size="d3"
-        />
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
+            kicker="What is behind both"
+            title="The same system, whichever way you arrived"
+            size="d3"
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Every stage page and every goal page routes into these. They are the site, and the two lenses above are how you get to the part of it that is yours.
+          </p>
+        </div>
         <IndexRows
           className="mt-14"
           columns={1}

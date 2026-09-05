@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { Section, Heading, Statement, ButtonLink, JsonLd } from "@/components/ui/primitives";
-import { MarkerList, StoryRows, Spine, SpineKey } from "@/components/ui/editorial";
+import { MarkerList, StoryRows, Spine } from "@/components/ui/editorial";
 import { RuleHero } from "@/components/sections/heroes";
 import { SectionRail } from "@/components/sections/SectionRail";
 import { Related, relatedWorkflows, relatedCapabilities } from "@/components/sections/related";
@@ -198,7 +198,7 @@ export default async function CapabilityStagePage({
 
       {/* The ledger, for this capability at this stage -------------------- */}
       <Section tone={isLater ? "paper" : "forest"}>
-        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="The boundary" title="Who does what, here" size="d2" width="full" />
           <p className="max-w-[44rem] text-lead text-ink-soft" data-reveal>
             The division does not change with agency size. What changes is the language for it, and
@@ -260,7 +260,6 @@ export default async function CapabilityStagePage({
                 The steps are the same whatever size the agency is. What differs is how much of it
                 you were doing manually before.
               </p>
-              <SpineKey className="mt-8" />
             </div>
             <Spine steps={capability.sequence} />
           </div>
@@ -277,11 +276,11 @@ export default async function CapabilityStagePage({
 
       {/* Other stages ------------------------------------------------------ */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading
-            kicker="Other stages"
-            title={`${capability.title} at a different size`}
-            size="d4"
+              kicker="Other stages"
+              title={`${capability.title} at a different size`}
+              size="d4"
             width="full"
           />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>

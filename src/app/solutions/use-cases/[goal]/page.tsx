@@ -63,6 +63,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
       <JsonLd data={[breadcrumbSchema(trail), faqSchema(useCase.faqs)]} />
 
       <RuleHero
+        photo={heroPhoto}
         trail={trail}
         kicker="Use case"
         title={useCase.headline}
@@ -83,7 +84,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
           <Heading
             kicker="The obstacle"
             title="Why this is harder than it looks"
-            size="d3"
+          size="d3"
             width="full"
           />
           <IndexRows items={useCase.obstacle} columns={1} />
@@ -92,27 +93,19 @@ export default async function UseCasePage({ params }: { params: Promise<{ goal: 
 
       {/* The approach ---------------------------------------------------- */}
       <Section tone="warm">
-        <Heading
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
+          <Heading
           kicker="The approach"
           title="What to do, in order"
-          lead="Each step depends on the one before it. Skipping to the middle is the most common way this goes wrong."
           size="d3"
-        />
+            width="full"
+          />
+          <p className="max-w-[46ch] text-lead text-ink-soft" data-reveal>
+            Each step depends on the one before it. Skipping to the middle is the most common way this goes wrong.
+          </p>
+        </div>
         <NumberedRows items={useCase.approach} columns={1} className="mt-14" />
       </Section>
-
-      {/* Illustration ---------------------------------------------------- */}
-      {heroPhoto ? (
-        <Section tone="paper">
-          <Figure
-            photo={heroPhoto}
-            aspect="21/9"
-            drift
-            context="The situation"
-            caption={useCase.situation}
-          />
-        </Section>
-      ) : null}
 
       {/* Expectations ---------------------------------------------------- */}
       <Section tone="paper">

@@ -239,7 +239,7 @@ export default async function IndustryCapabilityPage({
 
       {/* The rest of this sector ------------------------------------------ */}
       <Section tone="paper">
-        <div className="grid gap-x-14 gap-y-9 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-end">
+        <div className="grid gap-x-16 gap-y-9 lg:grid-cols-2 lg:items-start">
           <Heading kicker="This sector" title={`Other ${industry.title} capabilities`} size="d4" width="full" />
           <p className="max-w-[44rem] text-body leading-relaxed text-ink-soft" data-reveal>
             These are the capabilities where working in this sector genuinely changes the job. The

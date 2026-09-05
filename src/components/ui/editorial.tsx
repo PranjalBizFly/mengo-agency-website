@@ -111,25 +111,6 @@ export function Spine({ steps, className = "" }: { steps: Step[]; className?: st
   );
 }
 
-/** A compact key for the spine's two node styles. */
-export function SpineKey({ className = "" }: { className?: string }) {
-  return (
-    <p className={`flex flex-wrap items-center gap-x-6 gap-y-2 text-fine text-ink-soft ${className}`}>
-      <span className="inline-flex items-center gap-2">
-        <span
-          aria-hidden
-          className="inline-block h-3 w-3 rounded-full border-2 border-lane-agency bg-transparent"
-        />
-        Your agency
-      </span>
-      <span className="inline-flex items-center gap-2">
-        <span aria-hidden className="inline-block h-3 w-3 rounded-full bg-lime" />
-        Mengo
-      </span>
-    </p>
-  );
-}
-
 /* ------------------------------------------------------------------------ */
 /* The ladder — growth stages                                                */
 /* ------------------------------------------------------------------------ */
@@ -182,18 +163,25 @@ export function Ladder({
  * long bodies pass 1 so they keep the full measure on a phone and a tablet and
  * still pair up on a desktop rather than leaving half a row empty.
  */
+const COLUMN_CLASS: Record<1 | 2 | "one", string> = {
+  1: "lg:grid-cols-2",
+  2: "sm:grid-cols-2",
+  one: "",
+};
+
 export function IndexRows({
   items,
   columns = 2,
   className = "",
 }: {
   items: Term[];
-  columns?: 1 | 2;
+  /** `"one"` stays single at every width — for a list inside a column. */
+  columns?: 1 | 2 | "one";
   className?: string;
 }) {
   return (
     <dl
-      className={`index-rows ${columns === 2 ? "sm:grid-cols-2" : "lg:grid-cols-2"} ${className}`}
+      className={`index-rows ${COLUMN_CLASS[columns]} ${className}`}
       data-reveal-stagger
     >
       {items.map((item) => (
@@ -213,12 +201,13 @@ export function NumberedRows({
   className = "",
 }: {
   items: Term[];
-  columns?: 1 | 2;
+  /** `"one"` stays single at every width — for a list inside a column. */
+  columns?: 1 | 2 | "one";
   className?: string;
 }) {
   return (
     <dl
-      className={`index-rows ${columns === 2 ? "sm:grid-cols-2" : "lg:grid-cols-2"} ${className}`}
+      className={`index-rows ${COLUMN_CLASS[columns]} ${className}`}
       data-numbered
       data-reveal-stagger
     >
@@ -502,7 +491,7 @@ export function IndexBand({
 }) {
   return (
     <div
-      className={`grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] ${className}`}
+      className={`grid items-center gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] ${className}`}
     >
       <div data-reveal>
         {kicker ? (
@@ -537,5 +526,62 @@ export function IndexBand({
         ))}
       </ul>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* The sequence, as ruled rows                                               */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * A run of steps as numbered rows on hairlines.
+ *
+ * The `Spine` draws a continuous rail with a node per step, which is right on a
+ * workflow page where the sequence *is* the page. Beside a photograph on the
+ * homepage it competes with the image: the rail, the nodes and the scrim are
+ * three graphic systems in one band, and the ten steps read as a diagram rather
+ * than as a list somebody could scan.
+ *
+ * So this drops the rail and keeps the numeral, sets each step on a hairline,
+ * and lets the photograph carry the picture-making. The ownership mark stays
+ * where it was — filled numeral for a step Mengo holds, outlined for one a
+ * person holds — because that distinction is the argument, not decoration.
+ */
+export function StepRows({
+  steps,
+  className = "",
+}: {
+  steps: Step[];
+  className?: string;
+}) {
+  return (
+    <ol className={className} data-reveal-stagger>
+      {steps.map((step, i) => (
+        <li
+          key={step.title}
+          className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-5 rule-t py-5 first:border-t-0 first:pt-0"
+          data-reveal
+        >
+          <span
+            aria-hidden
+            className="mt-0.5 inline-flex h-[1.75rem] w-[1.75rem] items-center justify-center rounded-full border border-lime-deep/35 bg-lime/15 text-lime-deep [.on-dark_&]:border-lime/45 [.on-dark_&]:text-lime text-fine font-semibold tnum"
+          >
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h3 className="type-title text-h6">{step.title}</h3>
+              <span
+                className={`label text-[0.6875rem] ${step.lane === "mengo" ? "text-lime-deep" : ""}`}
+              >
+                <span className="sr-only">Owned by </span>
+                {LANE_LABEL[step.lane]}
+              </span>
+            </div>
+            <p className="mt-2 max-w-[56ch] text-small leading-relaxed text-ink-soft">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
   );
 }

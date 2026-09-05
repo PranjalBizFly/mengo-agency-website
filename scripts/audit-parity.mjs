@@ -121,6 +121,13 @@ const median = (a) => (a.length ? a[Math.floor(a.length / 2)] : null);
 }
 
 /* Fields where a gap is a design divergence rather than a content decision. */
+/* Fields where this site departs from the product site on purpose. Each one
+   names why, and carries the size of the departure so it cannot grow without
+   this list being edited. */
+const DECLARED = {};
+
+const declaredHits = new Set();
+
 const DESIGN_FIELDS = [
   ["column", "content column", 24],
   ["measure", "prose measure", 40],
@@ -172,6 +179,13 @@ for (const width of WIDTHS) {
       }
       const gap = Math.abs(mine[field] - theirs[field]);
       if (gap <= tolerance) continue;
+      /* A declared departure passes at its stated size and fails at any other,
+         so this cannot become a blanket exemption. */
+      const declared = DECLARED[field];
+      if (declared && Math.abs(gap - declared.delta) <= tolerance) {
+        declaredHits.add(field);
+        continue;
+      }
       console.log(
         `  ${label.padEnd(12)} ${name.padEnd(18)} ${String(mine[field]).padStart(7)} ${String(theirs[field]).padStart(7)}  ${gap > tolerance * 2 ? "««" : "«"}`,
       );
@@ -195,6 +209,10 @@ await browser.close();
 
 console.log(
   problems.length === 0
-    ? "\n✓ Rendered geometry matches the product site within tolerance.\n"
+    ? `
+✓ Rendered geometry matches the product site within tolerance.
+` +
+      [...declaredHits].map((f) => `  · declared departure — ${f}: ${DECLARED[f].why}
+`).join("")
     : `\n${problems.length} rendered difference(s) outside tolerance — listed above.\n`,
 );
