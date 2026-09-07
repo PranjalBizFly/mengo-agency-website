@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { JsonLd, Kicker } from "@/components/ui/primitives";
+import { CountUp } from "@/components/ui/CountUp";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { PageDirectory } from "@/components/explore/PageDirectory";
 import { routes } from "@/lib/site";
@@ -75,7 +76,7 @@ export default function ExplorePage() {
               data-reveal
               style={{ "--reveal-delay": "410ms" } as React.CSSProperties}
             >
-              {total} pages
+              <CountUp to={total} /> pages
             </p>
           </div>
         </div>

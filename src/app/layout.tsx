@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Sora, Instrument_Sans, Instrument_Serif } from "next/font/google";
+import { Montserrat, Poppins, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 import { Header } from "@/components/layout/Header";
@@ -13,22 +13,30 @@ import { REVEAL_INIT_SCRIPT, THEME_INIT_SCRIPT } from "@/lib/reveal-init";
 import { site } from "@/lib/site";
 
 /**
- * Three families, each with a job: Sora sets display type, Instrument Sans
- * carries body and interface, Instrument Serif italic is reserved for editorial
- * emphasis. Weights are pinned to exactly what the design system uses, so
- * nothing is downloaded that never renders.
+ * The brand's two families, plus the one this site already reserved for
+ * editorial emphasis.
+ *
+ * Montserrat sets the logo and every display heading; Poppins carries body and
+ * interface. Both are the brand guideline's, and they replace Sora and
+ * Instrument Sans — which is a deliberate divergence from the product site,
+ * because a brand guideline outranks a sibling implementation.
+ *
+ * Instrument Serif italic stays: the guideline names two families and says
+ * nothing about the editorial accent, so it is preserved rather than guessed
+ * at. Weights are pinned to exactly what the design system uses, so nothing is
+ * downloaded that never renders.
  */
-const sora = Sora({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["600"],
-  variable: "--font-sora",
+  weight: ["600", "700"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
-const instrumentSans = Instrument_Sans({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-instrument-sans",
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -66,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${instrumentSans.variable} ${instrumentSerif.variable}`}
+      className={`${montserrat.variable} ${poppins.variable} ${instrumentSerif.variable}`}
       suppressHydrationWarning
     >
       <head>

@@ -25,7 +25,8 @@
      colour, let alone the 4.5:1 body-text minimum — and this is the link
      colour on every light section of the site. 3.76:1 is still short of AA
      for small text and is the better of the two. */
-  --color-lime-deep: #5f8b14;
+  --color-lime-deep: #01803b;
+  --color-mint: #daf8b8;
   --color-forest: #022018;
   --color-forest-900: #01180f;
   --color-forest-800: #052a1f;
@@ -58,8 +59,8 @@
   --color-lane-mengo: #5f8b14;
 
   /* --- Typography -------------------------------------------------------- */
-  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-editorial: var(--font-instrument-serif), ui-serif, Georgia, serif;
 
   /* Display scale. Fluid clamps from 320px to 1920px with no breakpoint

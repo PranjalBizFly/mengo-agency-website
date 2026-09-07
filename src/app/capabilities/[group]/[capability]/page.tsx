@@ -268,8 +268,15 @@ export default async function CapabilityPage({
 
       {/* The sequence ---------------------------------------------------- */}
       <Section tone="deep">
-        <Heading kicker="How it runs" title="Step by step, with owners" size="d3" />
-        <Spine steps={capability.sequence} className="mt-8" />
+        <div className="grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Heading kicker="How it runs" title="Step by step, with owners" size="d3" width="full" />
+            <p className="mt-7 max-w-[42ch] text-lead text-ink-soft" data-reveal>
+              {capability.job}
+            </p>
+          </div>
+          <Spine steps={capability.sequence} />
+        </div>
       </Section>
 
       {/* Judgement ------------------------------------------------------- */}

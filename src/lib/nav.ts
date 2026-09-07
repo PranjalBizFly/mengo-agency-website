@@ -1,4 +1,4 @@
-import { routes } from "@/lib/site";
+import { routes, site } from "@/lib/site";
 import { stages } from "@/data/stages";
 import { capabilityGroups } from "@/data/capability-groups";
 import { capabilities, capabilitiesInGroup } from "@/data/capabilities";
@@ -390,6 +390,48 @@ export const footerColumns: FooterColumn[] = [
       href: routes.companyPage(c.slug),
     })),
   },
+];
+
+/**
+ * How the seven groups pack into the wide grid: one array per column.
+ *
+ * The packing is declared here rather than left to the grid because CSS sizes
+ * a row to its tallest cell: a seventh group wrapping onto a second row would
+ * start below the longest column of the first, which is a three-hundred-pixel
+ * hole in the middle of the footer. Pairing the groups instead puts the
+ * raggedness at the bottom of a column, where it reads as the end of a list.
+ *
+ * Five columns beside the brand rail rather than seven or six. Seven is the
+ * count of the groups and none of them fit: at this container width the
+ * columns fall to about 120px and every second label wraps. Five gives each
+ * column the width its longest label actually needs — "Local & Multi-Location"
+ * sets it — and the two pairings land the tallest column within fifty pixels
+ * of the brand rail, so the band has one baseline rather than six.
+ *
+ * Four columns and eight cells was tried, with the estate taking the eighth:
+ * it fills the grid but not the band. The brand rail is about half the height
+ * of two rows of links, so the arrangement trades one empty cell for a
+ * three-hundred-pixel void beneath the rail, and the first row still ends
+ * ragged because it is sized by the nine-link column in it.
+ *
+ * The order here is also the reading order. A phone collapses the grid to one
+ * column and the pairs simply flatten, so nothing is re-sequenced between the
+ * two layouts and there is one piece of markup for both.
+ */
+
+
+/**
+ * The rest of the Mengo estate.
+ *
+ * Two properties that are not this site and are never merged with it: the
+ * end-user product, and the founder's own writing and speaking. They sit in
+ * the brand block rather than in a navigation column because leaving a site is
+ * a different act from moving around inside one, and the reader should be able
+ * to see that before they click.
+ */
+export const footerEcosystem: (NavLink & { note: string })[] = [
+  { label: "Mengo for business owners", href: site.productSite, note: "mengoengine.com" },
+  { label: "Jainam Jain, founder", href: site.founderSite, note: "jainamjain.com" },
 ];
 
 /** The last footer column is navigation about navigation. */

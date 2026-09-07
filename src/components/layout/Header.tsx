@@ -232,7 +232,7 @@ export function Header() {
       <div
         id="mobile-nav"
         hidden={!mobileOpen}
-        className="fixed inset-x-0 bottom-0 top-(--header-h) z-40 overflow-y-auto overscroll-contain border-t border-line bg-paper lg:hidden"
+        className="fixed inset-x-0 top-(--header-h) z-40 max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain border-b border-t border-line bg-paper shadow-[0_18px_40px_-28px_rgb(2_32_24/0.45)] lg:hidden"
       >
         <nav aria-label="Primary mobile" className="wrap pb-12 pt-2">
           <Link
